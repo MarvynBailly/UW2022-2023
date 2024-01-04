@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\newcommand{\bei}{\begin{itemize}}
+\newcommand{\ii}{\begin{itemize} \item}
+
+\newcommand{\eei}{\end{itemize}}
+
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+\begin{document}
+
+
+\begin{center}
+AMATH 575 \\
+Problem set 3\\[.3in]
+\end{center}
+
+\noindent {\bf Working together is  welcomed.  Please do not refer to previous years' solutions.} 
+
+
+\begin{enumerate}
+
+
+ \item  Consider the 2-D map
+ \begin{equation}
+\left\{\begin{array}{l}
+x_{n+1} = -x_n + x_n y_n \\
+y_{n+1} = - \frac{y_n}{2} - x_n y_n - x_n^2  
+\end{array}\right.
+\end{equation}
+Compute the center manifold using a polynomial expansion including terms up to order 3.  Then write down the approximate map on this center manifold, and use a graphical method to determine the stability of the origin for this approximate map.  Based on this result and the appropriate center manifold stability theorem, write down the stability of the origin for the original 2-D system. [12 points]
+
+
+ \item  Read Chapter 6 of our text (Wiggins) on Index Theory.  Then return to Figure 4.1.2 of the text, and state which of the possible scenarios shown there can be ruled out by index theory, and (very briefly) why. [8 points]
+ 
+ 
+ \item Read chapter 15 of our text on Gradient Dynamical Systems.  Then, do exercise 15.1.  Answer this question for flows on $\mathbb{R}^N$. [12 points] 
+
+ \item  Consider the ``all-to-all'' coupled system of phase oscillators on the N-dimensional torus, with coupling strength $\alpha>0$:
+ \begin{equation}
+\dot \phi_i = - \alpha/N \sum_{j=1}^N f(\phi_j - \phi_i) \, \, \,  mod \; \; 2 \pi  
+\end{equation}
+$i=1...N$.  Show that is a gradient dynamical system when $f(\cdot)$ is an odd function.  Hint:  consider a function $V$ of the form $V = \sum_{i=1}^{N-1} \sum_{j=i+1}^{N} G(\phi_j - \phi_i)$ for an appropriately chosen function $G$.  
+%NO -- even case is confusing on Torus!
+%[b] Can the resulting system have a periodic orbit?  [c] Is it still a gradient dynamical system for all even functions $f$?  
+[8 points]
+
+
+ \item  Consider the 2-D flow
+ \begin{equation}
+\left\{\begin{array}{l}
+\dot x = y \\
+\dot y = \mu_1 x - x^3 + \mu_2 y - x^2 y  
+\end{array}\right.
+\end{equation}
+Show that this system has no periodic orbits for any $\mu_1 \in \mathbb{R}$ and $\mu_2 < 0$. [8 points]
+
+
+
+   
+
+
+\item  Wiggins 7.7.7. [8 points]
+
+\item  Wiggins 7.7.8. Use the definition that a function must be non-constant to count as an integral. [8 points]
+
+
+\end{enumerate} 
+ 
+
+
+\end{document}
+
+
+
+
+

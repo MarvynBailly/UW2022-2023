@@ -1,0 +1,312 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 584 Homework 1\\
+ Due Wednesday\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--Done--$
+
+\begin{problem}
+    Exercise 1.1
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Let $B = \begin{pmatrix}b_{11}&b_{12}&b_{13}&b_{14}\\ b_{21}&b_{22}&b_{23}&b_{24}\\ b_{31}&b_{32}&b_{33}&b_{34}\\ b_{41}&b_{42}&b_{43}&b_{44}\end{pmatrix}.$
+    \begin{enumerate}
+        \item [a.]  
+        
+        We can write the actions as the following matrices,
+        \begin{align*}
+        &\begin{pmatrix}1&-1&0&0\\ 0&1&0&0\\ 0&-1&1&0\\ 0&-1&0&1\end{pmatrix}\begin{pmatrix}1&0&1&0\\ 0&1&0&0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}\begin{pmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&\frac{1}{2}&0\\ 0&0&0&1\end{pmatrix}\begin{pmatrix}b_{11}&b_{12}&b_{13}&b_{14}\\ b_{21}&b_{22}&b_{23}&b_{24}\\ b_{31}&b_{32}&b_{33}&b_{34}\\ b_{41}&b_{42}&b_{43}&b_{44}\end{pmatrix}\cdot\\
+        &\begin{pmatrix}2&0&0&0\\ 0&1&0&0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}\begin{pmatrix}0&0&0&1\\ 0&1&0&0\\ 0&0&1&0\\ 1&0&0&0\end{pmatrix}\begin{pmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&1&1\\ 0&0&0&0\end{pmatrix}\begin{pmatrix}0&0&0\\ 1&0&0\\ 0&1&0\\ 0&0&1\end{pmatrix}
+        \end{align*}
+        \item [b.]
+        Let $A = \begin{pmatrix}1&-1&0&0\\ 0&1&0&0\\ 0&-1&1&0\\ 0&-1&0&1\end{pmatrix}\begin{pmatrix}1&0&1&0\\ 0&1&0&0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}\begin{pmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&\frac{1}{2}&0\\ 0&0&0&1\end{pmatrix}$ 
+        
+        and $C = \begin{pmatrix}2&0&0&0\\ 0&1&0&0\\ 0&0&1&0\\ 0&0&0&1\end{pmatrix}\begin{pmatrix}0&0&0&1\\ 0&1&0&0\\ 0&0&1&0\\ 1&0&0&0\end{pmatrix}\begin{pmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&1&1\\ 0&0&0&0\end{pmatrix}\begin{pmatrix}0&0&0\\ 1&0&0\\ 0&1&0\\ 0&0&1\end{pmatrix}$.
+        
+        Then,
+        $$ABC = \begin{pmatrix}1&-1&\frac{1}{2}&0\\ 0&1&0&0\\ 0&-1&\frac{1}{2}&0\\ 0&-1&0&1\end{pmatrix}\begin{pmatrix}b_{11}&b_{12}&b_{13}&b_{14}\\ b_{21}&b_{22}&b_{23}&b_{24}\\ b_{31}&b_{32}&b_{33}&b_{34}\\ b_{41}&b_{42}&b_{43}&b_{44}\end{pmatrix}\begin{pmatrix}0&0&0\\ \:\:1&0&0\\ \:\:0&1&1\\ \:\:0&0&0\end{pmatrix}$$
+    \end{enumerate}
+    If we let $B = \begin{pmatrix}1&b2&3&4\\ 5&6&7&8\\ 9&1&2&3\\ 5&6&7&8\end{pmatrix}$ then following the given steps $B$ results in,
+    $$B = \begin{pmatrix}-3.5&-3&-3\\ 6&7&7\\ -5.5&-6&-6\\ 0&0&0\end{pmatrix}.$$ This can be verified using the following MatLab code,
+
+
+
+    \begin{verbatim} 
+        a
+
+a =
+
+     1    -1     0     0
+     0     1     0     0
+     0    -1     1     0
+     0    -1     0     1
+
+b
+
+b =
+
+     1     0     1     0
+     0     1     0     0
+     0     0     1     0
+     0     0     0     1
+
+c
+
+c =
+
+    1.0000         0         0         0
+         0    1.0000         0         0
+         0         0    0.5000         0
+         0         0         0    1.0000
+
+d
+
+d =
+
+     2     0     0     0
+     0     1     0     0
+     0     0     1     0
+     0     0     0     1
+
+e
+
+e =
+
+     0     0     0     1
+     0     1     0     0
+     0     0     1     0
+     1     0     0     0
+
+f
+
+f =
+
+     1     0     0     0
+     0     1     0     0
+     0     0     1     1
+     0     0     0     0
+
+g
+
+g =
+
+     0     0     0
+     1     0     0
+     0     1     0
+     0     0     1
+
+B
+
+B =
+
+     1     2     3     4
+     5     6     7     8
+     9     1     2     3
+     5     6     7     8
+
+a*b*c*B*d*e*f*g
+
+ans =
+
+   -3.5000   -3.0000   -3.0000
+    6.0000    7.0000    7.0000
+   -5.5000   -6.0000   -6.0000
+         0         0         0
+
+exit
+    \end{verbatim}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Exercise 2.1
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Let $A$ be an $m\times m$ triangular and unitary matrix (square since unitary). Since $A$ is nonsingular the determinant of $A$ is nonzero. As $A$ is triangular, the determinant  is the product of the elements along the main diagonal. Thus $a_{ij} \neq 0$ for all $i=j$. Without loss of generality, assume $A$ is upper triangular. First lets show that $A^{-1}$ is also upper triangular. Let $A^{-1} = B$ where $b_{ij}$ are the elements of $B$. For the sake of contradiction, assume that $B$ is not upper triangular. Than there exists some $b_{ij} \neq 0$ for $i > j$. Let $b_{il}$ be the first nonzero element in its row.  Let $AB = C = {c_{ij}}$ and notice that,
+    $$c_{il} = b_{i1}a_{1k}+\dots+b_{il}a_{ll}+\dots+b_{im}a_{ml} = 0 + b_{il}a_{ll}+\dots+b_{im}a_{ml}.$$ 
+    But $A$ is upper triangular, so $a_{ij} = 0$ for all $i > j$. Thus all the terms after $b_{il}a_{ll}$ vanish leaving us with $c_{il} = b_{il}a_{ll} \neq 0$. Since $i > l$, we have a nonzero element off the main diagonal on $C$ which is a contradiction since $AB = AA^{-1} = I$. Thus $A^{-1}$ is upper triangular. Note that a similar argument holds when $A$ is lower triangular. Since $A$ is unitary, $A^* = A^{-1}$ which gives that $A^*$ is also upper triangular. But $A^*$ is the conjugate transpose of $A$ and thus must be lower triangular. This implies that $A^*$ is diagonal, meaning that $\forall i,j$ such that $i \neq j$, $\bar{a}_{ij} = 0$. Therefore, $A$ is also diagonal. The same follows when $A$ is lower triangular.
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--done--$
+
+\begin{problem}
+    Exercise 2.2
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Let ${x_i}$ be a set of $n$ orthogonal vectors. We wish to show that $$||\sum_{i=1}^{n}x_i||^2 = \sum_{i=1}^{n}||x_i||^2.$$
+    \begin{enumerate}
+        \item [a.]
+        First lets prove the case $n=2$ through explicit computation of $||x_1 + x_2||^2.$ We can see that,
+        \begin{align*}
+            ||\sum_{i=1}{n}x_i||^2 &= ||x_1 + x_2||^2\\
+            &= \sqrt{(x_1 + x_2)^*(x_1 + x_2)}^2\\
+            &= (x_1 + x_2)^*(x_1 + x_2)\\
+            &= x_1^*x_1 + x_1^*x_2 + x_2^*x_1 + x_2^*x_2\\
+            &= x_1^*x_1 + x_2^*x_2\\
+            &=||x_1||^2 + ||x_2||^2\\
+            &=\sum_{i=1}^{n}||x_i||^2
+        \end{align*} 
+        where $x_1^*x_2 = x_2^*x_1 = 0$ since the vectors are orthogonal.
+        \item [b.]
+        From Part A, we have shown the base case. If we assume $||\sum_{i=1}^{n}x_i||^2 = \sum_{i=1}^{n}||x_i||^2$ for the $n$ case, then we have,
+        \begin{align*}
+            ||\sum_{i=1}^{n+1}x_i||^2 &= ||\sum_{i=1}^{n}x_i + x_{n+1}||^2\\
+            &=||\sum_{i=1}^{n}x_i||^2 + ||x_{n+1}||^2\\
+            &=\sum_{i=1}^{n}||x_i||^2 + ||x_{n+1}||^2 ~~ (\text{by induction})\\
+            &=\sum_{i=1}^{n+1}||x_{i}||^2
+        \end{align*}
+        and thus we have shown the general case using induction.
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Exercise 2.3
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Let $A \in \C^{m \times m}$ be Hermitian. An eigenvector of $A$ is nonzero vector $x \in \C^m$ such that $Ax = \lambda x$ for some $\lambda \in \C$, the corresponding eigenvalue.
+
+    \begin{enumerate}
+        \item [a.]
+        First we want to show that all eigenvalues of $A$ are real, i.e. $\lambda = \lambda^*$. Consider,
+        \begin{align*}
+            \lambda ||x||^2 &= \lambda(x^*x)\\
+            &=x^*(\lambda x)\\
+            &=x^*(Ax)\\
+            &=x^*A^*x ~~ (\text{since} A=A^*)\\
+            &=(Ax)^*x\\
+            &=(\lambda x)^*x\\
+            &=\lambda^*(x^*x)\\
+            &=\lambda^*||x||^2
+        \end{align*}
+        and since $||x||^2 = ||x||^2$, we have shown that $\lambda = \lambda^*$. Thus $\lambda$ must be real and so all the eigenvalues of $A$ are real.
+
+        \item [b.]
+        Let $Ax = \lambda_1 x$ and $Ay = \lambda_2 y$ where $\lambda_1 \neq \lambda_2$. We want to show that $x$ and $y$ are orthogonal, i.e. $x^*y = 0$. 
+        Consider that,
+        \begin{align*}
+            \lambda_1y^*x &= y^*(\lambda_1x)\\
+            &=y^*Ax\\
+            &=(y^*A^*)x\\
+            &=(\lambda_2y)^*x\\
+            &=y^*\lambda_2x
+        \end{align*} 
+        So we have that $\lambda_1y^*x = y^*\lambda_2x \implies (\lambda_1 - \lambda_2)y^*x = 0$. Since $\lambda_1 \neq \lambda_2$, we have shown that $y^*x = 0$ and thus $x,y$ are orthogonal. 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 5---%
+%---------------%
+
+%--Figure out span--$
+
+\begin{problem}
+    Exercise 2.6
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Let $u,v \in \C^m$ such that $u,v$ are nonzero. Consider the matrix $A = I + uv^*$. Suppose that $A$ is singular. Then $Ax = 0$ for some $x \in C^{m}$ such that $x \neq 0$. This allows us to see that $x$ is some scalar multiple of $u$ by observing,
+    \begin{align*}
+        xA &= 0\\
+        x(I + uv^*) &= 0\\
+        x + u(v^*x) &= 0\\
+        x &= -u(v^*x)\\
+        x &= \alpha u
+    \end{align*}
+    for some scalar $\alpha$. Therefore, $\alpha u + u(v^*\alpha u) = \alpha u (1 + uv^*) = 0$ which implies that $uv^* = -1$. Thus $A$ will be singular when $uv^* = -1$ and we have that $\text{null}(A) = \{\alpha u : \alpha \in \R\}$.
+    \noindent
+    Next suppose that $A$ is nonsingular. Then we wish to show that $A^{-1} = I + \alpha u v^*$. If we let $A^{-1} = [a_1,\dots,a_m]$ where $a_i$ are vectors, then 
+    \begin{align*}
+        AA^{-1} = (I + uv^*)[a_1,\dots,a_m] = [a_1 + uv^*a_1, \dots, a_m + uv^*a_m]\\       
+    \end{align*}
+    Since $AA^{-1} = I$ by definition, we know that $a_i + u(v^*a_i) = e_i$. If we let $v^*a_i = c_i$ for some scalar $c_i$, we have $a_u + uc_i = e_i$ which gives $a_i = e_i - uc_i$ for $1 \leq i \leq m$. Let $c = {c_i}$. Then,
+    \begin{align*}
+        &I = AA^{-1} = (I + uv^*)(I - uc^*) = I - uc^* + uv^* - uv^*uc^*\\
+        \implies &0 = uv^* - uc^*(1 + uv^*)\\
+        \implies  &uc^*(1 + uv^*) = uv^*\\
+        \implies &c^* = \frac{v^*}{1 + uv^*}
+    \end{align*}
+    Therefore we have that $A^{-1} = I - \frac{uv^*}{1 + uv^*}$. By letting $\alpha = - \frac{1}{1 + uv^*}$, then indeed $A^{-1} = I + \alpha u v^*$.
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+
+
+\end{document}

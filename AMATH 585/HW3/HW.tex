@@ -1,0 +1,381 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 585 Homework 3\\
+ Due February 17th\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+
+
+\begin{problem}
+    T1: The equation $x^2 - a = 0$ (for the square root $\alpha = \sqrt{a}$) can be written equivalently in the form
+    \[ 
+        x = \varphi(x),
+    \]
+    in many different ways, for example,
+    \[
+        \varphi(x) = \frac{1}{2}\paren{x + \frac{a}{x}}, ~~~ \varphi(x) = \frac{a}{x}, ~~~ \varphi(x) = 2x - \frac{a}{x}.
+    \]
+    Discuss the convergence (or nonconvergence) behavior of the iteration $x_{n+1} = \varphi(x_n), n = 0,1,2,\dots,$ for each of these three iteration functions. In case of converge, determine the order of convergence.  
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider fixed point iteration of the form
+    \[ 
+        x = \varphi(x),    
+    \]
+    applied to the equation $x^2  - a = 0$ (for the square root $\alpha = \sqrt{a}$) where $\varphi(x)$ are the following functions
+    \[
+        \varphi(x) = \frac{1}{2}\paren{x + \frac{a}{x}}, ~~~ \varphi(x) = \frac{a}{x}, ~~~ \varphi(x) = 2x - \frac{a}{x}.
+    \]
+    First let's consider when $\varphi(x) = \frac{1}{2}\paren{x + \frac{a}{x}}$. Let $I_\eps = \{x \in \R: |x -\alpha| \leq \eps\}$ and then notice that 
+    \[ 
+        \max_{t \in I_\eps} \left| \varphi'(t) \right| = \max_{t \in I_\eps} \left| \frac{1}{2} - \frac{a}{2t^2} \right| < 1,
+    \]
+    and thus $\varphi(x)$ converges by the Fixed Point Convergence Theorem. Next observe that
+    \begin{align*}
+        \left. \varphi'(x) \right|_{\alpha} &= \left. \frac{1}{2} - \frac{a}{2x^2} \right|_{\alpha} = 0\\
+        \left. \varphi''(x)  \right|_{\alpha} &= \left. \frac{a}{x^3} \right| = a^{-1/2} \neq 0. 
+    \end{align*}
+    Thus we see that $\varphi(x)$ quadratically converges.
+    
+    \noindent
+    Next let's consider when $\varphi(x) = \frac{a}{x}$. Notice that application of fixed point iterations with some initial guess $x_0 \neq \alpha$ results in
+    \begin{align*}
+        x_1 &= \varphi(x_0) = \frac{a}{x_0}\\
+        \implies x_2 &= \varphi{x_1} = \frac{a}{x_1} = \frac{a}{a/x_0} = x_0.
+    \end{align*} 
+    Thus the iteration is a cycle for any initial guess other than $\alpha$ and does not converge. Also note that
+    \[ 
+        \left. \varphi'(x) \right|_\alpha = -1 \neq 0. 
+    \] 
+
+
+    \noindent
+    Finally consider when $\varphi(x) = 2x - \frac{a}{x}$. Let $I_\eps = \{x \in \R: |x -\alpha| \leq \eps\}$ and then notice that 
+    \[ 
+        \max_{t \in I_\eps} \left| \varphi'(t) \right| = \max_{t \in I_\eps} \left| 2 + \frac{a}{t^2} \right| \nless 1,
+    \]
+    as $t^2 \and a$ are nonnegative. Thus $\varphi(x)$ does not convergence. Also note that
+    \[ 
+        \left. \varphi'(x) \right|_\alpha = 3 \neq 0.
+    \]
+\end{solution}
+
+
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    T2: Consider the function $g(x) = x^2 + \frac{3}{16}$.
+    \begin{enumerate}
+        \item [(a)] This function has two fixed points. What are they?
+        \item [(b)] Consider the fixed point iteration $x_{n+1}=g(x_n)$ for this $g$.  For which of the points you have found in (a) can you be sure that the iterations will converge to that fixed point? Briefly justify your answer. You may assume that the initial guess is sufficiently close to the fixed point.
+        \item [(c)] For the point or points you found in (b), roughly how many iterations will be required to reduce the convergence error by a factor of 10?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the function $g(x) = x^2 + \frac{3}{16}$. 
+    \begin{enumerate}
+        \item [(a)]
+        First let's find the fixed points of the function by observing that
+        \[ 
+            \alpha = \alpha^2 + \frac{3}{16} \implies 0 = \alpha^2 - \alpha + \frac{3}{16} \implies \alpha \in \left\{ \frac{1}{4}, \frac{3}{4}\right\}.
+        \]     
+        And thus we have found the two fixed points.
+        
+        \item [(b)]
+        Note that $g'(x) = 2x$. Then for $\alpha = \frac{1}{4}$ we have that $|2 \cdot 1/4| < 1$ which implies convergence by the Fixed Point Convergence Theorem but by the same logic, fixed point iteration for $\alpha = \frac{3}{4}$ may not converge.
+        
+        
+        \item [(c)]
+        To find the approximate amount of iterations it will take to converge to $\alpha = \frac{1}{4}$, consider an initial guess sufficiently close to the fixed point meaning that $x_n = \frac{1}{4} + \eps$ where $\eps \ll 1$. Now observe that
+        \[ 
+            x_{n+1} = \paren{\frac{1}{4} + \eps}^2 + \frac{3}{16} = \eps^2 + \frac{1}{2}\eps + \frac{1}{4}, 
+        \]
+        which implies that $x_{n+1} - \frac{1}{4} = \eps^2 + \frac{1}{2}\eps$. Now assuming that $\eps_n \to 0$ as $n \to \infty$, we can find the rate of convergence 
+        \[ 
+            \lim_{n \to \infty} \abs{\frac{x_{n+1} - \frac{1}{4}}{x_{n} - \frac{1}{4}}} = \lim_{n \to \infty} \eps_n + \frac{1}{2} = \frac{1}{2}
+        \]
+        Thus we have that this method converges at most linearly and for a sufficiently close guess with $\eps_0$ being small $ \abs{x_n - \frac{1}{4}}$ is around  $\frac{1}{2^n} \eps_0$. Thus to reduce the converge error by a factor of $10$, we expect it to take four steps.
+
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    T3: Assume $f(x)$ is sufficiently smooth. $\alpha$ is a root of $f(x)$ of multiplicity $m$, $m \geq 2$. 
+    \begin{enumerate}
+        \item [(a)] Show that Newton's method converges locally with order one.
+        
+        \item [(b)] Set $g(x) = \frac{f(x)}{f'(x)}$, show that Newton's method applied to function $g(x)$ converges locally with (at least) order two.
+
+        \item [(c)] Consider the iteration
+        \[ 
+            x_{n+1} = x_n - m \frac{f(x_n)}{f'(x_n)},
+        \]
+        show that this method converges locally with (at least) order $2$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Assume $f(x)$ is sufficiently smooth. $\alpha$ is a root of $f(x)$ of multiplicity $m$, $m \geq 2$.
+
+    \begin{enumerate}
+        \item [(a)]
+        Since $f(x)$ is sufficiently smooth and $\alpha$ is a root of multiplicity $m$, note that
+        \[ 
+            f(\alpha) = f'(\alpha) = \cdots = f^{(m-1)}(\alpha) = 0.
+        \]
+        Now fixing $x$ and Taylor Expanding $f(x)$ around $x = \alpha$ yields
+        \begin{align*}
+            f(x) &= f(\alpha) + f'(\alpha)(x - \alpha) + \cdots + \frac{f^{(m-1)}(\alpha)}{(m-1)!}(x - \alpha)^{m-1} + \frac{f^{(m)}(\xi)}{m!}(x - \alpha)^m\\
+            &= \frac{f^{(m)}(\xi)}{m!}(x - \alpha)^m.
+        \end{align*} 
+        where $\xi \in [\alpha,x]$. And Taylor Expanding $f'(x)$ around $x = \alpha$ gives
+        \begin{align*}
+            f'(x) &= f'(\alpha) + \cdots + \frac{f^{(m-1)}(\alpha)}{(m-2)!}(x - \alpha)^{m-2} + \frac{f^{(m)}(\hat{\xi})}{(m-1)!}(x-\alpha)^{m-1}\\
+            &= \frac{f^{(m)}(\hat{\xi})}{(m-1)!}(x-\alpha)^{m-1},
+        \end{align*}
+        where $\hat{\xi} \in [\alpha,x]$. Now looking at the  $(n+1)^{\text{th}}$ step of Newton's method shows
+        \begin{align*}
+            x_{n+1}&= x_n - \frac{f(x)}{f'(x)}\\
+            &= x_n - \paren{\frac{1}{m}}\paren{\frac{f^{(m)}(\xi_n)}{f^{(m)}(\hat{\xi}_n)}}(x - \alpha).
+        \end{align*}
+        Subtracting $\alpha$ and dividing $x_n - \alpha$ from both sides shows that the error is given by
+        \[ 
+            \frac{x_{n+1} - \alpha}{x_n - \alpha} = 1 - \frac{f^{(m)}(\xi_n)}{f^{(m)}(\hat{\xi}_n)}.
+        \] 
+        Then assuming that $x_n \to \alpha$ as $n \to \infty$ gives that $\xi_n, \hat{\xi}_n \to \alpha$ and thus
+        \[ 
+            \lim_{n \to \infty} \abs{ \frac{x_{n+1} - \alpha}{x_n - \alpha}} = 1 - \frac{1}{m} < 1.
+        \]
+        Therefore, Newton's Method converge locally with order one. 
+
+        \item [(b)]
+        Let $g(x) = \frac{f(x)}{f'(x)}$. Observe that for a fixed $x$ we have that
+        \[ 
+            g(x) = \frac{f^{(m)}(\xi)}{mf^{(m)}(\hat{\xi})}(x - \alpha),
+        \]
+        which means that
+        \[ 
+            g'(\alpha) = \lim_{x \to \alpha} \frac{g(x) - g(\alpha)}{x - \alpha} = \frac{1}{m} \neq 0.
+        \]
+        Now applying Newton's Method on $g(x)$ is the same as fixed point iteration 
+        \[ 
+            \varphi(x) = x - \frac{g(x)}{g'(x)}.
+        \]  
+        Then
+        \[ 
+            \varphi'(\alpha) = 1 - \frac{g'(\alpha)^2 - g(\alpha)g''(\alpha)}{g'(\alpha)^2} = \frac{g(\alpha)g''(\alpha)}{g'(\alpha)^2} = 0,
+        \]
+        recalling that $g'(\alpha) \neq 0$. Therefore, Newton's Method applied to $g(x)$ converges locally with at least order two.  
+
+
+
+
+        \item [(c)]
+        Consider the iteration
+        \[ 
+            \varphi(x) = x - m \frac{f(x)}{f'(x)}
+        \]
+        which for a fixed $x$, simplifies to
+        \[ 
+            \varphi(x) = x - \frac{f^{(m)}(\xi)}{f^{(m)}(\hat{\xi})}(x - \alpha).
+        \]
+        Then
+        \begin{align*}
+            \varphi(\alpha)' &= \lim_{x \to \alpha} \frac{\phi(x) - \phi(\alpha)}{x - \alpha}\\ 
+            &=  \lim_{x \to \alpha} \frac{x - \frac{f^{(m)}(\xi)}{f^{(m)}(\hat{\xi})}(x - \alpha) - \alpha}{x - \alpha}\\
+            &= \lim_{x \to \alpha} 1 - \frac{f^{(m)}(\xi)}{f^{(m)}(\hat{\xi})}\\
+            &= 1-1 = 0.
+        \end{align*} 
+        Therefore, the iteration converges locally with at least order two by the fixed point iterated theorem. 
+
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    C1: For the equation
+    \[ 
+        \frac{1}{2}x - \sin(x) = 0,
+    \]
+    it is easy to see that the only positive root is located in the interval $[\pi/2,\pi].$
+    \begin{enumerate}
+        \item [(a)] Use the method of bisection on $[\pi/2,\pi]$ to approximate the root to $3, 7,$ and $15$ decimal places. report the number of iterations needed in each case.
+        \item [(b)] Repeat the same task as in (a) but using Newton's method with $x_0=\pi$ as the initial guess.
+        \item [(c)] Repeat the same task as in (b) but using the secant method with $x_0=\pi/2$ and $x_1=\pi$ as the initial guess.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the equation
+    \[ 
+        \frac{1}{2}x - \sin(x) = 0,  
+    \]
+    on the interval $[\pi/2,\pi].$ The following MATLAB script in Listings 1 was used to run the entire problem.
+
+    \lstinputlisting[language=MATLAB, caption={\bf Main Script for C1}]{c1.m}
+
+    \begin{enumerate}
+        \item [(a)]
+        First we wish to use the bisection method on the given interval to approximate the root to $3, 7, \and 15$ decimal places. To do so, I created the script in Listings 2 for the bisection method. Running the script to approximate the root up to $3$ decimals iterated $9$ times before converging to $1.892932292250881$. To have $7$ decimals the script ran $22$ times and resulted with $1.895494294831430$. Finally to gain $15$ decimal approximation, the script ran $49$ times and found the root to be $1.895494267033980$.  
+        \lstinputlisting[language=MATLAB, caption = {\bf Bisection Method Script}]{bisection.m}
+        
+        
+        \item [(b)]
+        Next we wish to repeat the approximation but using the Newton's method with an initial guess of $x_0 = \pi$. I created the script in Listings 3 for Newton's method. To approximate up to $3$ decimals gave $1.895494285255435$ after $4$ iterations. To approximate up to $7$ decimals gave $1.895494267033981$ after $5$ iterations.To approximate up to $15$ decimals gave $1.895494267033981$ after $6$ iterations.
+        
+        \lstinputlisting[language=MATLAB, caption = {\bf Newton's Method Script}]{newton.m}
+
+        \item [(c)]
+        Finally we repeat the same task as in the previous parts but using the Secant Method with the initial guesses of $x_0 = \pi/2 \and x_1 = \pi.$ I created the script in Listings 4 for Secant Method. Running the script to approximate the root up to $3$ decimals iterated $4$ times before converging to $1.895352767179123$. To have $7$ decimals the script ran $6$ times and resulted with $1.895494267064823$. Finally to gain $15$ decimal approximation, the script ran $8$ times and found the root to be $1.895494267033981$.
+
+        \lstinputlisting[language=MATLAB, caption = {\bf Secant Method Script}]{secant.m}
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 5---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    C2: Consider the nonlinear system
+    \[ 
+        \begin{cases}
+            (x_1 + 3)(x_2^3 - 7) + 18 = 0,\\
+            \sin(x_2e^{x_1} - 1) = 0.
+        \end{cases}
+    \]
+    \begin{enumerate}
+        \item [(a)] Solve it using Newton's method. Set the initial guess as $x_0 = (-0.5,1.4)^T$. Use reasonable stopping criteria. 
+        \item [(b)] Solve it using Broyden's method. Set the same initial guess and stop criteria. 
+        \item [(c)] Suppose you know the exact solution $x^* = (0,1)^T$, compute the error $\| x_k - x^*\|$ during the iterations of both methods and compare their rate of convergence. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the nonlinear system
+    \[ 
+        \begin{cases}
+            (x_1 + 3)(x_2^3 - 7) + 18 = 0,\\
+            \sin(x_2e^{x_1} - 1) = 0.
+        \end{cases}
+    \]
+    The Following MATLAB script in Listings 5 was used to run the entire problem.
+
+    \lstinputlisting[language=MATLAB, caption = {\bf Main Script for C2}]{c2.m}
+
+
+
+
+    \begin{enumerate}
+        \item [(a)]
+        First we wish to solve the system using Newton's method and the initial guess of $x_0 = (-0.5,1.4)^T$ and a stopping criteria of precision of $15$ decimals. Using the Newton's method script in Listings 3 we get the solution to be approximately $(0,1)$ after $5$ iterations.  
+        
+        \item [(b)]
+        Next we wish to use Broyden's method to compute the solution using the same initial guess and stopping criteria from before. I created the scripted in Listings 6 for Broyden's method. Using Broyden's method we get the solution to be approximately $(0,1)$ after $9$ iterations.
+        
+        \lstinputlisting[language=MATLAB, caption = {\bf Broyden's Method Script}]{broyden.m}
+
+
+
+        \item [(c)]
+        Now we are given that the exact solution is $x^* = (0,1)^T$. Using the Newton's and Broyden's method scripts we can compute the error $e_n = \|x_n - x^* \|$ at the $k^{\text{th}}$ step. 
+
+        \noindent
+        For Newton's Method we can test the convergence by computing
+        \[
+            \frac{e_{n+1}}{e_n^p}
+        \] 
+        for each step. Setting $p = 1$, the $\lim_{n \to \infty} \frac{e_{n+1}}{e_n}$ appears to be zero. When setting $p=2$, the error appears to still be bounded but due to the lack of iteration steps, it is difficult to tell the exact limiting behavior. We expect Newton's method to be at least quadratic and setting $p > 2$ shows divergent behavior. 
+
+
+        \noindent
+        For Broyden's Method we can test the convergence by computing
+        \[
+            \frac{e_{n+1}}{e_n^p}
+        \] 
+        for each step. When setting $p = 1$, the $\lim_{n \to \infty} \frac{e_{n+1}}{e_n}$ appears to be zero. But when setting $p=2$, the limit blows up to infinity. Thus the order of converge is superliner. This aligns with what we expect.
+
+
+
+    \end{enumerate}
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

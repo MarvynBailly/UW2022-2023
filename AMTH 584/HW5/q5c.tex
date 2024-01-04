@@ -1,0 +1,36 @@
+Now consider the matrix
+\[ 
+    A = \begin{pmatrix}1&0&0&0&1\\ -1&1&0&0&1\\ -1&-1&1&0&1\\-1&-1&-1&1&1\\ -1&-1&-1&-1&1\end{pmatrix}.
+\]
+We wish to preform Gaussian elimination with pivoting on $A$. In our first step, we do not need to pivot and thus we have
+\[ 
+    \begin{pmatrix}1&0&0&0&1\\ -1&1&0&0&1\\ -1&-1&1&0&1\\-1&-1&-1&1&1\\ -1&-1&-1&-1&1\end{pmatrix} \underrightarrow{L_1} \begin{pmatrix}1&0&0&0&1\\ 0&1&0&0&2\\ 0&-1&1&0&2\\ 0&-1&-1&1&2\\ 0&-1&-1&-1&2\end{pmatrix}, ~~ \text{where} ~~ L_1 = \begin{pmatrix}1&0&0&0&0\\ 1&1&0&0&0\\ 1&0&1&0&0\\ 1&0&0&1&0\\ \:\:1&0&0&0&1\end{pmatrix}.
+\] 
+Now we need to pivot to swap the fifth column with the second
+\[
+    \begin{pmatrix}1&0&0&0&1\\ 0&1&0&0&2\\ 0&-1&1&0&2\\ 0&-1&-1&1&2\\ 0&-1&-1&-1&2\end{pmatrix} \underrightarrow{Q_1} \begin{pmatrix}1&1&0&0&0\\ 0&2&0&0&1\\ 0&2&1&0&-1\\ 0&2&-1&1&-1\\ 0&2&-1&-1&-1\end{pmatrix}, ~~ \text{where}~~ Q_1 = \begin{pmatrix}1&0&0&0&0\\ 0&0&0&0&1\\ 0&0&1&0&0\\ 0&0&0&1&0\\ 0&1&0&0&0\end{pmatrix}.
+\]
+Now let's eliminate in the second column
+\[
+    \begin{pmatrix}1&1&0&0&0\\ 0&2&0&0&1\\ 0&2&1&0&-1\\ 0&2&-1&1&-1\\ 0&2&-1&-1&-1\end{pmatrix} \underrightarrow{L_2} \begin{pmatrix}1&1&0&0&0\\ 0&2&0&0&1\\ 0&0&1&0&-2\\ 0&0&-1&1&-2\\ 0&0&-1&-1&-2\end{pmatrix}, ~~ \text{where}~~ L_2 = \begin{pmatrix}1&0&0&0&0\\ 0&1&0&0&0\\ 0&-1&1&0&0\\ 0&-1&0&1&0\\ 0&-1&0&0&1\end{pmatrix}.
+\]
+Next let's pivot to swap the fifth and third columns
+\[ 
+    \begin{pmatrix}1&1&0&0&0\\ 0&2&0&0&1\\ 0&0&1&0&-2\\ 0&0&-1&1&-2\\ 0&0&-1&-1&-2\end{pmatrix} \underrightarrow{Q_2} \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&0&1\\ 0&0&-2&1&-1\\ 0&0&-2&-1&-1\end{pmatrix}, ~~ \text{where}~~ Q_2 = \begin{pmatrix}1&0&0&0&0\\ 0&1&0&0&0\\ 0&0&0&0&1\\ 0&0&0&1&0\\ 0&0&1&0&0\end{pmatrix}.
+\]
+Elimination in the third column gives
+\[ 
+    \begin{pmatrix}1&1&0&0&0\\ 0&2&0&0&1\\ 0&0&1&0&-2\\ 0&0&-1&1&-2\\ 0&0&-1&-1&-2\end{pmatrix} \underrightarrow{L_3} \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&0&1\\ 0&0&0&1&-2\\ 0&0&0&-1&-2\end{pmatrix}, ~~ \text{where}~~ L_3 = \begin{pmatrix}1&0&0&0&0\\ 0&1&0&0&0\\ 0&0&1&0&0\\ 0&0&-1&1&0\\ 0&0&-1&0&1\end{pmatrix}.
+\]
+Once more let's pivot to interchange the fourth and fifth columns
+\[ 
+    \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&0&1\\ 0&0&0&1&-2\\ 0&0&0&-1&-2\end{pmatrix} \underrightarrow{Q_3} \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&1&0\\ 0&0&0&-2&1\\ 0&0&0&-2&-1\end{pmatrix}, ~~ \text{where}~~ Q_3 = \begin{pmatrix}1&0&0&0&0\\ 0&1&0&0&0\\ 0&0&1&0&0\\ 0&0&0&0&1\\ 0&0&0&1&0\end{pmatrix}.
+\]
+Finally let's eliminate in the fourth column
+\[ 
+    \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&1&0\\ 0&0&0&-2&1\\ 0&0&0&-2&-1\end{pmatrix} \underrightarrow{L_4} \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&1&0\\ 0&0&0&-2&1\\ 0&0&0&0&-2\end{pmatrix}, ~~ \text{where}~~ L_4 = \begin{pmatrix}1&0&0&0&0\\ 0&1&0&0&0\\ 0&0&1&0&0\\ 0&0&0&1&0\\ 0&0&0&-1&1\end{pmatrix}.
+\]
+Collecting all our terms we have that
+\[ L_4L_3L_2L_1AQ_1Q_2Q_3 = LAQ = U,\]
+where
+\[L = \begin{pmatrix}1&0&0&0&0\\ -1&1&0&0&0\\ -1&1&1&0&0\\ -1&1&1&1&0\\ -1&1&1&1&1\end{pmatrix}, ~~ Q = \begin{pmatrix}1&0&0&0&0\\ 0&0&1&0&0\\ 0&0&0&1&0\\ 0&0&0&0&1\\ 0&1&0&0&0\end{pmatrix} ~~ \text{and} ~~ U = \begin{pmatrix}1&1&0&0&0\\ 0&2&1&0&0\\ 0&0&-2&1&0\\ 0&0&0&-2&1\\ 0&0&0&0&-2\end{pmatrix}.\] 

@@ -1,0 +1,474 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 568 Homework 2\\
+ Due January 18, 2023\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the nonhomogeneous problems of Problem 1 and 2: $\vec{x}' = A\vec{x} + \vec{g}(t)$.
+    \begin{enumerate}
+        \item [(a)]Let $\vec{x} = M\vec{y}$ where the columns of $M$ are the eigenvectors of the above problems.
+        
+
+        \item [(b)]Write the equations in terms of $\vec{y}$ and multiply through by $M^{-1}$. 
+        
+
+        \item [(c)]
+        Show the resulting equation is $\vec{y}' = D\vec{y} + \vec{h}(t)$ where $D = M^{-1}AM$ is a diagonal matrix whose diagonal elements are the eigenvalues of the problem
+        considered and $\vec{h}(t) = M^{-1}\vec{g}(t)$.
+
+        \item[(d)] Show that this system is now decoupled so that each component of $\vec{y}$ can be solved independently
+        of the other components.
+
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the nonhomogeneous problem
+    \begin{equation}\label{p1}
+        \vec{x}' = A\vec{x} + \vec{g}(t).
+    \end{equation} 
+
+    \begin{enumerate}
+        \item [(a)]
+            Let \[\vec{x} = M\vec{y} = [\vec{v}_1 | \cdots | \vec{v}_n]\vec{y},\] where the columns of $M$ are the $n$ eigenvectors of \ref{p1} with corresponding eigenvalues $\lambda_1, \cdots, \lambda_n$.
+        
+        \item [(b)]
+            Substituting $\vec{y}$ into \ref{p1} gives
+            \[
+                M\vec{y}' = AM\vec{y} + \vec{g}(t).
+            \]
+            Multiplying both sides by $M^{-1}$ yields
+            \[ 
+                \vec{y}' = M^{-1}AM\vec{y} + M^{-1}\vec{g}(t) = D\vec{y} + \vec{h}(t).
+            \]
+        
+        \item [(c)]
+            We wish to show that $D = M^{-1}AM$ is a diagonal matrix with $\lambda_1, \cdots \lambda_n$ along the main diagonal. Observe that since $A\vec{v}_1 = \lambda_1 \vec{v}_1$, we have 
+            \begin{align*}
+                AM &= [ \lambda_1 \vec{v}_1 | \cdots | \lambda_n \vec{v}_n] = [\vec{v}_1 | \cdots | \vec{v}_n] \cdot (\lambda I) = M \lambda I,
+            \end{align*}
+            where $\lambda I = \begin{pmatrix}
+                \lambda_{1} &  &  \\ 
+                &  \ddots & \\ 
+                &   & \lambda_{n} 
+            \end{pmatrix}$. Thus
+            \[ 
+                D = M^{-1}AM = M^{-1}M\lambda I = \lambda I,
+            \]
+            which is a diagonal matrix with the eigenvalues of \ref{p1} along the main diagonal. Therefore we have 
+            \[ 
+                \vec{y}' = D\vec{y} + \vec{h}(t),
+            \]
+            as desired. 
+        \item [(d)]
+            Note that
+            \[ 
+                \vec{y}' = \begin{pmatrix}
+                    y_1'\\
+                    \vdots\\
+                    y_n'
+                \end{pmatrix}= D\vec{y} + \vec{h}(t) = \begin{pmatrix}
+                    \lambda_{1} &  &  \\ 
+                    &  \ddots & \\ 
+                    &   & \lambda_{n} 
+                \end{pmatrix}\begin{pmatrix}
+                    y_1\\
+                    \vdots\\
+                    y_n
+                \end{pmatrix} + \begin{pmatrix}
+                    h_1\\
+                    \vdots\\
+                    h_n
+                \end{pmatrix}.
+            \]
+            Thus the $j^{\text{th}}$ entry of $\vec{y}'$ is given by
+            \[ 
+                y'_j =\lambda_j y_j + h_j,
+            \]
+            which can be solved independently of the other components of the matrix problem. 
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Given $L = -\ddn{2}{}{x}$ find the eigenfunction expansion solution of 
+    \[ 
+        \ddn{2}{y}{x} + 2y = -10 e^{x}, ~~~~~~ y(0) = 0, y'(1) = 0.
+    \]
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Given $L = -\ddn{2}{}{x}$, we wish to find the eigenfunction expansion solution of 
+    \begin{equation}\label{p2}
+        \ddn{2}{y}{x} + 2y = -10 e^{x}, ~~~~~~ y(0) = 0, y'(1) = 0.
+    \end{equation} 
+
+    Recall that Sturn-Liouville problems take the form of the following second-order boundary value problem 
+    \[ 
+        Ly = \mu r(x) y + f(x),
+    \]
+    on the domain $x \in [a,b]$ with boundary conditions
+    \begin{align*}
+        \alpha_1 u(a) + \beta_1 \pp{u(a)}{x} &= 0,\\
+        \alpha_2 u(b) + \beta_2 \pp{u(b)}{x} &= 0,
+    \end{align*}
+    and the operator $L$ taking the form
+    \[ 
+        Ly = -\pp{}{x} \left[ p(x) \pp{u}{x} \right] + q(x)u.
+    \]
+    Notice that rewriting \ref{p2} as 
+    \[ 
+        Ly = -\ddn{2}{y}{x} = 2y + 10 e^x, ~~~~~~ y(0) = 0, y'(1) = 0.
+    \]
+    gives a Sturm-Liouville problem defined on the domain $x \in [0, 1]$ with $f(x) = 10e^x, p(x) = 1, q(x) = 0, \alpha_1 = 1, \beta_1 = 0, \alpha_2 = 0, \beta_2 = 1$ and let's pick $\mu = 2$ and $r(x) = 1$. The eigenvalue problem associated with this Sturm-Liouville problem is
+    \[ 
+        Ly_n = \lambda_n r(x) = \lambda_n y_n \implies - y_{n_{xx}} = \lambda_n y_n, ~~~ n = 1, 2, \dots
+    \]
+    which has the general solution
+    \[ 
+        y_n(x) = c_1 \sin \paren{ \sqrt{\lambda_n} x} + c_2 \cos \paren{ \sqrt{\lambda_n} x}.
+    \]
+    Satisfying the first boundary condition $y_n(0) = 0$ gives,
+    \[ 
+        y_n(0) = c_1 \sin \paren{0} + c_2 \cos \paren{0} = c_2 = 0.
+    \]
+    Then the solution is given by
+    \[ 
+        y_n(x) = c_1 \sin \paren{ \sqrt{\lambda_n} x}.
+    \]
+    Applying the second boundary condition $y_n'(1) = 0$ gives
+    \[ 
+        y'_n(1) = c_1 \sqrt{\lambda_n} \cos\paren{ \sqrt{\lambda_n}} = 0 \implies \sqrt{\lambda_n} = \frac{(2n  - 1)\pi}{2}.
+    \]
+    Thus we have found the unnormalized eigenfunctions to be
+    \[ 
+        y_n = c_n \sin\paren{ \frac{2n - 1}{2} \pi x}, ~~~  n = 1, 2, \dots.
+    \]
+    The normalized eigenfunctions can be determined by enforcing $\abrac{y_n, y_n} = 1$ which gives
+    \begin{align*}
+        \int_0^1 \sin^2\paren{ \frac{2n - 1}{2} \pi x} &= \frac{1}{2} \int_0^1 \paren{1 - \cos((2n - 1)\pi x)}dx\\
+        &= \frac{1}{2} \int_0^1 1 dx - \frac{1}{2}\int_0^1 \cos((2n - 1)\pi x)dx\\
+        &= \frac{1}{2} - \frac{1}{2} \left. \frac{\sin (\pi  (2 n-1) x)}{\pi  (2 n-1)} \right|_0^1\\
+        &= \frac{1}{2}.
+    \end{align*}
+    Thus the normalized eigenfunctions are given by
+    \[ 
+        y_n(x)  = \sqrt{2} \sin\paren{ \frac{2n - 1}{2} \pi x}.
+    \]
+    Since the eigenfunctions form a complete set, solutions can be represent by 
+    \[ 
+        y = \sum_{n =1 }^{\infty} c_n y_n,
+    \]
+    where $c_n$ are determined by $f(x)$ and orthogonality. Thus we can expand $f(x)$ as
+    \[ 
+        \frac{f(x)}{r(x)} = f(x) = \sum_{n = 1}^\infty b_n y_n.
+    \] 
+    To solve for $b_n$, let $a_n = \sqrt{\lambda_n} = \frac{(2n -1)\pi}{2}$ and observe that
+    \begin{align*}
+        b_n &= \abrac{f,y_n}\\
+            &= 10 \sqrt{2} \int_0^1 e^x \sin\paren{a_n x}dx,\\
+    \end{align*}
+    using integration by parts with $u = e^x, du = e^x dx, dv = \sin(a_n x)dx$ and $v = - \frac{1}{a_n} \cos(a_n x)$ so if
+    \begin{align*}
+        J &= \int_0^1 e^x \sin(a_n x)dx\\
+        &= \left. \frac{-e^x \cos(a_n x)}{a_n} \right|^1_0 + \frac{1}{a_n} \int_0^1 e^x \cos(a_n x)dx,
+    \end{align*}
+    using integration by parts with $u = e^x, du = e^xdx, dv = \cos(a_n x)dx$ and $v = \frac{1}{a_n}\sin(a_n x)$ we have
+    \begin{align*}
+        J &= \left. \frac{-e^x\cos(a_n x)}{a_n} \right|_0^1 + \frac{1}{a_n} \paren{ \left. \frac{e^x \sin{(a_n x)}}{a_n} \right|_0^1 - \frac{1}{a_n} \int_0^1 e^x \sin(a_n x)dx}\\
+        &= \paren{ - \frac{e\cos(a_n)}{a_n} + \frac{1}{a_n}} + \frac{1}{a_n}\paren{\frac{e\sin(a_n x)}{a_n} - \frac{1}{a_n}J}\\
+        &= A + \frac{1}{a_n}B - \frac{1}{a_n^2}J.
+    \end{align*}
+    Then we can solve for the integral
+    \begin{align*}
+        J = \frac{A + \frac{1}{a_n}B}{1 + \frac{1}{a_n}},
+    \end{align*}
+    and substituting our values back into the integral we get that
+    \[ 
+        b_n = \frac{10\sqrt{2}(\sqrt{\lambda_n} + e\sin(\sqrt{\lambda_n} x))}{\lambda_n + 1}.
+    \] 
+    Then we have that
+    \[ 
+        f(x) = \sum_{n=1}^{\infty} \frac{10\sqrt{2}(\sqrt{\lambda_n} + e\sin(\sqrt{\lambda_n} x))}{\lambda_n + 1} \sqrt{2} \sin\paren{ \frac{2n - 1}{2} \pi x},
+    \]
+    and since $\mu \neq \lambda_n$ for all $n$, we have the solution $y(x) = \sum_{n=1}^\infty \frac{\abrac{f,u_n}}{\lambda_n - \mu}u_n(x)$ which gives
+    \begin{empheq}[box=\widefbox]{align*}
+    y(x) &=\sum_{n=1}^{\infty}  20\frac{\paren{\frac{(2n -1)\pi}{2}} + e\sin\paren{\frac{(2n -1)\pi}{2}x}}{\paren{\paren{\frac{(2n -1)\pi}{2}}^2 + 1}\paren{\paren{\frac{(2n -1)\pi}{2}}^2 - 2}}\cdot \sin\paren{\frac{(2n -1)\pi}{2}x}
+    \end{empheq}
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Given $L = -\ddn{2}{}{x}$ find the eigenfunction expansion solution of 
+    \[ 
+        \ddn{2}{y}{x} + 2y = -x, ~~~~~~ y(0) = 0, y(1) + y'(1) = 0.
+    \]
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Given $L = -\ddn{2}{}{x}$, we wish to find the eigenfunction expansion solution of 
+    \begin{equation}\label{p3}
+        \ddn{2}{y}{x} + 2y = -x, ~~~~~~ y(0) = 0, y(1) + y'(1) = 0.
+    \end{equation} 
+
+    Recall that Sturn-Liouville problems take the form of the following second-order boundary value problem 
+    \[ 
+        Ly = \mu r(x) y + f(x),
+    \]
+    on the domain $x \in [a,b]$ with boundary conditions
+    \begin{align*}
+        \alpha_1 u(a) + \beta_1 \pp{u(a)}{x} &= 0,\\
+        \alpha_2 u(b) + \beta_2 \pp{u(b)}{x} &= 0,
+    \end{align*}
+    and the operator $L$ taking the form
+    \[ 
+        Ly = -\pp{}{x} \left[ p(x) \pp{u}{x} \right] + q(x)u.
+    \]
+    Notice that rewriting \ref{p3} as 
+    \[ 
+        Ly = -\ddn{2}{y}{x} = 2y + x, ~~~~~~ y(0) = 0, y(1) + y'(1) = 0.
+    \]
+    gives a Sturm-Liouville problem defined on the domain $x \in [0, 1]$ with $f(x) = x, p(x) = 1, q(x) = 0, \alpha_1 = 1, \beta_1 = 0, \alpha_2 = 1, \beta_2 = 1$ and let's pick $\mu = 2$ and $r(x) = 1$. The eigenvalue problem associated with this Sturm-Liouville problem is
+    \[ 
+        Ly_n = \lambda_n r(x) = \lambda_n y_n \implies - y_{n_{xx}} = \lambda_n y_n, ~~~ n = 1, 2, \dots
+    \]
+    which has the general solution
+    \[ 
+        y_n(x) = c_1 \sin \paren{ \sqrt{\lambda_n} x} + c_2 \cos \paren{ \sqrt{\lambda_n} x}.
+    \]
+    Satisfying the first boundary condition $y_n(0) = 0$ gives,
+    \[ 
+        y_n(0) = c_1 \sin \paren{0} + c_2 \cos \paren{0} = c_2 = 0.
+    \]
+    Then the solution is given by
+    \[ 
+        y_n(x) = c_n \sin \paren{ \sqrt{\lambda_n} x}.
+    \]
+    Applying the second boundary condition $y(1) + y'(1) = 0$ gives the transcendental equation for the eigenvalues,
+    \begin{align*}
+        c_1 \sin \paren{ \sqrt{\lambda_n}} + c_1\sqrt{\lambda_n} \cos(\sqrt{\lambda_n}) &= 0\\
+        \tan \paren{ \sqrt{\lambda_n}} +\sqrt{\lambda_n} &= 0.\\
+    \end{align*}
+    Eigenvalues can be determined by root finding algorithms but in this case let's keep it general. Now let's normalize the eigenfunction by enforcing $\abrac{y_n,y_n}$ which gives
+    \begin{align*}
+        \int_0^1 \sin^2\paren{2\sqrt{\lambda}}dx &= \frac{1}{2} \int_0^1\paren{1 - \cos\paren{2\sqrt{\lambda}x}}dx\\
+        &= \frac{1}{2} - \frac{1}{2}\int_0^1\cos\paren{2\sqrt{\lambda}x}dx\\
+        &= \frac{1}{2} - \frac{1}{4\sqrt{\lambda}}\sin\paren{2\sqrt{\lambda}}.
+    \end{align*}
+    Thus the normalized eigenfunctions are given by
+    \[ 
+        y_n(x) = c_n\sin{\sqrt{\lambda_n}x}  = \paren{\frac{4\sqrt{\lambda_n}}{2\sqrt{\lambda_n} - \sin{\paren{2\sqrt{\lambda_n}}}}}^{\frac{1}{2}}\sin{\sqrt{\lambda_n}x}.
+    \]
+    Computing $b_n$ by solving $b_n = \abrac{f,y_n}$ yields
+    \begin{align*}
+        \abrac{f,y_n} &= c_n \int_0^1 x \sin{\sqrt{\lambda_n}x}dx\\
+        &= c_n \paren{ \left. - \frac{x}{\sqrt{\lambda_n}}\cos\paren{\sqrt{\lambda_n} x} \right|_0^1 + \int_0^1 \frac{1}{\sqrt{\lambda_n}}\cos\paren{\sqrt{\lambda_n} x}dx}\\
+        &= c_n \paren{ -\frac{1}{\sqrt{\lambda_n}}\cos\paren{\sqrt{\lambda_n}} + \frac{1}{\lambda_n} \sin \paren{\sqrt{\lambda_n}}}\\
+        &= \paren{\frac{4\sqrt{\lambda_n}}{2\sqrt{\lambda_n} - \sin{\paren{2\sqrt{\lambda_n}}}}}^{\frac{1}{2}}\paren{ \frac{\sin\paren{\sqrt{\lambda_n}} - \sqrt{\lambda_n}\cos\paren{\sqrt{\lambda_n}}}{\lambda_n}}.
+    \end{align*}
+    Since $\mu \neq \lambda_n$ for all $n$, we have the solution $y(x) = \sum_{n=1}^\infty \frac{\abrac{f,u_n}}{\lambda_n - \mu}u_n(x)$ which gives 
+    \begin{empheq}[box=\widefbox]{align*}
+        y(x) = \sum_{n=1}^\infty \paren{\frac{4\sqrt{\lambda_n}}{2\sqrt{\lambda_n} - \sin{\paren{2\sqrt{\lambda_n}}}}} \frac{\sin\paren{\sqrt{\lambda_n}} - \sqrt{\lambda_n}\cos\paren{\sqrt{\lambda_n}}}{\lambda(\lambda_n - 2)}\cdot \sin\paren{\sqrt{\lambda_n}x}
+    \end{empheq}
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the Sturm-Liouville eigenvalues problem:
+    \[ 
+        Lu = - \dd{}{x}\paren{p(x)\dd{u}{x}} + q(x)u = \lambda\rho(x)u ~~~~ 0 < x < l,
+    \]
+    with the boundary conditions
+    \begin{align*}
+        \alpha_1 u(0) + \beta_1 u'(0) &= 0,\\
+        \alpha_2 u(l) + \beta_2 u'(l) &= 0,
+    \end{align*}
+    and  with $p(x) > 0, \rho(x) > 0,$ and $q(x) \geq 0$ and with $p(x), \rho(x), q(x)$ and $p'(x)$ continuous over $0 < x < l$. With the inner product $(\phi,\psi) = \int_0^l\rho(x)\psi(x)\psi(x)^*dx$, show the following:
+    \begin{enumerate}
+        \item [(a)] $L$ is a self-adjoint operator. 
+        \item [(b)] Eigenfunctions corresponding to different eigenvalues are orthogonal. 
+        \item [(c)] Eigenvalues are real, non-negative, and eigenfunctions may be chosen to be real valued. 
+        \item [(d)] Each eigenvalue is simple. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+
+    \noindent
+    Consider the Sturm-Liouville eigenvalues problem:
+    \[ 
+        Lu = - \dd{}{x}\paren{p(x)\dd{u}{x}} + q(x)u = \lambda\rho(x)u ~~~~ 0 < x < l,
+    \]
+    with the boundary conditions
+    \begin{align*}
+        \alpha_1 u(0) + \beta_1 u'(0) &= 0,\\
+        \alpha_2 u(l) + \beta_2 u'(l) &= 0,
+    \end{align*}
+    and  with $p(x) > 0, \rho(x) > 0,$ and $q(x) \geq 0$ and with $p(x), \rho(x), q(x)$ and $p'(x)$ continuous over $0 < x < l$. With the inner product $(\phi,\psi) = \int_0^l\rho(x)\psi(x)\psi(x)^*dx$.
+
+    \begin{enumerate}
+        \item [(a)]
+        First we wish to show that $L$ is a self-adjoint operator. In other words, we must show that $\abrac{Lu,v} = \abrac{u,Lv}$ ($L = L^\dag$) for all $u,v$. Observe that 
+        \begin{align*}
+            \abrac{Lu,v} &= \int_0^l\paren{-(pu')' + qu}v^*dx\\
+            &= \int_0^l-p'u'v^* - pu''v^* + quv^*dx\\
+            &= \int_0^l -pv^*u'' dx + \int_0^l p'v^*u' dx + \int_0^lquv^*dx.
+        \end{align*}
+        Applying integration by parts twice to the first integral and once to the second gives
+        \begin{align*}
+            \abrac{Lu,v} &= \left. -pv^*u' \right|_0^l \left. + (pv^*)'u\right|_0^l \left. -p'v^*u \right|_0^l + \int_0^l u(-(pv^*)'' + (p'v^*)' + qv^*)dx\\
+            &=J(u,v) + \int_0^l u(-pv''^{*} - p'v'^{*} + qv^{*})dx\\
+            &=J(u,v) + \int_0^l u(-(pv''^{*} + p'v'^{*}) + qv^{*})dx\\
+            &=J(u,v) + \int_0^l u(-(pv'^{*})' + qv^{*})dx\\
+            &=J(u,v) + \int_0^l u(Lv)^{*}dx\\
+            &=J(u,v) + \abrac{u,Lv}.\\
+        \end{align*}
+        Notice that
+        \begin{align*}
+            J(u,v) &= \left. -pv^{*}u' \right|_0^l \left. + (pv^{*})'u\right|_0^l \left. -p'v^{*}u \right|_0^l\\
+            &= v'^{*}(l)p(l)u(l) - p(l)v^{*}(l)u'(l) - v'^{*}(0)p(0)u(0) + p(0)v^{*}(0)u'(0),
+        \end{align*}
+        and applying the given boundary condition on $u$ gives that
+        \[
+            J(u,v) = \paren{v'^{*}(l)u(l) - p(l)v^{*}(l)u'(l) }  + \paren{- v'^{*}(0)p(0)u(0) + p(0)v^{*}(0)u'(0)} = 0.
+        \]
+        Thus we have that $v^*$ has the same boundary conditions as $u$, and that $\abrac{Lu,v} = \abrac{u,Lv}$. Therefore $L$ is self-adjoint. 
+
+
+        \item [(b)]
+        Next we wish to show that the eigenfunctions corresponding to different eigenvalues are orthogonal. Let $u_i$ and $u_j$ be eigenfunction corresponding to different eigenvalues $\lambda_i$ and $\lambda_j$. Observe that
+        \begin{align*}
+            \abrac{u_n,Lu_m} &= \abrac{Lu_n,u_m}\\
+            \iff  \abrac{u_n,\lambda_m \rho u_m} &= \abrac{\lambda_n \rho u_n,u_m}\\
+            \iff  \lambda_m^*\abrac{u_n, \rho u_m} &= \lambda_n\abrac{ \rho u_n,u_m}\\
+            \iff  \lambda_m^*\abrac{u_n, u_m}_\rho &= \lambda_n\abrac{u_n,u_m}_\rho.
+        \end{align*}
+        Thus we have that
+        \[ 
+            0 = (\lambda_m^* - \lambda_n) \abrac{u_n,u_m}_\rho.
+        \]
+        Note that by part (c), we have that eigenvalues are real so $\lambda_m = \lambda_m^*$ and since $\lambda_m \neq \lambda_n \implies \abrac{u_n,u_m}_\rho = 0$. Thus $u_n$ and $u_m$ are orthogonal. Therefore eigenfunctions corresponding to different eigenvalues are orthogonal.
+
+
+        \item [(c)]
+        Next we wish to show that eigenvalues are real ($\lambda = \lambda^*$), non-negative and eigenfunctions may be picked to be real valued. First let's show that the eigenvalues are real. Consider the eigenvalue $\lambda$ and its corresponding eigenfunction $u$. Observe that
+        \begin{align*}
+            \lambda \abrac{u,u}_\rho &= \abrac{\lambda\rho u,u}\\
+            &= \abrac{Lu,u}\\
+            &= \abrac{u,Lu}\\
+            &= \int_0^l u(Lu)^*dx\\
+            &= \int_0^l u(\lambda\rho u)^*dx\\
+            &= \lambda^* \int_0^l u\rho u^*dx\\
+            &= \lambda^* \abrac{u,u}_\rho.\\
+        \end{align*}
+        Thus we have that $\lambda = \lambda^*$ since $\abrac{u,u}_\rho \neq 0$ which means that $\lambda$ is real. Next let's show that the eigenvalues are non-negative. Observe that
+        \begin{align*}
+            \abrac{-(p u')',u} + \abrac{qu,u} = \lambda\abrac{\lambda\rho u, u}.
+        \end{align*}
+        Applying integration by parts to the first inner product yields
+        \[ 
+            \left. -puu_x \right|_0^l + \abrac{pu_x,u_x} +\abrac{qu,u} = \lambda\abrac{\rho u, u}.
+        \]
+        Now $\abrac{pu_x,u_x} \geq 0$ as $p > 0$, $\abrac{qu,u} \geq 0$ as $q \geq 0$, and $\abrac{\rho u, u}$ as $\rho > 0$. All that is left to be shown for $\lambda \geq 0$, is that $\left| \left. -puu_x \right|_0^l \right| < \abrac{pu_x,u_x} +\abrac{qu,u}$. Observe that
+        \[ 
+            \left. -puu_x \right|_0^l = -\left(p(l)(u'(l)u(l)) - p(0)(u'(0)u(0))\right) = -\paren{p(l)\frac{\alpha_2}{\beta_2}u^2(l) - p(0)\frac{\alpha_1}{\beta_1}u^2(0)}.
+        \]
+        So if $-p(l)\frac{\alpha_2}{\beta_2}u^2(l) + p(0)\frac{\alpha_1}{\beta_1}u^2(0) \geq -\abrac{pu_x,u_x} - \abrac{qu,u}$ the eigenvalues are non-negative (eigenvalue sign is dependent on the boundary conditions).
+        Finally we wish to show that eigenfunctions can be chosen to be real valued. If $\frac{1}{2}Lu = \frac{1}{2}\lambda \rho u$ then $\frac{1}{2}Lu^* = \frac{1}{2}\lambda \rho u^*$. Now we have that 
+        \[ 
+            L(\text{Re}(u)) = L\paren{\frac{u+u^*}{2}} = \frac{1}{2}\lambda\rho(u + u^*) = \lambda\rho \text{Re}(u).
+        \] 
+        From part (d) we know that the eigenvalues are simple, so each eigenvalue has only one eigenfunction and thus we can choose the eigenfunction to be real valued. 
+
+
+        \item [(d)]
+        Next we wish to show that the eigenvalues are simple. We know that if two functions are linearly dependent on an interval, then the Wronskian will be zero for all values within the interval. Consider the two eigenfunctions $u_1$ and $u_2$ corresponding to the same eigenvalue $\lambda$. Observe that 
+        \begin{align*}
+            u_2L(u_1) - u_1L(u_2) &= u_2(-(pu_1')' + qu_1) - u_1(-(pu_2') + qu_2)\\
+            &= -u_2pu_1'' - p'u_1'u_2 + u_1pu_2'' + u_1p'u_2'\\
+            &= p\paren{-u_2u_1'' + u_1u_2''} + p'\paren{-u_1'u_2 + u_1u_2'}\\
+            &=(p\paren{-u_2u_1' + u_1u_2'})'\\
+            &=(p(W(u_1,u_2)))',
+        \end{align*}
+        where $W(u_1,u_2)$ is the Wronskian of $u_1$ and $u_2$. Note that we also have 
+        \[
+            u_2L(u_1) - u_1L(u_2) = u_2(\lambda \rho u_1) - u_1(\lambda \rho u_2) = 0.
+        \]
+        Thus we get that
+        \[ 
+            u_2L(u_1) - u_1L(u_2) = (pW(u_1,u_2))' = 0,
+        \]
+        which implies that $W(u_1,u_2)$ is a constant. If we enforce the given boundary conditions then 
+        \begin{align*}
+            W(u_1(0),u_2(0)) &= u_1(0)u_2(0)' - u_2(0)u_1(0)' = 0,\\
+            W(u_1(l),u_2(l)) &= u_1(l)u_2(l)' - u_2(l)u_1(l)' = 0.
+        \end{align*}
+        Thus $pW(u_1,u_2) = 0$ and since $p>0$ by construction, then $W(u_1,u_2) = 0$ for all $x$ within the interval $[0,l]$. Since the Wronskian for $u_1$ and $u_2$ is zero for all values within the interval, the vectors are linearly dependent. Thus we see that eigenvectors with the same eigenvectors are linearly dependent and thus eigenvalues are simple. 
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

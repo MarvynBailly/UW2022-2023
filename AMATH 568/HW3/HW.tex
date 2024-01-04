@@ -1,0 +1,545 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 568 Homework 3\\
+ Due January 25, 2023\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Particle in a box: Consider the time-dependent Schr\"odinger equation:
+    \[
+        i\hbar \pp{\psi}{t} = - \frac{\hbar^2}{2m}\ppn{2}{\psi}{x} + V(x)\psi,
+    \]
+    which is the underlying equation of quantum mechanics where $V(x)\psi.$
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the time-dependent Schr\"odinger equation:
+    \[
+        i\hbar \pp{\psi}{t} = - \frac{\hbar^2}{2m}\ppn{2}{\psi}{x} + V(x)\psi.
+    \]
+    \begin{enumerate}
+        \item [(a)]
+        To derive the time-independent Schr\"odinger equation, let $\psi = u(x)e^{-iE/\hbar}$ and observe that the time-dependent becomes
+        \begin{align*}
+            i \hbar u \paren{\frac{-iE}{\hbar}} e^{\frac{-iEt}{\hbar}} = - \frac{\hbar^2}{2m}u_{xx}e^{\frac{-iEt}{\hbar}} + vue^{\frac{-iEt}{\hbar}}.
+        \end{align*}
+         Which yields the time-independent Schr\"odinger equation
+         \begin{equation} \label{q1}
+            u(x)E = - \frac{\hbar^2}{2m}u_{xx} + Vu.
+         \end{equation} 
+
+
+        \item [(b)]
+        Recall that the Sturm-Liouville problem is of the form
+        \[ 
+            Lu = -\pp{}{x}\paren{p \pp{u}{x}} + q(x)u = \lambda \rho u.
+        \]
+        Thus \ref{q1} can be rewritten as a Sturm-Liouville problem
+        \[ 
+            -u_{xx} + \frac{2m}{\hbar}Vu = \frac{2m}{\hbar}Eu = \lambda u. 
+        \]
+
+
+        \item [(c)]
+        Next consider the potential
+        \[ 
+            V(x) = \begin{cases}
+                0 &|x| < l,\\
+                \infty &\text{else},
+            \end{cases}
+        \]
+        which implies $u(0) = u(L) = 0$. This also implies that the interval of the Sturm-Liouville eigenvalue problem on $[-l, l]$ is given by
+        \[ 
+            -u_{xx} = \frac{2m}{\hbar^2}Eu = \lambda u
+        \] 
+        This has the general eigenvector form of
+        \[
+            u_n = c_{1_n} \cos \paren{\sqrt{\lambda_n}x} + c_{2_n} \sin \paren{\sqrt{\lambda_n}x}.
+        \]
+        Applying the boundary conditions yields
+        \begin{align*}
+            0 &= c_{1_n} \cos \paren{-\sqrt{\lambda_n}L} + c_{2_n} \sin \paren{-\sqrt{\lambda_n}L},\\
+            0 &= c_{1_n} \cos \paren{\sqrt{\lambda_n}L} + c_{2_n} \sin \paren{\sqrt{\lambda_n}L}.
+        \end{align*}
+        Adding these together gives that either $c_{2_n} = 0$ or $\cos\paren{\sqrt{\lambda_n}L} = 0$. In the second case we get that,
+        \[ 
+            \lambda_n = \frac{(2n + 1)^2\pi^2}{4L^2}, ~~~ n=0,1,2,\dots,
+        \] 
+        and enforcing the boundary conditions gives that $c_{1_n} = 0$. Thus the eigenfunctions are given by
+        \[ 
+            u_n = c_{2_n} \cos\paren{\frac{(2n + 1)\pi}{2l}}.
+        \]
+        Now to normalize we must enforce $\abrac{u_n,u_n} = 1$ which gives
+        \begin{align*}
+            1 &= \int_{-l}^l c_{2_n}^2 \cos^2\paren{\frac{(2n + 1)\pi}{2l} x}dx\\
+            &= \frac{c_{2_n}^2}{2} \paren{x + \frac{\sin\paren{\frac{(2n + 1)\pi}{l}x}}{\frac{(2n + 1)\pi}{l}}}_{-l}^{l}\\
+            &= c_{2_n}^2l.
+        \end{align*} 
+        Thus we have that the normalized eigenvector is
+        \[ 
+            u_n = \frac{1}{\sqrt{L}} \cos\paren{\frac{(2n + 1)\pi}{2L}x}.
+        \] 
+        In the case that $c_{2_n} = 0$, applying the boundary condition gives
+        \[ 
+            c_{1_n}\sin\paren{\sqrt{\lambda_n}L} = 0,
+        \]
+        which implies that
+        \[ 
+            \lambda_n = \frac{n^2\pi^2}{L^2}, ~ n \in \N.
+        \]
+        Thus we get the eigenfunctions to be
+        \[ 
+            u_n = c_{1_n}\sin\paren{\frac{n\pi}{L}x},
+        \]
+        and normalizing gives
+        \begin{align*}
+            1 &= \int_{-l}^{l} c_{1_n}^2\sin^2\paren{\frac{n\pi}{L}x}dx\\
+            &= \frac{c_{1_n}^2}{2}\paren{x - \frac{\sin{\paren{\frac{2n\pi}{l}x}}}{\frac{2n\pi}{l}}}_{-l}^{l}\\
+            &= c_{1_n}^2l,
+        \end{align*}
+        and thus the eigenfunctions are
+        \[ 
+            u_n = \frac{1}{\sqrt{\lambda}}\sin\paren{\frac{n\pi}{L}x}.
+        \]
+        Now combining our cases gives the eigenvalue to be
+        \[ 
+            \lambda_n = \frac{n^2\pi^2}{4l^2}, ~n \in \N,
+        \]
+        with the corresponding eigenfunctions
+        \[
+            u_n = \begin{cases}
+                \frac{1}{\sqrt{l}}\sin\paren{\frac{n\pi}{2l}x} &\text{if $n$ is even},\\
+                \frac{1}{\sqrt{l}}\cos\paren{\frac{n\pi}{2l}x} &\text{if $n$ is odd.}
+            \end{cases}
+        \]
+
+
+
+        \item [(d)]
+        The energy at the ground state is the smallest nonzero eigenvalue and thus is
+        \[ 
+            E_0 = \frac{\hbar^2}{2m}\lambda_1 = \frac{\hbar^2\pi^2}{8ml^2}.
+        \]
+        
+        \item [(e)]
+        When the electron jumps from the third state to the ground state, the emitted energy of the photon is given by
+        \[
+            E = \omega \hbar = E_3 - E_0 = \frac{15\hbar \pi^2}{8ml^2}.
+        \]
+        
+        \item [(f)]
+        If the box is cut in half, then $u(0) = u(l) = 0$ and we must scale $l$ by a factor of $1/2$ and shift $x$ to the right by $l/2$. Then the eigenvalues are given by
+        \[ 
+            \lambda_n = \frac{n^2\pi^2}{L^2} ~~ n \in \N,
+        \]
+            
+        with corresponding eigenfunctions
+        \[
+            u_n = \begin{cases}
+                \sqrt{\frac{2}{l}}\sin\paren{\frac{n\pi}{l}(x - \frac{L}{2})} &\text{if $n$ is even},\\
+                \sqrt{\frac{2}{l}}\cos\paren{\frac{n\pi}{l}(x - \frac{L}{2})} &\text{if $n$ is odd.}
+            \end{cases}
+        \]
+    \end{enumerate}
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Find the Green's function (fundamental solution) for each of the following problems, and express the solution u in terms of the Green's function.
+    \begin{enumerate}
+        \item [(a)] $u'' + c^2 u = f(x)$ with $u(0) = u(l) = 0$.
+        \item [(b)] $u'' - c^2 u = f(x)$ with $u(0) = u(l) = 0$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    \begin{enumerate}
+        \item [(a)]
+        Consider
+        \[ 
+            u_{xx} + c^2u = f(x),
+        \]
+        with the boundary conditions $u(0) = u(l) = 0$. First let's check if the operator $L = \ddn{2}{}{x} + c^2$ is self adjoint, i.e. $L = L^\dag$. Observe that
+        \begin{align*}
+            \abrac{Lu,v} = \int_0^l Lu v^* dx = \int_0^l (u_{xx} v^* + c^2 u v^*)dx,
+        \end{align*}
+        and using integration by parts twice yields
+        \[ 
+            \abrac{Lu,v} = \left. v^*u_x - v_x^*u\right|^l_0 + \int_0^l u(v^*_{xx} + c^2v^*)= J(u,v) + \abrac{u,Lv}.
+        \]
+        Enforcing that $J(u,v) = 0$ yields,
+        \begin{align*}
+            J(u,v) &= \left. v^*u_x - v_x^*u\right|^l_0\\
+            &= v^*(l)u_x(l) - v_x^*(l)u(l) - v^*(0)u_x(0) + v^*_x(0)u(0)\\
+            &= u_x(l) v^*(l) - u_x(0)v^*(0)\\
+            &= 0.
+        \end{align*} 
+        And thus $\abrac{Lu,v} = \abrac{u,Lv}$ with $v^*$ under the same boundary conditions as $u$. Thus we have that $L$ is self-adjoint. Now applying Green's function we have that
+        \begin{align*}
+            L^\dag G &= \delta(x - \xi)\\
+            LG &= \delta(x - \xi)\\
+            G_{xx} + c^2 G &= \delta(x - \xi),
+        \end{align*}
+        on the interval $[0,l]$ with the boundary conditions $G(0)=G(l)=0.$
+        Let's first look at when $x < \xi$, then we have that
+        \[ 
+            G_{xx} + c^2 G = 0,
+        \]
+        which has the general solution
+        \[ 
+            G = A\cos(cx) + B \sin(cx).
+        \]
+        Applying the left boundary condition $G(0) = 0$ gives that $A=0$ and thus the solution is given by
+        \[ 
+            G = B\sin(cx).
+        \]
+        Now if $x > \xi$, we get the same general solution 
+        \[ 
+            G = C\cos(cx) + D\sin(cx).
+        \]
+        But observe that since
+        \[ 
+            \sin(c(x - l)) = \sin(cx)\cos(-cl) + \sin(-cl)\cos(cx) = c_1\sin(cx) + c_2\cos(cx),
+        \]
+        and similarly with cosine, we can rewrite the general solution as
+        \[ 
+            G = C \cos(c(x - l)) + D \sin(c(x - l)),
+        \]
+        for some constant $c$. Applying the right boundary condition $G(l) = 0$ gives that $C = 0$ and thus the general solution is
+        \[ 
+            G(x) = D\sin(c(x - l)).
+        \]
+        If $x = \xi$ we have that $G$ is continuous so we know that 
+        \[ 
+            [G]_\xi = 0.
+        \] 
+        Then if we integrate both sides of the equation we get
+        \begin{align*}
+            \int_{-\xi}^{\xi}(G_{xx} + c^2G)dx &= \int_{-\xi}^{\xi}\delta(x - \xi)dx\\
+            [G_x]_\xi + c^2 (0)&= 1\\
+            [G_x]_\xi &= 1. 
+        \end{align*} 
+        Applying the first jump conditions
+        \begin{align*}
+            [G]_\xi &= 0 \implies G(\xi^+) - G(\xi^-) = 0,\\
+        \end{align*}
+        gives that
+        \[ 
+            D\sin(c(\xi - l)) - B\sin(c\xi) = 0.
+        \]
+        Next we apply the second jump conditions
+        \[ 
+            [G_x]_\xi = 1 \implies G_x(\xi^+) - G(\xi^-) = 1,
+        \]
+        which gives 
+        \[
+            cD\cos(c(\xi-l)) - cB\cos(c\xi) = 1.
+        \]
+        Next we can solve for the unknowns which yields
+        \[
+            D = \frac{B\sin{c \xi}}{\sin(c(\xi-l))}
+        \]
+        and plugging this into the second equations gives
+        \begin{align*}
+            1 &= cD\cos(c(\xi-l)) - cB\cos(c\xi)\\
+            &= c\paren{\frac{B\sin{c \xi}}{\sin(c(\xi-l))}}\cos(c(\xi-l)) - cB\cos(c\xi)\\
+            &= B \paren{ \frac{c\sin(c\xi)\cos(c(\xi-l)) - \cos(c\xi)(\sin(c(\xi - l)))}{\sin(c(\xi -l))}}\\
+            &= B \paren{\frac{c\sin(cl)}{\sin(c(\xi -l))}}.
+        \end{align*}
+        Thus we have that
+        \[ 
+            B = \frac{\sin(c(\xi - l))}{c\sin(cl)},
+        \]
+        and
+        \[ 
+            D = \frac{\sin(c\xi)}{c\sin(cl)}.
+        \]
+        Hence the Green's function solution is given by
+        \[ 
+            G(x,\xi) = \begin{cases}
+                \sin(cx)\sin(c(\xi - l)) / c\sin(cl) & x < \xi,\\
+                \sin(c\xi)\sin(c(x - l)) / c\sin(cl) & x > \xi.\\
+            \end{cases}
+        \]
+        Finally we can get the solution by taking the inner product to get
+        \[ 
+            \abrac{Lu,G} = \abrac{f,G} \implies \abrac{u,LG} = \abrac{f,G},
+        \]
+        and applying the shifting property on $LG = \delta(x - \xi)$ yields
+        \[ 
+            u(\xi) = \int_0^l f(x)G(x,\xi)dx.
+        \]
+        Re-naming the variables gives us the solution to be
+        \[ 
+            u(x) = \int_0^l f(\xi)G(x,\xi)d\xi.
+        \]
+
+        
+        \item [(b)]
+        Consider
+        \[ 
+            u_{xx} - c^2u = f(x),
+        \]
+        with the boundary conditions $u(0) = u(l) = 0$. First let's check if the operator $L = \ddn{2}{}{x} - c^2$ is self adjoint, i.e. $L = L^\dag$. Observe that
+        \begin{align*}
+            \abrac{Lu,v} = \int_0^l Lu v^* dx = \int_0^l (u_{xx} v^* - c^2 u v^*)dx,
+        \end{align*}
+        and using integration by parts twice yields
+        \[ 
+            \abrac{Lu,v} = \left. v^*u_x - v_x^*u\right|^l_0 + \int_0^l u(v^*_{xx} - c^2v^*)= J(u,v) + \abrac{u,Lv}.
+        \]
+        Enforcing that $J(u,v) = 0$ yields,
+        \begin{align*}
+            J(u,v) &= \left. v^*u_x - v_x^*u\right|^l_0\\
+            &= v^*(l)u_x(l) - v_x^*(l)u(l) - v^*(0)u_x(0) + v^*_x(0)u(0)\\
+            &= u_x(l) v^*(l) - u_x(0)v^*(0)\\
+            &= 0.
+        \end{align*} 
+        And thus $\abrac{Lu,v} = \abrac{u,Lv}$ with $v^*$ under the same boundary conditions as $u$. Thus we have that $L$ is self-adjoint. Now applying Green's function we have that
+        \begin{align*}
+            L^\dag G &= \delta(x - \xi)\\
+            LG &= \delta(x - \xi)\\
+            G_{xx} - c^2 G &= \delta(x - \xi),
+        \end{align*}
+        on the interval $[0,l]$ with the boundary conditions $G(0)=G(l)=0.$
+        Let's first look at when $x < \xi$, then we have that
+        \[ 
+            G_{xx} - c^2 G = 0,
+        \]
+        which has the general solution
+        \[ 
+            G = A\cosh(cx) + B \sinh(cx).
+        \]
+        Applying the left boundary condition $G(0) = 0$ gives that $A=0$ and thus the solution is given by
+        \[ 
+            G = B\sinh(cx).
+        \]
+        Now if $x > \xi$, we get the same general solution 
+        \[ 
+            G = C\cosh(cx) + D\sinh(cx).
+        \]
+        But observe that since
+        \[ 
+            \sinh(c(x - l)) = \sinh(cx)\cosh(-cl) + \sinh(-cl)\cosh(cx) = c_1\sinh(cx) + c_2\cosh(cx),
+        \]
+        and similarly with cosine, we can rewrite the general solution as
+        \[ 
+            G = C \cosh(c(x - l)) + D \sinh(c(x - l)),
+        \]
+        for some constant $c$. Applying the right boundary condition $G(l) = 0$ gives that $C = 0$ and thus the general solution is
+        \[ 
+            G(x) = D\sinh(c(x - l)).
+        \]
+        If $x = \xi$ we have that $G$ is continuous so we know that 
+        \[ 
+            [G]_\xi = 0.
+        \] 
+        Then if we integrate both sides of the equation we get
+        \begin{align*}
+            \int_{-\xi}^{\xi}(G_{xx} + c^2G)dx &= \int_{-\xi}^{\xi}\delta(x - \xi)dx\\
+            [G_x]_\xi + c^2 (0)&= 1\\
+            [G_x]_\xi &= 1. 
+        \end{align*} 
+        Applying the first jump conditions
+        \begin{align*}
+            [G]_\xi &= 0 \implies G(\xi^+) - G(\xi^-) = 0,\\
+        \end{align*}
+        gives that
+        \[ 
+            D\sinh(c(\xi - l)) - B\sinh(c\xi) = 0.
+        \]
+        Next we apply the second jump conditions
+        \[ 
+            [G_x]_\xi = 1 \implies G_x(\xi^+) - G(\xi^-) = 1,
+        \]
+        which gives 
+        \[
+            cD\cosh(c(\xi-l)) - cB\cosh(c\xi) = 1.
+        \]
+        Next we can solve for the unknowns which yields
+        \[
+            D = \frac{B\sinh{c \xi}}{\sinh(c(\xi-l))}
+        \]
+        and plugging this into the second equations gives
+        \begin{align*}
+            1 &= cD\cosh(c(\xi-l)) - cB\cosh(c\xi)\\
+            &= c\paren{\frac{B\sinh{c \xi}}{\sinh(c(\xi-l))}}\cosh(c(\xi-l)) - cB\cosh(c\xi)\\
+            &= B \paren{ \frac{c\sinh(c\xi)\cosh(c(\xi-l)) - \cosh(c\xi)(\sinh(c(\xi - l)))}{\sinh(c(\xi -l))}}\\
+            &= B \paren{\frac{c\sinh(cl)}{\sinh(c(\xi -l))}}.
+        \end{align*}
+        Thus we have that
+        \[ 
+            B = \frac{\sinh(c(\xi - l))}{c\sinh(cl)},
+        \]
+        and
+        \[ 
+            D = \frac{\sinh(c\xi)}{c\sinh(cl)}.
+        \]
+        Hence the Green's function solution is given by
+        \[ 
+            G(x,\xi) = \begin{cases}
+                \sinh(cx)\sinh(c(\xi - l)) / c\sinh(cl) & x < \xi,\\
+                \sinh(c\xi)\sinh(c(x - l)) / c\sinh(cl) & x > \xi.\\
+            \end{cases}
+        \]
+        Finally we can get the solution by taking the inner product to get
+        \[ 
+            \abrac{Lu,G} = \abrac{f,G} \implies \abrac{u,LG} = \abrac{f,G},
+        \]
+        and applying the shifting property on $LG = \delta(x - \xi)$ yields
+        \[ 
+            u(\xi) = \int_0^l f(x)G(x,\xi)dx.
+        \]
+        Re-naming the variables gives us the solution to be
+        \[ 
+            u(x) = \int_0^l f(\xi)G(x,\xi)d\xi.
+        \]
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Calculate the solution of the Sturm-Liouville problem using the Green's function approach (See the notes as I already showed you what the answer should be)
+    \[ 
+        Lu = -[p(x)u_x]_x + q(x)u = f(x), ~~~ 0 \leq x \leq l,
+    \]
+    with 
+    \[ 
+        \alpha_1 u(0) + \beta_1u_x(0) = 0 ~~~ \text{and} ~~~ \alpha_2 u(l) + \beta_2 u_x(l) = 0 
+    \]
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the Sturm-Liouville problem
+    \[ 
+        Lu = -[p(x)u_x]_x + q(x)u = f(x), ~~~ 0 \leq x \leq l,
+    \]
+    with boundary conditions 
+    \[ 
+        \alpha_1 u(0) + \beta_1u'(0) = 0, ~~~ \text{and} ~~~ \alpha_2 u(l) + \beta_2 u'(l) = 0.
+    \]
+    We know that the Sturm-Liouville operator is self-adjoint and thus the Green's function satisfies
+    \[
+        LG = -[pG_x]_x + qG = \delta(x - \xi),
+    \]
+    on the interval $x,\xi \in [0,l]$ with the boundary conditions
+    \[ 
+        \alpha_1 G(0) + \beta_1G_x(0) = 0, ~~~ \text{and} ~~~ \alpha_2 G(l) + \beta_2 G_x(l) = 0.
+    \]
+    Next we can impose constraints on the Green's function since we know that the Green's function and it's first derivative is continuous. Thus there are no jumps in the solution which gives
+    \[ 
+        [G(x,\xi)]_\xi = G(\xi^+,\xi) - G(\xi^-,\xi) = 0,
+    \]
+    and no jumps in the derivative which yields
+    \begin{align*}
+        \int_{\xi^-}^{\xi^+}(-[p(x)G_x]_x + q(x)G)dx &= \int_{\xi^-}^{\xi^+}\delta(x -\xi)dx\\
+        -[p(x)G_x]_{\xi^-}^{\xi^+} + \int_{\xi^-}^{\xi^+}q(x)Gdx &= 1\\
+        [p(x)G_x]_\xi&=-1\\
+        [G_x(x,\xi)]_\xi &= - \frac{1}{p(\xi)}.
+    \end{align*}
+    Next we can compute the Green's function for $x < \xi$ and $x > \xi$ and then enforce the jump conditions. First let's consider when $x < \xi$. The governing equation reduces to 
+    \[ 
+        LG = 0,
+    \] 
+    which is a second order operator and thus has two linear independent solutions. Imposing the left boundary condition $\alpha_1 G(0) + \beta_1G_x(0) = 0$ reduces the solution to one linear independent solution
+    \[ 
+        G = Ay_1(x),
+    \]
+    where $y_1(x)$ is the independent solution and $A$ is an unknown constant. Similarly, when $x < \xi$ we get the solution
+    \[ 
+        G = By_2(x),
+    \] 
+    where $y_2(x)$ is the independent solution and $B$ is an unknown constant. To solve for the unknowns, we can enforce the jump conditions which gives
+    \[
+        [G]_\xi = G(\xi^+) - G(\xi^-) = By_2(\xi) - Ay_1(\xi) = 0.
+    \]
+    Thus we have that $B = \frac{Ay_1(\xi)}{y_2(\xi)}$. Imposing the next jump condition yields
+    \begin{align*}
+        - \frac{1}{p(\xi)} &= G_x(\xi^+) - G_x(\xi^-)\\
+        &= By_2'(\xi) - Ay_1'(\xi)\\
+        &= \frac{Ay_1(\xi)}{y_2(\xi)} y_2'(\xi) - Ay_1'(\xi)\\
+        &= A\paren{ \frac{y_1(\xi)y_2'(\xi) - y_1'(\xi)y_2(\xi)}{y_2(\xi)}},
+    \end{align*}
+    and thus we have that
+    \[ 
+        A = \frac{y_2(\xi)}{p(\xi)(y_1'(\xi)y_2(\xi) - y_1(\xi)y_2'(\xi))} = \frac{y_2(\xi)}{p(\xi)W(y_2(\xi),y_1(\xi))}.
+    \]
+    Similarly we get that
+    \[ 
+        B = \frac{y_1(\xi)}{p(\xi)W(y_2(\xi), y_1(\xi))}.
+    \]
+    Hence the Green's function solution is given by
+    \[ 
+        G(x,\xi) = \begin{cases}
+            y_1(x)y_2(\xi)/p(\xi)W(y_2(\xi),y_1(\xi)) & x < \xi,\\
+            y_1(\xi)y_2(x)/p(\xi)W(y_2(\xi),y_1(\xi)) & x > \xi.\\
+        \end{cases}
+    \]
+    Finally we can get the solution by taking the inner product to get
+    \[ 
+        \abrac{Lu,G} = \abrac{f,G} \implies \abrac{u,LG} = \abrac{f,G},
+    \]
+    and applying the shifting property on $LG = \delta(x - \xi)$ yields
+    \[ 
+        u(\xi) = \int_0^l f(x)G(x,\xi)dx.
+    \]
+    Re-naming the variables gives us the solution to be
+    \[ 
+        u(x) = \int_0^l f(\xi)G(x,\xi)d\xi.
+    \]
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

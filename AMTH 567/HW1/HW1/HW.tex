@@ -1,0 +1,217 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 567 Homework 1\\
+ Due October 12 2022\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--Done--$
+
+\begin{problem}
+    Express each of the following in polar exponential form:
+    \begin{enumerate}
+        \item [b.] $-i$
+        \item [c.] $1 + i$
+        \item [d.] $\frac{1}{2} + \frac{\sqrt{3}}{2}i$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    \begin{enumerate}
+        \item [b.] Let $r = 1$ and $\theta = \frac{3 \pi}{2}$. Then $z = -i = e^{\frac{3\pi i}{2} + 2\pi i k}$ for $k=0,\pm 1, \pm 2, \dots$. 
+        \item [c.] Let $r = \sqrt{2}$ and $\theta = \frac{\pi}{4}$. Then $z = \sqrt{2}e^{\frac{\pi}{4}i + 2k\pi i}$ for $k=0,\pm 1, \pm 2, \dots$.
+        \item [d.] Let $r = \sqrt{\frac{1}{4} + \frac{3}{4}} = \sqrt{1} = 1$ and $\theta = \frac{\pi}{3}$. Then $z=e^{\frac{\pi}{3}i + 2k\pi i}$ for $k=0,\pm 1, \pm 2, \dots$. 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%----$
+
+\begin{problem}
+    Express each of the following in the form of $a+bi$, where $a$ and $b$ are real.
+    \begin{enumerate}
+        \item [a.] $e^{2+i\pi/2}$
+        \item [b.] $\frac{1}{1+i}$
+        \item [c.] $(1+i)^3$
+        \item [d.] $|3+4i|$
+        \item [e.] $\cos(i \pi / 4 + c)$ for some real $c$ 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    \begin{enumerate}
+        \item [a.] $e^{2+i\pi/2} = e^{2}e^{i\pi/2}=e^{2}\left(\cos(\frac{\pi}{2}) + i \sin(\frac{\pi}{2})\right) = ie^{2}.$
+        \item [b.] $\frac{1}{1+i} = \frac{1}{z} = \frac{\bar{z}}{|z|^2} = \frac{1-i}{2} = \frac{1}{2} - i \frac{1}{2}.$
+        \item [c.] $(1+i)^3 = (1+i)(1+i)(1+i) = (1+2i-1)(1+i) = 2i(1+i) = 2(i - 1) = -2 + i2.$
+        \item [d.] $|3+4i| = \sqrt{\Re(3+4i)^2 + \Im(3+4i)} = \sqrt{3^2 + 4^2} = \sqrt{25} = 5$
+        \item [e.] Let c be real, then we can rewrite as following,
+        \begin{align*}
+            \cos(i \frac{\pi}{4} + c) &= \frac{e^{i(i \frac{\pi}{4} + c)}+e^{-i(i \frac{\pi}{4} + c)}}{2}\\ 
+            &= \frac{1}{2}\left(e^{(-\frac{\pi}{4} + ic)}+e^{(\frac{\pi}{4} - ic)}\right)\\
+            &= \frac{1}{2}\left(e^{(-\frac{\pi}{4})}e^{(ic)}+e^{(\frac{\pi}{4})} e^{(-ic)} \right)\\
+            &= \frac{1}{2}\left(e^{(-\frac{\pi}{4})}(\cos(c)+i\sin(c))+e^{(\frac{\pi}{4})}(\cos(c)-i\sin(c))  \right)\\
+            &= \frac{1}{2}\left(e^{(-\frac{\pi}{4})}\cos(c)+i\sin(c)e^{(-\frac{\pi}{4})}+e^{(\frac{\pi}{4})}\cos(c)-ie^{(\frac{\pi}{4})}\sin(c)  \right)\\
+            &= \frac{1}{2}\cos(c)\left(e^{(-\frac{\pi}{4})}+e^{(\frac{\pi}{4})}\right)+i\frac{1}{2}\sin(c)\left(e^{(-\frac{\pi}{4})}-e^{(\frac{\pi}{4})}\right)\\
+            &= \frac{1}{2}\left(\cos(c)\left(e^{(-\frac{\pi}{4})}+e^{(\frac{\pi}{4})}\right)+i\sin(c)\left(e^{(-\frac{\pi}{4})}-e^{(\frac{\pi}{4})}\right)\right)\\
+            &=\cos(c)\cosh\left(\frac{\pi}{4}\right) - i\sin(c)\sinh\left(\frac{\pi}{4}\right)\\
+        \end{align*}
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Solve for the roots of the following equation: 
+    \begin{enumerate}
+        \item [a.] $z^3 = 4$
+        \item [b.] $z^4 = -1$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [a.] 
+        Consider $z^3 = 4$. To find the roots we can use the roots of unity method which gives that the roots will be of form, $$z = \sqrt[3]{4}e^{2k\pi i/3}$$ for $n=1,2,3$. Thus the roots are $\sqrt[3]{4}e^{2\pi i/3},\sqrt[3]{4}e^{4\pi i/3},\sqrt[3]{4}$
+
+        \item [b.] 
+        Consider $z^4 = -1 \implies z^4 + 1 = 0$. To find the roots, we can rewrite the complex number in the form $z^4 = -1 = |-1|e^{i\pi}e^{i2\pi n}$ where $n \in \Z$. Then we get,
+        $$z=e^{i\pi\frac{(2n+1)}{4}}$$
+        which gives the roots to be,
+        $$e^{i\frac{\pi}{4}},e^{i\frac{3\pi}{4}},e^{i\frac{5\pi}{4}},e^{i\frac{7\pi}{4}}$$
+         
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Establish the following result: 
+    \begin{enumerate}
+        \item [a.] $(z+w)^*=z^* + w^*$
+        \item [d.] $\text{Re}(z) \leq |z|$
+        \item [e.] $|wz^* + w^*z| \leq 2|wz|$
+        \item [f.] $|z_1z_2| = |z_1||z_2|$
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [a.] 
+        Let $z,w \in \C$ such that $z=a+ib$ and $w=c+id$.
+        Then,
+        \begin{align*}
+            (z+w)^* &= ((a+ib) + (c+id))^*\\
+                    &= ((a+c) + i(b+d))^*\\
+                    &= (a+c) - i(b+d)\\
+                    &= (a+c) +(-ib - id)\\
+                    &= (a-ib) + (c - id)\\
+                    &= z^* + w^*
+        \end{align*}
+        Thus we have shown that $(z+w)^* = z^* + w^*$.
+        \item [d.]
+        Let $z \in \C$ such that $z=a+ib$.
+        Then we have that,
+        $$\Re(z) = a \leq |a| = \sqrt{a^2} \leq \sqrt{a^2 + b^2} = |z|.$$
+        \item [e.]
+        Let $w,z \in \C$ such that $z=a+ib$ and $w=c+id$.
+        Then,
+        \begin{align*}
+            |wz^* + w^*z| &= |(c+id)(a+ib)^* + (c+id)^*(a+ib)|\\
+                          &= |(c+id)(a-ib) + (c-id)(a+ib)|\\
+                          &= |ca - icb + iad + db + ca + icb -iad + db|\\
+                          &= |2ca +2db|\\
+                          &= 2\sqrt{(ca + db)^2}\\
+                          &= 2\sqrt{(ca)^2 + 2cadb + (db)^2}
+        \end{align*}
+        \begin{align*}
+            2|wz| &= 2 |(c+id)(a+ib)|\\
+                  &= 2 |a c - b d + i (a d + b c) |\\
+                  &= 2 \sqrt{(ac - bd)^2 + (ad + bc)^2}\\
+                  &= 2 \sqrt{ a^2 c^2 - 2 a b c d + b^2 d^2 + a^2 d^2 + 2 a b c d + b^2 c^2}\\
+                  &= 2 \sqrt{ (ac)^2 + (bd)^2 + (ad)^2 + (bc)^2}\
+        \end{align*}
+        Thus it is left to show that $2cabd \leq (bd)^2 + (ad)^2$.
+        If we let $A = ad$ and $B = bd$ then we want to show that $2AB \leq A^2 + B^2$. But we know that $(A-B)^2 = A^2 - 2AB + B^2 \geq 0$
+        and thus $2AB \leq A^2 + B^2$ and we have shown that $(z+w)^* = z^* + w^*$. 
+
+        \item [f.] $|z_1z_2| = |z_1||z_2|$.
+        
+        Let $z_1,z_2 \in \C$ such that $z_1 = x_1 + iy_1$ and $z_2 = x_2 + i y_2$. Then,
+        \begin{align*}
+            |z_1z_2| &= |(x_1 + iy_1)(x_2 + iy_2)|\\
+                    &= |i x_2 y_1 + i x_1 y_2 + x_1 x_2 - y_1 y_2|\\
+                    &= |(x_1 x_2 - y_1 y_2) + i(x_2 y_1 + x_1 y_2)|\\
+                    &= \sqrt{(x_1 x_2 - y_1 y_2)^2 + (x_2 y_1 + x_1 y_2)^2}\\
+                    &= \sqrt{-2 x_1 x_2 y_1 y_2 + x_1^2 x_2^2 + y_1^2 y_2^2 + x_2^2 y_1^2 + 2 x_1 x_2 y_2 y_1 + x_1^2 y_2^2}\\
+                    &= \sqrt{x_1^2 x_2^2 + y_1^2 y_2^2 + x_2^2 y_1^2 + x_1^2 y_2^2}\\
+                    &= \sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)}\\
+                    &=\sqrt{(x_1^2 + y_1^2)}\sqrt{(x_2^2 + y_2^2)}\\
+                    &=|z_1||z_2|
+        \end{align*}
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+\end{document}

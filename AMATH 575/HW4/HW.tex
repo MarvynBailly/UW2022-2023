@@ -1,0 +1,690 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 575 Homework 4\\
+ Due not very soon\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Please be working on your next project presentation, scheduled for May 24 and 26.   The final paper will then be due on June 9. 
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Project is being worked on!
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the ``all-to-all'' coupled system of pulse-coupled phase oscillators on the N-dimensional torus, with coupling strength $\epsilon>0$, from class:
+    \begin{equation}
+    \dot \theta_i = \omega + \epsilon z(\theta_i) \frac{1}{N} \sum_{j=1}^N g(\theta_j)  
+    \end{equation}
+    $i=1...N$.  Let $z(\theta_i)=A \sin \theta + B \cos \theta $, which we noted in class corresponds to Hopf, generalized Hopf, and to saddle-node on a periodic orbit bifurcations, which are the most common co-dimension 1 bifurcations to periodic orbits.  Let $g(\theta) = \sum_{k=1}^\infty a_k \sin(k \theta) + b_k \cos(k \theta)$, a totally general ``impulse" function describing the coupling from oscillator j.  Beginning with the same coordinate transformation as in class, compute the averaged system
+    \begin{equation}
+    \dot \psi_i =  \epsilon  \frac{1}{N} \sum_{j=1}^N f(\psi_j - \psi_i)  
+    \end{equation} 
+    Recall that the conclusions of the averaging theorem on how the latter equation approximates the first hold here, making the latter equation a useful approximation.
+    [a] Find a general explicit expression for $f$, involving the constants $A,B, a_k, b_k$ above for appropriate $k$.
+    [b] Building from a previous homework, find a general condition on these constants that guarantees that the averaged system will be a gradient dynamical system.
+    [c] Find a general condition on these constants that guarantees that any solution $\psi_i \equiv k$ $\forall k$ is a fixed point for the averaged system.  These are referred to as synchronized solutions. Compute the Jacobian for these fixed points , and write down the dimension of the stable, unstable, and center manifolds for all possible choices of the  constants $A,B, a_k, b_k$ .
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the ``all-to-all'' coupled system of pulse-coupled phase oscillators on the N-dimensional torus, with coupling strength $\epsilon>0$, from class:
+    \begin{equation}
+    \dot \theta_i = \omega + \epsilon z(\theta_i) \frac{1}{N} \sum_{j=1}^N g(\theta_j),
+    \end{equation}
+    $i=1...N$. Let $z(\theta_i)=A \sin \theta + B \cos \theta $ and
+    \[
+        g(\theta) = \sum_{k=1}^\infty a_k \sin(k \theta) + b_k \cos(k \theta).
+    \]
+
+    \begin{enumerate}
+        \item [(a)]
+        To find a general explicit expression for $f$, we take the change of variables and integrate to get the averaged system to be
+        \begin{align*}
+            \psi_i' &= \eps \frac{1}{N} \frac{1}{2\pi} \int_{\psi_i}^{\psi_i + 2\pi}z(s)\sum_{j=1}^{N}g(\psi_j - \psi_i + s)\d s\\
+            &= \eps \frac{1}{N}\sum_{j=1}^{N} \int_{\psi_i}^{\psi_i + 2\pi}z(s)g(\psi_j - \psi_i + s)\d s.
+        \end{align*}
+        Now substituting $g(\theta)$ and $z(s)$ we get
+        \begin{align*}
+            I &= \sum_{k=1}^{\infty} \frac{1}{2\pi}\int_{\psi_i}^{\psi_i + 2\pi} \paren{A\sin(s) + B\cos(s)}\paren{a_k\sin(k(\psi_j - \psi_i + s)) + b_k\cos(k(\psi_j - \psi_i + s))}\d s\\
+            &=\sum_{k=1}^{\infty} \frac{1}{2\pi}\int_{0}^{2\pi} \paren{A\sin(s) + B\cos(s)}\paren{a_k\sin(k(\psi_j - \psi_i + s)) + b_k\cos(k(\psi_j - \psi_i + s))}\d s.
+        \end{align*}
+        where the second equality is true since the integrand is $2\pi$-periodic. To compute $I$, we will break up the integral into three sub-integrals. First, consider the integral
+        \begin{align*}
+            &\int_0^{2\pi} \sin(s)\sin(k(\psi_j - \psi_i + s))\d s\\
+            &\quad = \frac{1}{2}\int_0^{2\pi} \cos((k-1)s + k \psi_j - k\psi_i) - \cos((k+1)s + k \psi_j - k\psi_i)\d s\\
+            &\quad = \left. \frac{1}{2(k-1)}\sin((k-1)s + k\psi_j - k\psi_i) - \frac{1}{2(k+1)}\sin((k-1)s + k\psi_j - k\psi_i) \right|_0^{2\pi}\\
+            &\quad = \begin{cases}
+                0 & \text{if}~k\neq1\\
+                \pi \cos(\psi_j - \psi_i) &\text{otherwise.}
+            \end{cases}
+        \end{align*}
+        Next, consider the second integral
+        \begin{align*}
+            &\int_0^{2\pi} \sin(s)\cos(k(\psi_j - \psi_i + s))\d s\\
+            &\quad = \frac{1}{2}\int_0^{2\pi} \sin((k+1)s + k \psi_j - k\psi_i) - \sin((k-1)s + k \psi_j - k\psi_i)\d s\\
+            &\quad = \left. \frac{1}{2(k-1)}\cos((k-1)s + k\psi_j - k\psi_i) - \frac{1}{2(k+1)}\cos((k+1)s + k\psi_j - k\psi_i) \right|_0^{2\pi}\\
+            &\quad = \begin{cases}
+                0 & \text{if}~k\neq1\\
+                -\pi \sin(\psi_j - \psi_i) &\text{otherwise.}
+            \end{cases}
+        \end{align*}
+        Next, consider the third integral
+        \begin{align*}
+            &\int_0^{2\pi} \cos(s)\sin(k(\psi_j - \psi_i + s))\d s\\
+            &\quad = \frac{1}{2}\int_0^{2\pi} \sin((k+1)s + k \psi_j - k\psi_i) + \sin((k-1)s + k \psi_j - k\psi_i)\d s\\
+            &\quad = \left. -\frac{1}{2(k-1)}\cos((k-1)s + k\psi_j - k\psi_i) - \frac{1}{2(k+1)}\cos((k+1)s + k\psi_j - k\psi_i) \right|_0^{2\pi}\\
+            &\quad = \begin{cases}
+                0 & \text{if}~k\neq1\\
+                \pi \sin(\psi_j - \psi_i) &\text{otherwise.}
+            \end{cases}
+        \end{align*}
+        Finally, consider the fourth integral
+        \begin{align*}
+            &\int_0^{2\pi} \cos(s)\cos(k(\psi_j - \psi_i + s))\d s\\
+            &\quad = \frac{1}{2}\int_0^{2\pi} \cos((k+1)s + k \psi_j - k\psi_i) + \cos((k-1)s + k \psi_j - k\psi_i)\d s\\
+            &\quad = \left. \frac{1}{2(k-1)}\sin((k-1)s + k\psi_j - k\psi_i) + \frac{1}{2(k+1)}\sin((k+1)s + k\psi_j - k\psi_i) \right|_0^{2\pi}\\
+            &\quad = \begin{cases}
+                0 & \text{if}~k\neq1\\
+                \pi \cos(\psi_j - \psi_i) &\text{otherwise.}
+            \end{cases}
+        \end{align*}
+        Thus letting $k=1$ and plugging these back into the original integral we find that
+        \begin{align*}
+            I &= \frac{1}{2\pi}\paren{Aa_1 \pi \cos(\psi_j - \psi_i) - Ab_1\pi \sin(\psi_j - \psi_i) + Ba_1\pi\sin(\psi_j - \psi_i) - Bb_1\pi \cos(\psi_j - \psi_i)}\\
+            &= \frac{1}{2}\paren{Aa_1 + Bb_1}\cos(\psi_j - \psi_i) + \frac{1}{2}\paren{Ba_1 - Ab_1}\sin(\psi_j - \psi_i).
+        \end{align*}
+        Plugging this back into $\psi_i'$ we find the general expression for $f$:
+        \begin{align*}
+            \psi_i' &= \eps \frac{1}{N}\sum_{j=1}^{N}\paren{\frac{1}{2}(Aa_1 + Bb_1)\cos(\psi_j - \psi_i) + \frac{1}{2}\paren{Ba_1 - Ab_1}\sin(\psi_j - \psi_i)}\\
+            &= \eps \frac{1}{N}\sum_{j=1}^{N}f(\psi_j - \psi_i).
+        \end{align*}
+
+
+        \item [(b)]
+        Recall that from Homework 3 we found that a system of this form has a gradient flow if $f$ is an odd function. Thus we let $Aa_1 + Bb_1 = 0$ to enforce $f$ being odd and therefore the system is a gradient flow.
+        
+        
+        \item [(c)]
+        To guarantee that any solution $\psi_i = k$ is a fixed point of the averaged system we require
+        \[
+            0 =\eps \frac{1}{N}\sum_{j=1}^{N}\paren{\frac{1}{2}(Aa_1 + Bb_1)\cos(0) + \frac{1}{2}\paren{Ba_1 - Ab_1}\sin(0)},
+        \]
+        and thus
+        \[
+            Aa_1 + Bb_1 = 0.
+        \]
+        To determine the stability of the fixed points, let's consider the Jacobian
+        \[
+            J = J_{i,k} = \begin{cases}
+               \frac{\eps}{2N}(Ba_1 - Ab_1)(-(N-1)) &\text{if}~ i = k,\\
+               \frac{\eps}{2N}(Ba_1 - Ab_1) &\text{if}~ i \neq k.
+            \end{cases}
+        \]
+        Next, we can apply Gerschgorin's circle theorem which tells us that all the eigenvalues of $J$ are the same sign or zero depending on the sign of $Ba_1 - Ab_1$. Next, we notice that the Jacobian has a null space of dimension $1$ which implies that the center manifold also has dimension $1$. We found the dimension of the null space by noting that $J$ is the graph Laplacian of a complete graph with $N$ vertices with uniform weights on the edges $\frac{-\eps}{2N}(Ba_1 - Ab_1)$. Thus if $Ba_1 - Ab_1 > 0$, then the stable manifold will have dimension $N-1$ and the unstable manifold has dimension $0$. And if $Ba_1 - Ab_1 < 0$ then the unstable manifold has dimension $N-1$ and the stable manifold has dimension $0$.
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Compute the normal form, up to order two, for a two-dimensional flow with linear part (Jacobian, in real Jordan form) $$
+   J=
+  \left[ {\begin{array}{cc}
+   1 & 0 \\
+   0 & \lambda \\
+  \end{array} } \right] $$ where $\lambda \neq 0$ is an arbitrary real parameter.    Note that the case you will study, $\lambda \neq 0$, is for a hyperbolic fixed point that is a saddle or a source.  Make sure to cover all of the possible cases; the normal form may differ for different values of $\lambda$.  As a comment, your result will relate nicely to Sternberg's Theorem (not covered in class):  if $\lambda_j$ are eigenvalues of $J$, the full flow can be linearized by a diffeomorphism if $\sum_{j=1}^n m_j \lambda_j \neq 0$ for all integers $m_j$. 
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the system
+    \[ 
+        w' = G(w),    
+    \]
+    where $w \in \R^2$, $G(w)$ is sufficiently differentiable and has a hyperbolic fixed point at $w_0$ that is either a saddle or a source. First, we will translate to get the fixed point at the origin by defining 
+    \[
+        v = w - w_0,
+    \]
+    and then
+    \[
+        v' = G(v + w_0) = H(v). 
+    \]
+    Next, we will split off the linear part by Taylor expanding and noting that $H(0) = 0$ we get
+    \[
+        v' = DH(0)v + \hat{H}(v),
+    \]
+    where $\hat{H}(v)$ is at least quadratic in $v$ and $DH(0)$ is the Jacobian of $H(v)$ evaluated at $v=0$. Finally, we will transform the linear part by letting 
+    \[
+        v = Tx,
+    \] 
+    where $T$ is the transfomation matrix to bring $DH(0)$ to its real Jordan form. This gives
+    \begin{align*}
+        Tx' &= DH(0)Tx + \hat{H}(Tx)\\
+        x' &= T^{-1}DH(0)Tx + T^{-1}\hat{H}(Tx)\\
+        x' &= Jx + F(x)\\
+        x' &= Jx + F_2(x) + F_3(x) + \cdots
+    \end{align*}
+    Where $F_2(x)$ are the quadratic compoments of $x$ and $J$ is the real Jordan form of $DH(0)$ which in known to be of the form
+    \[
+        J = \begin{bmatrix}
+            1 & 0 \\ 0 & \lambda
+        \end{bmatrix},
+    \]
+    where $\lambda \neq 0$ since the fixed is hyperbolic. Now we wish to compute the normal form up to the second order and thus we consider 
+    \[
+        x = y + h_2(y),
+    \]
+    where $h_2(y) = (h_2,h_2)^T$ (apologies for the abuse of notation) is a quadratic function of the components of $y = (y_1,y_2)^T$. Note that the basis for quadratic functions of the components of $y$ is
+    \[
+        \begin{pmatrix}
+            y_1^2 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_1y_2 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_2^2 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            0 \\ y_1^2
+        \end{pmatrix},
+        \begin{pmatrix}
+            0 \\ y_1y_2
+        \end{pmatrix},
+        \begin{pmatrix}
+            0 \\ y_2^2
+        \end{pmatrix}.
+    \]
+    To see which of these terms are resonant, consider the operator
+    \begin{align*}
+        L_j^{(2)}h_2 &= Jh_2 - Dh_2 Jy\\
+        &= \begin{pmatrix}
+            1  & 0\\ 0 & \lambda
+        \end{pmatrix}\begin{pmatrix}
+            h_1 \\ h_2
+        \end{pmatrix} - \begin{pmatrix}
+            \pp{h_1}{y_1} &  \pp{h_1}{y_2}\\
+            \pp{h_2}{y_1} &  \pp{h_2}{y_2}\\
+        \end{pmatrix}
+        \begin{pmatrix}
+            1  & 0\\ 0 & \lambda
+        \end{pmatrix}
+        \begin{pmatrix}
+            y_1\\y_2
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            -y_1 \pp{h_1}{y_1} - y_2 \lambda \pp{h_1}{y_2} + h_1\\
+            -y_1 \pp{h_2}{y_1} - y_2\lambda \pp{h_2}{y_2} + \lambda y_2
+        \end{pmatrix}.
+    \end{align*}
+    To find the resonant terms, we apply each basis vector to the operator
+    \begin{align*}
+        L_j^{(2)} \begin{pmatrix}
+            y_1^2 \\ 0
+        \end{pmatrix} &= \begin{pmatrix}
+            -2y_1y_2 + y_1^2\\0
+        \end{pmatrix} = \begin{pmatrix}
+            -y_1^2\\0
+        \end{pmatrix},\\
+        L_j^{(2)} \begin{pmatrix}
+            y_1y_2 \\ 0
+        \end{pmatrix} &= \begin{pmatrix}
+            -y_1y_2 - \lambda y_1 y_2 + y_1 y_2\\0
+        \end{pmatrix} = \begin{pmatrix}
+            -\lambda y_2 y_1 \\ 0
+        \end{pmatrix},\\
+        L_j^{(2)} \begin{pmatrix}
+            y_2^2 \\ 0
+        \end{pmatrix} &= \begin{pmatrix}
+            -y_2 \lambda 2 y_2 + y_2^2\\0
+        \end{pmatrix} = \begin{pmatrix}
+            (1 - 2\lambda)y_2^2\\0
+        \end{pmatrix},\\
+        L_j^{(2)} \begin{pmatrix}
+            0 \\ y_1^2
+        \end{pmatrix} &= \begin{pmatrix}
+            0\\-y_1 2y_1 + \lambda y_1^2
+        \end{pmatrix} = \begin{pmatrix}
+            0\\(\lambda - 2)\lambda_1^2
+        \end{pmatrix},\\
+        L_j^{(2)} \begin{pmatrix}
+            0 \\ y_1y_2
+        \end{pmatrix} &= \begin{pmatrix}
+            0 \\ -y_1y_2 - y_2 \lambda y_1 + \lambda y_1 y_2
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\ - y_1 y_2
+        \end{pmatrix},\\
+        L_j^{(2)} \begin{pmatrix}
+            0 \\ y_2^2
+        \end{pmatrix} &= \begin{pmatrix}
+            -y_2\lambda 2 y_2 + \lambda y_2^2
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\ -\lambda y_2^2
+        \end{pmatrix}.
+    \end{align*}
+    Next, we can eliminate the terms in $F_2$ that are in the range of $L_J^2$. Recalling that $\lambda \neq 0$, we get the following cases for the normal form of $J$ to be
+    \[
+        \begin{cases}
+            y' = Jy + F_3 + \cdots  & \lambda \neq 1/2 \and \lambda \neq 2,\\
+            y' = Jy + a_1\begin{pmatrix}
+                y_2^2\\0
+            \end{pmatrix} + \cdots = &\lambda = 1/2,\\
+            y' = Jy + a_1\begin{pmatrix}
+                0\\y_1^2
+            \end{pmatrix} + \cdots & \lambda = 2.\\  
+        \end{cases}
+    \] 
+    Therefore when $\lambda \neq 1/2 \and \lambda \neq 2$ we can rewrite the system as
+    \[
+        \begin{cases}
+            y_1 = y_1 + \cdots,\\
+            y_2 = \lambda y_2 + \cdots.\\
+        \end{cases}
+    \]
+    When $\lambda = 1/2$ we can rewrite the system as
+    \[
+        \begin{cases}
+            y_1 = y_1 + a_1y_2^2 + \cdots,\\
+            y_2 = \lambda y_2 + \cdots.\\
+        \end{cases}
+    \]
+    And when $\lambda = 2$ we can rewrite the system as
+    \[
+        \begin{cases}
+            y_1 = y_1 + \cdots,\\
+            y_2 = \lambda y_2 +  a_1 y_1^2 +\cdots.\\
+        \end{cases}
+    \]
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Determine the Takens-Bogdanov normal form to third order. 
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Suppose that 
+    \[
+        J = \begin{pmatrix}
+            0 & 1 \\ 0 & 0
+        \end{pmatrix}.
+    \]
+    The possible third-order terms are 
+    \[ 
+        H_3 = \text{span}\left\{\begin{pmatrix}
+            y_1^3\\0
+        \end{pmatrix},\begin{pmatrix}
+            y_1^2y_2\\0
+        \end{pmatrix},\begin{pmatrix}
+            y_1y_2^2\\0
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_2^3\\0
+        \end{pmatrix},
+        \begin{pmatrix}
+            0\\y_1^3
+        \end{pmatrix},\begin{pmatrix}
+            0\\y_1^2y_2
+        \end{pmatrix},\begin{pmatrix}
+            0\\y_1y_2^2
+        \end{pmatrix},
+        \begin{pmatrix}
+            0\\y_2^3
+        \end{pmatrix}\right\}.
+    \]    
+    We'd like to determine the range of $L_j^{(3)}$. Recall that 
+    \[
+        L_J^{(3)}h_3 = Jh_3 - Dh_3Jy,
+    \]
+    where $h_3 = (h_1,h_2)^T \in H_3$ and $y = (y_1,y_2)^T$. In our case we get
+    \begin{align*}
+        L_J^{(3)}h_3 &= \begin{pmatrix}
+            0  & 1\\ 0 & 0
+        \end{pmatrix}\begin{pmatrix}
+            h_1 \\ h_2
+        \end{pmatrix} - \begin{pmatrix}
+            \pp{h_1}{y_1} &  \pp{h_1}{y_2}\\
+            \pp{h_2}{y_1} &  \pp{h_2}{y_2}\\
+        \end{pmatrix}
+        \begin{pmatrix}
+            0 & 1\\ 0 & 0
+        \end{pmatrix}
+        \begin{pmatrix}
+            y_1\\y_2
+        \end{pmatrix}\\
+        &= \begin{pmatrix}
+            h_2 \\ 0
+        \end{pmatrix} - \begin{pmatrix}
+            \pp{h_1}{y_1}y_2\\
+            \pp{h_2}{y_1} y_2
+        \end{pmatrix}\\
+        &=\begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix}.
+    \end{align*}
+    To find the resonant terms, we apply the operator to each basis element of $H_3$ to get
+    \begin{align*}
+        L_J^{(3)}
+        \begin{pmatrix} 
+            y_1^3\\0 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            -3y_1^2y_2 \\ 0
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            y_1^2y_2\\0 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            -2y_1y_2^2\\0
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            y_1y_2^2\\0 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            -y_2^3\\0
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            y_2^3\\0 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            0\\y_1^3
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            y_1^3 \\ 3y_1^2 y_2
+        \end{pmatrix} = \begin{pmatrix}
+            y_1^3 \\ 0
+        \end{pmatrix} - 3\begin{pmatrix}
+            0 \\ y_1^2 y_2 
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            0\\y_1^2y_2 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            y_1^2y_2 \\ -2y_1 y_2^2
+        \end{pmatrix} = \begin{pmatrix}
+            y_1^2 y_2 \\ 0
+        \end{pmatrix} - 2\begin{pmatrix}
+            0 \\ y_1 y_2^2 
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            0\\y_1y_2^2 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            y_1 y_2^2\\ -y_2^3
+        \end{pmatrix} = \begin{pmatrix}
+            y_1 y_2^2 \\ 0
+        \end{pmatrix} - \begin{pmatrix}
+            0 \\ y_2^3
+        \end{pmatrix},\\
+        L_J^{(3)}
+        \begin{pmatrix} 
+            0\\y_2^3 
+        \end{pmatrix} &= 
+        \begin{pmatrix}
+            h_2 - \pp{h_1}{y_1}y_2\\
+            -\pp{h_2}{y_1} y_2
+        \end{pmatrix} = \begin{pmatrix}
+            y_2^3 \\ 0
+        \end{pmatrix}.\\
+    \end{align*}
+    Thus we have found that
+    \[  
+        L^{(3)}_J(H_3) = \text{span}\left\{ 
+        \begin{pmatrix}
+            y_1^2 y_2 \\ 0 
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_1 y_2^2 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_2^3 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            0 \\ y_2^3 
+        \end{pmatrix},
+        \begin{pmatrix}
+            0 \\ y_1 y_2^2
+        \end{pmatrix},
+        \begin{pmatrix}
+            y_1^3\\0
+        \end{pmatrix} - \begin{pmatrix}
+            0 \\ y_1^2y_2
+        \end{pmatrix}\right\}.
+    \]
+    Then clearly $(0,y_1^3)^T$ is not in $L^{(3)}_J(H_3)$ and we have the choice of picking either $(y_1^3,0)^T$ or $(0,y_1^2y_2)^T$ for our second resonant term. Let's pick
+    \[
+        \begin{pmatrix}
+            0 \\ y_1^3
+        \end{pmatrix}, 
+        \begin{pmatrix}
+            y_1^3 \\ 0
+        \end{pmatrix},
+    \]
+    to be our resonant terms and  therefore the Takens-Bogdanov normal form up to third order is
+    \[
+        \begin{cases}
+            y_1' = y_2 + a_1 y_1^2 + a_3 y_1^3 +  F_4 + \cdots,\\
+            y_2' = a_2 y_1^2 + a_4y_1^3 + F_4 + \cdots.
+        \end{cases}
+    \]
+
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    In homework 1 we have the Lorenz equations
+    \begin{equation}
+        \left\{\begin{array}{l}
+        x^{\prime}=10(-x+y) \\
+        y^{\prime}=r x-y-x z \\
+        z^{\prime}=-\frac{8}{3} z+x y
+        \end{array}\right.
+    \end{equation}
+    Characterize the bifurcation when $r=1$.
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the Lorenz equations
+    \begin{equation}
+        \left\{\begin{array}{l}
+        x^{\prime}=10(-x+y) \\
+        y^{\prime}=r x-y-x z \\
+        z^{\prime}=-\frac{8}{3} z+x y
+        \end{array}\right.
+    \end{equation}
+    From homework 1 we found that there are three fixed points at
+    \begin{align*}
+        \overline{(x,y,z)} \in & \left\{ (0,0,0), \left(-2 \sqrt{\frac{2}{3}} \sqrt{r-1},-2 \sqrt{\frac{2}{3}} \sqrt{r-1},r-1\right), \right. \\ & \left. \left(2 \sqrt{\frac{2}{3}} \sqrt{r-1}, 2 \sqrt{\frac{2}{3}} \sqrt{r-1}, r-1\right) \right\},
+    \end{align*}
+    and thus when $r < 1$ there is only one fixed point which we found to be stable. When $r>1$, there are three fixed points. Of these three fixed points, the fixed point at the origin we found to be unstable while the other two fixed points are stable for $1<r<\frac{470}{19}$. These conditions correspond to a pitchfork bifurcation and thus the bifurcation at $r=1$ is a pitchfork. 
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the one-parameter family of one-dimensional maps,
+\begin{equation}
+    x \mapsto x^2 + c,
+\end{equation}
+where $c$ is a real-valued parameter.
+    \begin{enumerate}
+        \item Find the fixed points of this system. For which values of $c$ do they exist? Determine the stability of these fixed points and their dependency on the value of $c$. Determine if there is a bifurcation, and find the bifurcation point.
+        \item Focusing on the value $c = -3/4,$ compute $f'_{-3/4}(p_{-})$, where $f_c(x) = x^2 + c$ and $p_{-}$ is the smaller of the two fixed points at this value of $c.$ Convince yourself that as $c$ descends through $-3/4$, we see the emergence of an (attracting) 2-cycle. This is a period doubling bifurcation!
+        \item Solve for the period two points by considering the fixed points of the function $f_c^2(.) = f_c(f_c(.)),$ and the domain of $c$ for which the original system has a fixed point. 
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the one-parameter family of one-dimensional maps,
+    \[
+        x \mapsto x^2 + c,
+    \]
+    where $c$ is a real-valued parameter.
+    \begin{enumerate}
+        \item [(a)]
+        
+        \noindent
+        To find the fixed points of the system,
+        \[
+            \bar{x} = \bar{x}^2 + c \implies \bar{x} = \frac{1 \pm \sqrt{1 - 4c}}{2}.
+        \]
+        Thus when $c = \frac{1}{4}$ there is one fixed point, when $c<\frac{1}{4}$ there are two fixed points, and otherwise there are no fixed points. Next, we wish to determine the stability of the fixed points so consider that
+        \[
+            x' = 2x.
+        \]
+        Then when $c = \frac{1}{4}$ then $\bar{x} = \frac{1}{2}$ and
+        \[
+            x' = 2 \paren{\frac{1}{2}} = 1,
+        \]
+        and thus the stability is inconclusive. When $c < \frac{1}{4}$ we have
+        \[
+            x' = 2 \paren{\frac{1 \pm \sqrt{1 - 4c}}{2}} = 1 \pm \sqrt{1 - 4c},
+        \]
+        so the fixed point at $1 + \sqrt{1 - 4c}$ is unstable since $|x'|>1$. On the other hand, the fixed point at $1 - \sqrt{1 - 4c}$ is stable on $-3/4 < c < 1/4$ since $|x'| < 1$ and is unstable $c < -3/4$ since $|x'| > 1$. Since the stability changes at $c=-3/4$, there is a bifurcation at 
+        
+        \[
+            (c,x) = \paren{-3/4,\frac{1 - \sqrt{1 - 4c}}{2}}
+        \].
+
+
+        \item [(b)]
+        Now we let $c= -3/4$, $f_c(x) = x^2 + c$, and $p_{-} = \frac{1 - \sqrt{1 - 4c}}{2}$. Then 
+        \[
+            f'_c(p_{-}) = 2x = 1 - \sqrt{1 - 4(-3/4)} = -1,
+        \]
+        and thus the bifurcation at $c-3/4$ is a period-doubling bifurcation.
+    
+        \item [(c)]
+        Now let's find the period two orbits by computing 
+        \[
+            x = f_c^2(x) = x^4 + 2cx^2 + c^2 + c, 
+        \]
+        and recalling that $0 = x^2 - x + c$ we find
+        \[
+            x^4 + 2cx^2 - x + c^2 + c = (x^2 - x + c)(x^2 + x + c + 1) = 0,
+        \]
+        using long division. Thus there the period two points are at
+        \[
+            x = \frac{-1 \pm \sqrt{-4c - 3}}{2},
+        \]
+        which is defined for $c < -3/4$ but we also note that the original system has a fixed point only if $c \leq 1/4$.
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

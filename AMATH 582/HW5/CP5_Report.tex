@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}%
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{stackengine}
+\def\stackalignment{l}
+\usepackage[colorlinks]{hyperref}
+\usepackage{tikz}
+\usepackage[export]{adjustbox}
+%\usepackage{geometry}
+%\geometry{top = 0.9in}
+\usepackage{appendix}
+
+\newcounter{subfigure}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\S}{\mathbb{S}^1}
+\renewcommand{\Re}{\text{Re}}
+\newcommand{\ea}{\textit{et al. }}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\th}{\text{th}}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+\renewcommand{\setminus}{\smallsetminus}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\definecolor{red}{rgb}{0.8500, 0.3250, 0.0980}
+\definecolor{green}{rgb}{0.4660, 0.6740, 0.1880}
+\definecolor{yellow}{rgb}{0.9290, 0.6940, 0.1250}
+\definecolor{blue}{rgb}{0, 0.4470, 0.7410}
+
+
+\begin{document}
+
+\title{Coding Project 5:  Background Subtraction through Dynamic Mode Decomposition}
+
+\author{Marvyn Bailly}
+\date{}
+
+\maketitle
+
+
+\begin{abstract}
+    In this scientific letter, we begin with a brief history and example of applications of Dynamic Mode Decomposition. We continue to discuss the elements of the mathematical theory behind Dynamic Mode Decomposition which include Singular Value Decomposition, rank reduction, and Eigenvalue Decomposition. Next we demonstrate an application of Dynamic Mode Decomposition on a video of a ball rolling along a specially-designed landscape to separate the video into its foreground and background information. We conclude with a brief summary of the scientific letter and a discussion on the effectiveness of the Dynamic Mode Decomposition method in our application.  
+\end{abstract}
+
+
+\paragraph{Introduction}
+\label{Sec: Intro}
+
+A mathematical approach called Dynamic Mode Decomposition (DMD) is used to study complicated systems and uncover their underlying dynamics. Since its first introduction in 2008, it has found use in a number of different disciplines, including neurology, finance, and robotics. With fresh insights and the facilitation of the creation of more precise models, DMD has completely changed how scientists and engineers investigate and comprehend complex systems. Its creation exemplifies the value of multidisciplinary cooperation in advancing science since it incorporates ideas from engineering, physics, and mathematics.
+
+In this scientific letter we will begin by examining the mathematical background of the DMD procedure. We continue to present the results of applying DMD to a video file. The video is of a ball rolling along a specially-designed landscape and the application of DMD will separate the video into two modes, the foreground and background behavior. We will conclude the scientific letter by discussing the effectiveness of DMD at subtracting the background from the video before giving a brief summary of the scientific letter.  
+
+
+\paragraph{Theoretical Background}
+
+With the DMD approach, experimental data can be divided into a number of dynamic modes that are derived from instantaneous snapshots of the data. To set the stage for the DMD procedure, we will take $N$ number of spatial points saved per time snapshots where $M$ snapshots are taken in total. The snapshots must be taken over regularly spaced time intervals, $\Delta t$, starting at $t_1$ and ending at $t_M$. Then for the purpose of the DMD method, the collected data will be compiled into a matrix of the form
+\begin{equation}
+    \mathbf{X}_j^k = [U(\mathbf{x},t_{j}) ~ U(\mathbf{x},t_{j+1}) ~ \cdots ~U(\mathbf{x},t_k)],
+\end{equation}
+where $\mathbf{x}$ is a vector of data points of length $N$ collected at time $j$. Next the DMD procedure takes advantage of the SVD to reduce the dimensionality of the data in the following form
+\begin{equation}
+    \mathbf{X}_1^{M-1} = \mathbf{U}\mathbf{\Sigma} \mathbf{V}^*,
+\end{equation}
+where $\mathbf{U} \in \C^{N \times K}$, $\mathbf{\Sigma} \in \C^{K \times K}$, and $\mathbf{V} \in \C^{M - 1 \times K}$. Note that $K$ is the reduced approximation of $\mathbf{X}_1^{M-1}$. Next we can compute the lower-rank matrix
+\begin{equation}
+    \tilde{\mathbf{S}} = \mathbf{U}^*\mathbf{X}_2^M V \Sigma^{-1},
+\end{equation}
+and taking a look at the corresponding eigenvalue problem
+\begin{equation}
+    \tilde{\mathbf{S}} \mathbf{y}_k = \mu_k \mathbf{y}_k,
+\end{equation}
+reveals information related to the dynamics of the studied system. Here $\mu_k$ and $\mathbf{y}_k$ are the eigenvalue and corresponding eigenvector of $\tilde{\mathbf{S}}$ and captures the time dynamics of the system over the time step $\Delta t$. To reconstruct the data matrix, we must compute
+\begin{equation}
+    \mathbf{\psi}_k = \mathbf{U}\mathbf{y}_k,
+\end{equation} 
+which is known as the DMD modes of the system. Finally we can reconstruct the data matrix $\mathbf{X}_\text{DMD}(t)$ which is computed by
+\begin{equation}
+    \mathbf{X}_\text{DMD}(t) = \sum_{k=1}^K b_k(0) \psi_k(x) \exp(\mathbf{\omega}_k \mathbf{t}),
+\end{equation} 
+where $\mathbf{\omega}_k = \ln(\mu_k)/ \Delta t$ and $b_k$ is determined via the pseudo-inverse of the matrix $\Psi$ whose columns are $\psi_k$ as following 
+\begin{equation}
+    \mathbf{b} = \mathbf{\Psi}^{\dagger}\mathbf{x}_1.
+\end{equation}
+The matrix $X_\text{DMD}(t)$ can be used to predict the behavior of the system in future time and be split apart to study the different modes of the system.
+
+
+\paragraph{Results}
+
+To demonstrate an application of DMD, we consider data collect from a ball rolling along specially-designed landscape which mimics the well-known two-bounce resonance in solitary wave collisions. We wish to subtract the background information of the video from the original video so that we are left with a recording of just the motion of the ball. The data is collected with two spatial points saved per time snapshots and thus we compute $\mathbf{X}_\text{DMD}(t)$ using $\mathbf{X}_1^{M-1}$ and $\mathbf{X}_2^{M}$. To find the background and foreground information of the video, we utilize the fact that
+\begin{equation}
+    \mathbf{X}_\text{DMD}(t) =  \underset{\text{Background Video}}{b_p(0) \mathbf{\psi}_p(x) \exp(\mathbf{\omega}_p \mathbf{t})} + \underset{\text{Foreground Video}}{\sum_{k=1, k \neq p}^K b_k(0) \mathbf{\psi}_k(x) \exp(\mathbf{\omega}_k \mathbf{t})},
+\end{equation}
+where $p \in \{1, 2, \dots, K\}$. Using this method, we can collect the data corresponding to the foreground and background information. Recreating the videos using the information, we are able to see the dynamics of the ball rolling through its environment without the background information.  
+
+\paragraph{Conclusion}\label{Sec: Conclusion}
+
+In summary, for this scientific letter we briefly discussed the history and applications of the DMD procedure. Next we described the mathematical background behind the DMD and how it can be used along with the SVD and the eigenvalue decomposition to study the dynamics of a system. We continued to demonstrate how DMD can be used to decompose a video into the foreground and background information. The information can be reconstructed into video files allowing the user to study the dynamics of the system. In the application studied in this scientific letter, the DMD procedure worked extremely effectively and allowed us to see the motion of the ball throughout time without the distraction of the background information. 
+
+
+\paragraph*{Acknowledgment}
+
+I would like to acknowledgment Alex Johnson who worked with me to create the numerical methods applied in this paper for the Results section. 
+
+
+\end{document}

@@ -1,0 +1,398 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+\usepackage{cancel}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 569 Homework 4\\
+ Due May 10\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Green's function of the 1-D heat equation in a semi-infinite domain, $G(x,t;\xi,\tau)$, is defined by:
+    \[
+        \paren{\pp{}{t} - D\ppn{2}{}{x}}G = \delta(x - \xi)\delta(t - \tau),
+    \]
+    with $0<x,\xi<\infty, t,\tau>0$ subject to zero initial condition: $G=0$ at $t=0$. The boundary condition is either (a): $G=0$ at $x=0$ and $x\to\infty$, or (b): $\pp{}{x}G = 0$ at $x=0$ and $x\to\infty$. The solution in a semi-infinite domain can be constructed from the solution in the infinite domain by adding or subtracting another source located at $x=-\xi$, so that the contributions cancel at $x=0$ for (a), or the contributions are symmetric about $x=0$. To find the Green's function defined above for boundary condition (a). Then repeat the
+    problem for boundary condition (b). 
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the Green's function of the 1-D heat equation in a semi-infinite domain, $G(x,t;\xi,\tau)$, is defined by:
+    \begin{equation}\label{1-D heat}
+        \paren{\pp{}{t} - D\ppn{2}{}{x}}G = \delta(x - \xi)\delta(t - \tau),
+    \end{equation}
+    with $0<x,\xi<\infty, t,\tau>0$ subject to zero initial condition: $G=0$ at $t=0$.
+    \begin{enumerate}
+        \item [(a)]
+        Suppose that \fullref{1-D heat} is subject to the boundary condition $G = 0$ at $x=0$ and $x\to\infty$. When $t < \tau$, the initial value problem is 
+        \begin{align*}
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, &0<x,\xi<\infty, 0 < t < \tau,\\
+                G=0 &\text{at}~ t = 0,\\
+                G=0 &\text{at}~ x=0,x\to\infty
+            \end{cases}
+        \end{align*}
+        which has the trivial solution
+        \[
+            G(x,t;\xi,\tau) = 0.
+        \]
+        When $t > \tau$, then 
+        \[  
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, &0<x,\xi<\infty, t > \tau>0,\\
+                G=\delta(x-\xi) &\text{at}~ t = \tau ~(\text{from lecture 12}),\\
+                G=0 &\text{at}~ x=0,x\to\infty.
+            \end{cases}
+        \]
+        Since the problem is in a semi-infinite domain and we require $G=0$ at $x=0$, we will use an odd extension of the form
+        \[ 
+            g(x) = \begin{cases}
+                \delta(x - \xi), & x>0,\\
+                0, & x=0,\\
+                -\delta(-x -\xi), & x<0.
+            \end{cases}
+        \]
+        Thus the problem becomes the fundamental problem for the heat equation
+        \[
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, & -\infty<x,\xi<\infty, t>\tau>0\\
+                G = g(x), & t = \tau,\\
+                G=0 &\text{at}~ x=0,|x|\to\infty,
+            \end{cases}
+        \]
+        which has a Green's function (using the Drunken Sailor problem)
+        \[ 
+            G_1(x,t;\xi,\tau) = \begin{cases}
+                \frac{1}{\sqrt{4\pi D(t - \tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}, &t>\tau\\
+                0, &t<\tau,
+            \end{cases} = H(t - \tau)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}},
+        \]
+        defined on the infinite domain and where $H(x)$ is the Heaviside function and we make the assumption that $G_1(x) \to 0$ a $|x| \to \infty$. Thus the Green's function on a semi-infinite domain is given by 
+        \begin{align*}
+            G(x,t;\tau,\xi) &= \int^\infty_{-\infty}H(t - \tau)\frac{1}{\sqrt{4\pi D(t - \tau)}}e^{-\frac{(x-y)^2}{4D(t-\tau)}} d(y) \d y,\\
+            &= -\frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}}\int_{-\infty}^0 e^{-\frac{(x-y)^2}{4D(t-\tau)}} \delta(-y-\xi) \d y\\
+            &\quad + \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}}\int^{\infty}_0 e^{-\frac{(x-y)^2}{4D(t-\tau)}} \delta(y-\xi) \d y\\
+            &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} - e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}
+        \end{align*}
+        where $y$ was used as a dummy variable. Lastly, we verify that $G$ satisfies \fullref{1-D heat} at $t=0$ and the initial and boundary conditions. Observe that $G$ when $t=0$ yields
+        \begin{align*}
+            G(x,0;\xi,\tau) = \frac{H(- \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} - e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}} = 0.
+        \end{align*}  
+        When $x=0$ and $t>0$ we have
+        \begin{align*}
+            G(0,t;\xi,\tau) &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{\xi^2}{4D(t-\tau)}} - e^{-\frac{\xi^2}{4D(t-\tau)}}}= 0.
+        \end{align*}
+        And finally
+        \begin{align*}
+            \lim_{x\to\infty}G(x,t;\xi,\tau) &= \lim_{x\to\infty} \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} - e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}\\
+            &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{0 - 0}\\
+            &= 0.
+        \end{align*}
+
+        \item [(b)]
+        Suppose that \fullref{1-D heat} is subject to the boundary condition $G=0$ at $x=0$ and $x\to\infty$. When $t < \tau$, the initial value problem is 
+        \begin{align*}
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, &0<x,\xi<\infty, 0 < t < \tau,\\
+                G=0 &\text{at}~ t = 0,\\
+                G_x=0 &\text{at}~ x=0,x\to\infty
+            \end{cases}
+        \end{align*}
+        which has the trivial solution
+        \[
+            G(x,t;\xi,\tau) = 0.
+        \]
+        When $t > \tau$, then 
+        \[  
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, &0<x,\xi<\infty, t > \tau>0,\\
+                G=\delta(x-\xi) &\text{at}~ t = \tau ~(\text{from lecture 12}),\\
+                G_x=0 &\text{at}~ x=0,x\to\infty.
+            \end{cases}
+        \]
+        Since the problem is in a semi-infinite domain and we require $G_x=0$ at $x=0$, we will use an even extension of the form
+        \[ 
+            g(x) = \begin{cases}
+                \delta(x - \xi), & x>0,\\
+                0, & x=0,\\
+                \delta(-x -\xi), & x<0.
+            \end{cases}
+        \]
+        Thus the problem becomes
+        \[
+            \begin{cases}
+                \pp{}{t}G - D\ppn{2}{}{x}G = 0, & -\infty<x,\xi<\infty, t>\tau>0\\
+                G = g(x), & t = \tau,\\
+                G_x = 0 &\text{at}~ x=0,|x|\to\infty,
+            \end{cases}
+        \]
+        which is slightly different from the fundamental heat equation but note that when solving the heat equation using Drunken Sailor, we have the boundary condition that $u \to 0$ as $|x| \to \infty$ and make the additional assumption that $u_x \to 0$ as $|x| \to \infty$, where $u$ is the solution to the heat equation. Thus if we let the boundary condition be that $u_x \to 0$ as $|x| \to \infty$ and make the assumption that $u \to 0$ as $|x| \to \infty$ then the solution will be the same and thus the Green's function is given by
+        \[ 
+            G'(x,t;\xi,\tau) = \begin{cases}
+                \frac{1}{\sqrt{4\pi D(t - \tau)}}e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}, &t>\tau\\
+                0, &t<\tau,
+            \end{cases} = H(t - \tau)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}},
+        \]
+        defined on the infinite domain and where $H(x)$ is the Heaviside function. Note that the new assumption is easily verified due to the exponential decay term. Thus the Green's function on a semi-infinite domain is given by 
+        \begin{align*}
+            G(x,t;\tau,\xi) &= \int^\infty_{-\infty}H(t - \tau)\frac{1}{\sqrt{4\pi D(t - \tau)}}e^{-\frac{(x-y)^2}{4D(t-\tau)}} d(y) \d y,\\
+            &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}}\int_{-\infty}^0 e^{-\frac{(x-y)^2}{4D(t-\tau)}} \delta(-y-\xi) \d y\\
+            &\quad + \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}}\int^{\infty}_0 e^{-\frac{(x-y)^2}{4D(t-\tau)}} \delta(y-\xi) \d y\\
+            &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} + e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}
+        \end{align*}
+        where $y$ was used as a dummy variable. Lastly, we verify that $G$ satisfies \fullref{1-D heat} at $t=0$ and the initial and boundary conditions. Observe that $G$ when $t=0$ yields
+        \begin{align*}
+            G(x,0;\xi,\tau) = \frac{H(- \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} + e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}} = 0.
+        \end{align*}  
+        When $x=0$ and $t>0$ we have
+        \begin{align*}
+            G_x(0,t;\xi,\tau) &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{\frac{-1}{4D(t-\tau)}}\paren{(2\xi)e^{-\frac{\xi^2}{4D(t-\tau)}} + (-2\xi) e^{-\frac{\xi^2}{4D(t-\tau)}}}= 0.
+        \end{align*}
+        And finally
+        \begin{align*}
+            \lim_{x\to\infty}G_x(x,t;\xi,\tau) &= \lim_{x\to\infty} \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}} \paren{\frac{-1}{4D(t-\tau)}} \paren{2(x + \xi)e^{-\frac{(x+\xi)^2}{4D(t-\tau)}} - 2(x - \xi)e^{-\frac{(x-\xi)^2}{4D(t-\tau)}}}\\
+            &= \frac{H(t - \tau)}{\sqrt{4\pi D(t - \tau)}}\paren{\frac{-1}{4D(t-\tau)}} \paren{0 - 0}\\
+            &= 0.
+        \end{align*}
+    
+    
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Find the Greens function for the wave equation in two-dimensions governed by
+    \[  
+        \begin{cases}
+            \ppn{2}{}{t}G-\paren{\ppn{2}{}{x} + \ppn{2}{}{y}}G = \delta(t)\delta(x)\delta(y),\\
+            G \to 0 ~\text{as}~ r \to \infty,\\
+            G = 0 ~\text{for}~ t<0,
+        \end{cases}
+    \]
+    where $r^2 = x^2 + y^2$. The solution is 
+    \[
+        G = \frac{1}{2\pi} \frac{H(t-\tau)}{\sqrt{t^2 - r^2}},
+    \]
+    where $H$ is the Heaviside function. 
+    \begin{enumerate}
+        \item [(a)]
+        Derive this solution using Fourier transform in $x$ and $y$.
+        Hint: In the inverse transform, use polar coordinates to get
+        \[
+            G = \frac{1}{2\pi}\int_0^\infty J_0(k r)\sin{kt} \d k.
+        \]    
+        Then use integral tables. 
+
+        \item [(b)]
+        Derive this solution using Laplace transform in $t$.
+        Hint: First show that the Laplace transform of $G$ is
+        \[
+            \tilde{G} = \frac{1}{2\pi}K_0(sr),
+        \]
+        where $K$ is the modified Bessel function of the second kind. Then use Laplace transform tables.
+
+
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the 2-D wave equation governed by
+    \begin{equation}   
+        \begin{cases}\label{wave}
+            \ppn{2}{}{t}G-\paren{\ppn{2}{}{x} + \ppn{2}{}{y}}G = \delta(t)\delta(x)\delta(y),\\
+            G \to 0 ~\text{as}~ r \to \infty,\\
+            G = 0 ~\text{for}~ t<0,
+        \end{cases}
+    \end{equation}
+    where $r^2 = x^2 + y^2$.
+
+    
+    
+    \begin{enumerate}
+        \item [(a)]
+        
+        We first wish to solve \fullref{wave} using 2D Fourier transform in $x$ and $y$. Observe that
+        \begin{align*}
+            \F\left[\ppn{2}{}{t}G\right] = \infint \infint \ppn{2}{}{t}Ge^{i(k_1x + k_2y)}\d x \d y=\ppn{2}{}{t}\F[G],
+        \end{align*}
+        and using integration by parts twice yields
+        \begin{align*}
+            \int_{-\infty}^{\infty}G_{xx}e^{ik_1x+ik_2y}\d x &= e^{ik_2y}\paren{[G_x e^{ik_1x}]_{-\infty}^{\infty} - ik_1 \int_{-\infty}^{\infty} G_x e^{ik_1 x}\d x}\\
+            &= e^{ik_2y}\paren{\cancel{[G_x e^{ik_1 x}]_{-\infty}^{\infty}} - ik_1 \cancel{[Ge^{ik_1 x}]_{-\infty}^\infty} - k_1^2 \int_{-\infty}^{\infty} G e^{i k_1 x}\d x}\\
+            &= -k_1^2 \infint Ge^{ik_1x + ik_2y}\d x,
+        \end{align*}
+        where we assume that $G_x \to 0$ as $|x| \to \infty$ and similarly find that
+        \[
+            \int_{-\infty}^{\infty}G_{yy}e^{ik_1x+ik_2y}\d y = -k_2^2 \infint Ge^{ik_1x + ik_2y}\d y,
+        \]
+        where we assume that $G_y \to 0$ as $|x| \to \infty$. Thus we have that
+        \[
+            \F[G_{xx} + G_{yy}] = -(k_1^2 + k_2^2)\infint\infint Ge^{ik_1x + ik_2y}\d y\d x = -k^2 \F[G]  
+        \] 
+        where $k=\sqrt{k_1^2 + k_2^2}.$ We also have that
+        \begin{align*}
+            \F[\delta(t)\delta(x)\delta(y)] = \delta(t)\int_{-\infty}^{\infty}\int_{-\infty}^{\infty} \delta(x) \delta(y) e^{i(k_1x + k_2y)}\d y \d x = \delta(t).
+        \end{align*}
+        Thus \fullref{wave} becomes
+        \[
+            \ppn{2}{}{t}\F[G] + k^2 \F[G] = \delta(t).
+        \]
+        When $t\neq 0$, we have $\ppn{2}{}{t}\F[G] + k^2 \F[G] = 0 $ which has the solution
+        \[
+            \F[G] = c_1 \sin(k t) + c_2 \cos(k t).
+        \]
+        To solve for the unknowns, recall that $G = 0$ for $t<0$ which implies that $\F[G] = 0$ for $t<0$. Thus
+        \[
+            \lim_{t \to 0}\F[G] = c_2 = 0.
+        \]
+        We can also find the matching condition at $t=0$ by integrating across $t=0$ as follows
+        \[
+            \int_{0^-}^{0^+}\ppn{2}{}{t}\F[G] + k^2 \F[G]\d t = \int_{0^-}^{0^+}\delta(t)\d t,
+        \]
+        where $\int_{0^-}^{0^+}\F[G] \d t = 0$ since $G$ defined to be finite and $\int_{0^-}^{0^+}\delta(t)\d t = 1$. Thus we have that
+        \[
+            \int_{0^-}^{0^+}\ppn{2}{}{t}\F[G]\d t = \pp{}{t}\F[G]|_{t=0^+}-\cancel{\pp{}{t}\F[G]|_{t=0^-}} = \pp{}{t}\F[G]|_{t=0^+} = 1,
+        \]
+        where we canceled the term since $\F[G] = 0$ for $t<0$. Thus we can solve for $c_1$ 
+        \[
+            \pp{}{t}\F[G]|_{t=0^+} = 1 \iff c_2k\cos(0^+) = 1 \iff c_2 = \frac{1}{k}.
+        \]
+        Therefore we have found
+        \[ 
+            \F[G] = \frac{1}{k}\sin(kt).
+        \]
+        Now to compute $G$ we apply the 2D Fourier inverse transform
+        \[
+            G = \frac{1}{4\pi^2}\infint\infint \frac{1}{k}\sin(kt)e^{-i(k_1x + k_2y)}\d k_1 \d k_2.
+        \]
+        Converting to polar coordinates gives
+        \[
+            G = \frac{1}{4\pi^2}\int_0^\infty\int_{-\pi}^{\pi}\sin(k t)e^{-ih\cos(\theta)x-ih\sin(\theta)y}\d \theta \d h,
+        \]
+        then if we let $\vec{r} = (x,y)^T$ and $\vec{h} = (h\cos(\theta),h\sin(\theta))^T$ and taking the norm yields
+        \[
+            \langle \vec{r}, \vec{h}\rangle = h\cos(\theta)x+h\sin(\theta)y = r k \cos(\theta),
+        \]
+        where $|\vec{r}| = r$ and $|\vec{h}| = h$. Thus we can rewrite the integral as
+        \begin{align*}
+            G &= \frac{1}{4\pi^2}\int_0^\infty \int_{-\pi}^\pi \sin(kt)e^{irh\cos(\theta)}\d \theta \d h\\
+            &=\frac{1}{2\pi}\int_0^\infty \sin(kt)\paren{\frac{1}{\pi}\int_0^\pi e^{i(-rh\cos(\theta))}\d \theta}\d h\\
+            &=\frac{1}{2\pi}\int_0^\infty \sin(kt)\paren{\frac{1}{\pi}\int_0^\pi \cos(-rh\sin(\theta))}\d \theta\d h\\
+            &=\frac{1}{2\pi}\int_0^\infty \sin(kt)\paren{\frac{1}{\pi}\int_0^\pi \cos(rh\sin(\theta))\d \theta}\d h\\
+            &=\frac{1}{2\pi}\int_0^\infty \sin(kt)J_0(hr)\d h,\\
+        \end{align*}
+        where $J_0(hr)$ is the Bessel function of first kind with $n=0$. Consulting a table of integrals we find that
+        \[
+            G = \frac{1}{2\pi} \frac{H(t -\tau)}{\sqrt{t^2 - \tau^2}}.
+        \]
+        Note that since the derivative of the Heaviside function is the delta function, our assumptions are easily verified and the boundary conditions are also satisfied. 
+
+
+        \item [(b)]
+        Next, we wish to derive the solution of \fullref{wave} using a Laplace transform in $t$. Observe that
+        \begin{align*}
+            \L[G_{tt}] &= \int_0^\infty G_{tt}e^{st}\d t\\
+            &= [G_te^{st}]_0^\infty - [Ge^{st}]_0^\infty + s^2 \int_0^\infty Ge^{st}\d t\\
+            &=s^2 \L[G],
+        \end{align*}
+        under the assumptions that $G$ and $G_t \to 0$ for $t=0$ and $t\to\infty$. We also have that
+        \[
+            \L[\nabla^2G] = \nabla^2\int_0^\infty Ge^{st}\d t = \nabla \L[G],
+        \]
+        and
+        \[
+            \L[\delta(t)\delta(x)\delta(y)] = \delta(x)\delta(y)\int_0^\infty \delta(t) e^{st}\d t= \delta(x)\delta(y).
+        \]
+        Thus we can rewrite \fullref{wave} as
+        \[
+            \begin{cases}
+                s^2\tilde{G}(x,y,s) - \paren{\ppn{2}{}{x}+\ppn{2}{}{y}}\tilde{G}(x,y,s) = \delta(x)\delta(y),\\
+                \tilde{G}(x,y,s) \to 0 ~\text{as}~r\to\infty,\\
+                \tilde{G}(x,y,s) = 0 ~\text{for}~t<0,
+            \end{cases}
+        \]
+        where $\L[G] = \tilde{G}.$ Converting this equation into polar coordinates and assuming that it does not depend on the angle $\theta$ yields
+        \[
+            s^2\tilde{G}(r) - \tilde{G}_{rr}(r) - \frac{1}{r}\tilde{G}_r(r) = \delta(r),
+        \]
+        where $r=x^2 + y^2$. When $r \neq 0$ and multiplying through by $-r$ gives
+        \[
+            r\tilde{G}_{rr} + \tilde{G}_r - s^2r\tilde{G} = 0.
+        \]
+        Now letting $g(r) = \tilde{G}(r/s)$ such that $g_r(r) = \frac{1}{s}\tilde{G}_r$ and $g_{rr}(r) = \frac{1}{s^2}\tilde{G}_{rr}$, our equation becomes
+        \[
+            \frac{r}{s}s^2g_{rr} + sg_r - s^2 \frac{r}{s}g = 0,
+        \]
+        and dividing through by $s$ gives
+        \[
+            rg_{rr} + g_r - rg = 0.
+        \]
+        Notice that this is in the form of a Modified Bessel equation which has the solution
+        \[
+            g(r) = c_1I_0(r) + c_2Y_0(r) \implies \tilde{G}(r) = c_1I_0(rs) + c_2Y_0(rs),
+        \]
+        where $I_0$ and $Y_0$ denote the modified Bessel functions of the first and second kind of order $0$. Now we impose the boundary condition that $\tilde{G} \to 0$ as $r \to \infty$ and since $K_0(rs) \to 0$ and $I_0 \to \infty$ as $r \to \infty$ we have that $c_1 =0$ and thus
+        \[
+          \tilde{G} = c_2K_0(rs)  
+        \] 
+        Now we can enforce the matching condition
+        \begin{align*}
+            \int_0^{2\pi}\int_0^\eps s^2 \tilde{G} - \frac{1}{r}\tilde{G}_r - \tilde{G}_{rr} \d r \d \theta &= \int_0^{2\pi}\int_0^\eps \delta(r) \d r \d \theta\\
+            \implies \int_0^{2\pi}\int_0^\eps s^2 \tilde{G} \d r \d \theta - \int_0^{2\pi}\int_0^\eps \pp{}{r}\paren{r\pp{}{r}\tilde{G}}\d r \d \theta &= 1.
+        \end{align*}
+        Recall that $\lim_{r\to 0 }K_0(rs) = 0$ and thus the first integral drops out leaving us with
+        \[
+            2\pi r c_2 \pp{}{r}K_0(rs)|_0^\eps = 2\pi r c_2 \paren{\frac{1}{rs} s} = 1,
+        \]
+        where we used the fact that $K_0(rs) \approx -\log(rs)$ as $r\to 0$, since $K_0(x) = - \log(x/2)I_0(x)$ as $|x| \to 0$ and since $I_0(x) \to 1$ as $|x| \to 0$. Thus we have found that $c_2 = \frac{1}{2\pi}$ giving 
+        \[
+            \tilde{G} = \frac{1}{2\pi} K_0(rs),
+        \] 
+        and consulting a table of integrals we find that the inverse Laplace transform gives
+        \[
+          G = \frac{1}{2\pi} \frac{H(t - \tau)}{\sqrt{t^2 - r^2}}.
+        \]
+        We note that the assumptions we made are satisfied since $G=0$ when $t=0$ and as $t\to\infty$. Similarly taking the derivative of $G$ results in a term containing a delta function and thus $G_t = 0$ when $t=0$ and $t\to\infty$.
+
+
+
+
+    \end{enumerate}
+    {\bf Reference}
+    I consulted DLMF for Bessel function properties and integrals throughout this problem.
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+\end{document}

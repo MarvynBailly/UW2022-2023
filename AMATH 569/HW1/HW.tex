@@ -1,0 +1,140 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 569 Homework 1\\
+ Due April 12\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Solve the PDE:
+    \begin{align*}
+        \pp{u}{t} + u \pp{u}{x} = 0, ~~~ -\infty < x < \infty, t>0
+    \end{align*}
+    subject to the initial conditions:
+    \begin{align*}
+        u(x,0) = u_0(x) = \begin{cases}
+            -1, &-\infty < x \leq -a, a > 0,\\
+            \frac{x}{a}, &-a < x < a,\\
+            1, &a \leq x < \infty.
+        \end{cases}
+    \end{align*}
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the homogeneous PDE
+    \begin{align*}
+        \pp{u}{t} + u \pp{u}{x} = 0, ~~~ -\infty < x < \infty, t>0
+    \end{align*}
+    subject to the initial conditions:
+    \begin{align*}
+        u(x,0) = u_0(x) = \begin{cases}
+            -1, &-\infty < x \leq -a,\\
+            \frac{x}{a}, &-a < x < a,\\
+            1, &a \leq x < \infty.
+        \end{cases}
+    \end{align*}
+    where $a > 0$. 
+
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the initial value problem in infinite domain:
+    \begin{align*}
+        \pp{u}{t} + u \pp{u}{x} = 0,
+    \end{align*}
+    with
+    \begin{align*}
+        u(x,0) = u_0(x) = \begin{cases}
+            1, &x \leq 0,\\
+            1 - x, & 0<x<1,\\
+            0, &x \geq 1.
+        \end{cases}
+    \end{align*}
+    \begin{enumerate}
+        \item [(a)]
+        Find where and when a shock first forms.
+
+        \item [(b)]
+        Solve the problem and sketch or plot the solution before when a first shock forms. 
+        
+        \item [(c)]
+        Find the shock speed using Rankine-Hugoniot condition.
+        
+        \item [(d)]
+        Solve the problem and sketch or plot the solution after the shock has formed.
+
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    This is a solution
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Solve the PDE:
+    \begin{align*}
+        \pp{u}{t} + y \pp{u}{x} = u, - \infty < x < \infty, t > 0,
+    \end{align*} 
+    subject to the initial condition:
+    \begin{align*}
+        u(x,0) = u_0(x) = 2x, 0 \leq x \leq 2.
+    \end{align*}
+    Where in the $x-t$ plane is the solution valid. 
+\end{problem}
+
+\begin{solution}
+    \noindent
+    
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+
+\end{document}

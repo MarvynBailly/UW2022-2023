@@ -1,0 +1,343 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath, esint}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\allowdisplaybreaks
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\eps{{\epsilon}}
+\def\O{{\mathcal{O}}}
+\def\F{{\mathcal{F}}}
+\def\L{{\mathcal{L}}}
+\newcommand{\floor}[1]{{\left\lfloor#1\right\rfloor}} % Floor function
+\newcommand{\ceil}[1]{{\left\lceil#1\right\rceil}} % Ceiling function
+\newcommand{\paren}[1]{{\left(#1\right)}} % Parentheses ()
+\newcommand{\brac}[1]{{\left\{#1\right\}}} % Curly braces {}
+\newcommand{\braces}[1]{{\left[#1\right]}} % Braces []
+\newcommand{\abrac}[1]{{\left\langle#1\right\rangle}} % Angle Braces <>
+\newcommand{\abs}[1]{{\left|#1\right|}} % Absolute value
+\newcommand{\norm}[1]{{\left\|#1\right\|}} % Norm
+\newcommand{\eval}[2]{\right|_{#1}^{#2}} % Evaluate
+
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}} % Partial of 1 wrt 2
+\newcommand{\ppn}[3]{\frac{\partial^{#1} #2}{\partial #3^{#1}}} % nth Partial of 1 wrt 2
+\newcommand{\dd}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}} % Partial of 1 wrt 2
+\newcommand{\ddn}[3]{\frac{\mathrm{d}^{#1} #2}{\mathrm{d} #3^{#1}}} % nth Partial of 1 wrt 2
+
+\def\ointcc{{\ointctrclockwise}} %counter clockwise contour integral
+\def\ointc{{\ointclockwise}} %clockwise contour integral
+
+%dash integral 
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 567 Homework 6\\
+ Due November 11 2022\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--Complete--$
+
+\begin{problem}
+    \begin{enumerate}
+        \item [{\bf (a)}]
+        Let $\hat{f}(s)$ and $\hat{g}(s)$ be the Laplace transforms of one-sided functions $f(t)$ and $g(t)$, respectively. Show that the inverse Laplace transform $\hat{f}(s)\hat{g}(s)$ is;
+        \[\int_0^t f(t - \tau)d\tau \]
+        
+        
+        \item [{\bf (b)}]
+        Use Laplace transform and the result in (a) to solve the following ordinary differential equation: 
+        \[ \ddn{2}{}{t} y + 4y = f(t),\]
+        subject to the initial conditions:
+        \[y(0)=0, ~~ \dd{y}{t}(0) =0. \]
+    
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [{\bf (a)}]
+        Let $\hat{f}(s)$ and $\hat{g}(s)$ be defined by
+        \[\hat{f}(s) = \L[f(t)] = \int_0^\infty e^{-sx}f(x)dx\]
+        \[\hat{g}(s) = \L[g(t)] = \int_0^\infty e^{-s\tau}g(\tau)d\tau.\]
+        Then we have that
+        \begin{align*}
+            \hat{f}(s)\hat{g}(s) &= \int_0^\infty e^{-sx}f(x)dx\int_0^\infty e^{-s\tau}g(\tau)d\tau\\
+            &=\int_0^\infty\int_0^\infty e^{-s(x + \tau)}f(x)g(\tau)dxd\tau,
+        \end{align*}
+        and if we let $t = x + \tau$, then $x = t - \tau$ and we get that
+        \[\int_0^\infty \int_\tau^\infty e^{-st}f(t-\tau)g(\tau)dtd\tau.\]
+        Swapping the order of integration we get 
+        \begin{align*}
+            \hat{f}(s)\hat{g}(s) &= \int_0^\infty \int_0^t e^{-st} f(t - \tau)g(\tau)d\tau dt\\
+            &=\int_0^\infty e^{-st}\int_0^t f(t - \tau)g(\tau)d\tau dt\\
+            &=\L\braces{\int_0^t f(t - \tau)g(\tau)d\tau}.
+        \end{align*}
+        Now we can see that when we take the inverse Laplace we get
+        \[
+            \L^{-1}\braces{\hat{f}(s)\hat{g}(s)} = \L^{-1}\braces{\L\braces{\int_0^t f(t - \tau)g(\tau)d\tau}} = \int_0^t f(t - \tau)g(\tau)d\tau.
+        \]
+        
+        \item [{\bf (b)}]
+        Consider the ODE
+        \[ \ddn{2}{}{t}y + 4y = f(t),\]
+        subject to the initial conditions:
+        \[y(0) = 0, ~ \dd{y}{t}(0)=0. \]
+        Let's use the Laplace transform on each part of our ODE,
+        \begin{align*}
+            \L{y''} &= \int_0^\infty e^{-st}y'' dt\\
+            &= e^{-st}y' \bigg|_0^\infty + s \int_0^\infty e^{-st}y'dt\\
+            &= s^2\L[y] - sy(0) - y'(0)\\
+            &= s^2\L[y],
+        \end{align*}
+        where $sy(0) = y'(0) = 0$ due to the initial conditions. We also have that
+        \[ \L[4y] = 4\L[y] = 4\hat{y}(s) ~~ \text{and} ~~ \L[f(t)] = \hat{f}(s).\]
+        Plugging this values into our ODE we get
+        \begin{align*}
+            s^2\L{y} + 4\L{y} &= \L{f(t)}\\
+            \L{y}(s^2 + 4) &= \L{f(t)}\\
+            \hat{y}(s) &= \frac{1}{(s^2 + 4)}\hat{f}(s).
+        \end{align*}
+        Recall that the Laplace transform of $g(t) = \frac{1}{2} \sin(2t)$ is $\L[g(t)] = \hat{g}(s) = \frac{1}{s^2 + 4}$. Thus we can rewrite the ODE as
+        \[ \hat{y}(s) = \frac{1}{(s^2 + 4)}\hat{f}(s) \rightarrow \hat{y}(s) = \hat{g}(s)\hat{f}(s).\] 
+        From part (a) we know how to take inverse Laplace of $\hat{g}(s)\hat{f}(s)$ and thus we have that
+        \begin{align*}
+            y(t) &= \int_0^t g(t -\tau)f(\tau)d\tau\\
+            &= \int_0^t \frac{1}{2}\sin(2(t - \tau))f(\tau)d\tau.
+        \end{align*}
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--Pretty stuck--$
+
+\begin{problem}
+    Solve the following Laplace equation
+    \[ \ppn{2}{}{x} \phi + \ppn{2}{}{y}\phi = 0,\]
+    in the upper half place: $-\infty < x < \infty$, $o < y < \infty$, subject to the boundary conditions:
+    \[ \phi \to 0 ~\text{as}~ y\to \infty; ~ \phi \to 0 ~\text{as}~ x\to \pm \infty; ~\phi(x,0) = \frac{x}{x^2 + a^2}.\]
+    Hint: You can use Fourier transform in $x$ or Laplace transform in $y$. 
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Consider the Laplace equation
+    \[ \ppn{2}{}{x} \phi + \ppn{2}{}{y}\phi = 0,\]
+    in the upper half place $-\infty < x < \infty$, $o < y < \infty$, subject to the boundary conditions:
+    \[ \phi \to 0 ~\text{as}~ y\to \infty; ~ \phi \to 0 ~\text{as}~ x\to \pm \infty; ~\phi(x,0) = \frac{x}{x^2 + a^2}.\]
+    To solve the equation, let's assume that $\phi$ is integrable and take a Fourier transform in $x$. Let 
+    \[ 
+        U(\lambda,y) = \F[\phi(x,y)] = \int_{-\infty}^{\infty}e^{i\lambda x}\phi(x,y)dx.
+    \]
+    Applying this to the Laplace equation we get
+    \[
+        \F[\phi_{yy}] = \F[\phi_{xx}] = U_{yy}
+    \]
+    where
+    \[\F[\phi_{yy}] = \ppn{2}{}{y}\F[U] = U_[yy],\]
+    and
+    \begin{align*}
+        \F[\phi_{xx}] &= \int_{-\infty}^{\infty}e^{i \lambda x}\ppn{2}{}{x}\\
+        &= e^{i \lambda x}\pp{}{x}\phi\bigg|_{-\infty}^{\infty} - i\lambda\int_{-\infty}^{\infty}e^{i \lambda x}\pp{}{x}\phi dx\\
+        &=e^{i \lambda x}\pp{}{x}\phi\bigg|_{-\infty}^{\infty} - i \lambda e^{i\lambda x}\phi \bigg|_{-\infty}^{\infty} + (i\lambda)^2U\\
+        &= - \lambda^2U,
+    \end{align*}
+    assuming that $\phi_x \to 0$ as $x \to \pm\infty$ and from the boundary condition $\phi \to 0$ as $x \to \pm\infty$. Thus the Laplace equation becomes,
+    \[ \ppn{2}{}{y}U  - \lambda^2 U = 0.\]
+    Applying the characteristic equation get
+    \[ U'' - \lambda^2U = 0 \to r^2 - \lambda^2 = 0 \implies r^2 = \lambda^2,\]
+    and thus $r = \pm \lambda$. Therefore a solution to the equation is given by
+    \[U(\lambda, y) = A(\lambda)e^{\lambda y} + B(\lambda)e^{-\lambda y}.\]
+    Now let's transform the boundary condition $\phi(x,0)$ which $\F[\phi(x,0)] = U(\lambda,0)$ and $\phi \to 0$ as $x \to \pm \infty$ implies that $U(\lambda,0) \to 0$ as $x \to \pm \infty$ and $y \to \infty$. Observe that when $\lambda > 0$, to maintain these conditions, $A(\lambda) = 0$, while when $\lambda < 0$, we have that $B(\lambda)=0$. Taking the Fourier transform gives
+    \begin{align*}
+        \F[\phi(x,o)] &= \F\left[ \frac{x}{x^2 + a^2}\right]\\
+        &= \int_{-\infty}^{\infty}e^{i\lambda x}\frac{x}{x^2 + a^2}dx.
+    \end{align*} 
+    Now let
+    \[ I = \int_{-\infty}^{\infty}e^{i\lambda x}\frac{x}{x^2 + a^2}dx,\]
+    and since $\left| \frac{x^2}{x^2 + a^2} \right| \to 0$ as $x \to \infty$, we can apply Jordan's Lemma with the three following cases: $\lambda = 0, \lambda > 0,$ and $\lambda <0$.
+
+    \noindent
+    Consider when $\lambda = 0.$ Then
+    \[ 
+        I = \int_{-\infty}^{\infty} \frac{x}{x^2 + a^2}dx = 0,
+    \]
+    since we have an odd function over symmetric bounds.
+
+    \noindent
+    Consider when $\lambda > 0$ consider the contour that is a half circle in the upper plane going from $-R$ to $R$. Then by Jordan's Lemma
+    \[ I = \lim_{R \to \infty} \ointcc_C e^{i\lambda z} \frac{z}{z^2 + a^2}dz.\]
+    We have two simple poles at $\pm ai$ of which only $z = ai$ is within the contour. Let's compute the residue at this point
+    \begin{align*}
+        \text{Res}(ai) &= \lim_{z \to ai}(z - ai)\paren{e^{i\lambda z}\frac{z}{z^2 + a^2}}\\
+        &= \lim_{z \to ai} e^{i\lambda z}\frac{z}{z^2 + ai}\\
+        &= e^{i\lambda ai}\frac{ai}{2ai}\\
+        &= \frac{1}{2}e^{-\lambda a}.
+    \end{align*} 
+    Thus by Residue Theorem we have
+    \[ 
+        I = 2\pi i \paren{ \frac{1}{2}e^{-\lambda a}} = \pi i e^{-\lambda a}.
+    \]
+
+    \noindent
+    Consider when $\lambda < 0$ consider the contour that is a half circle in the lower plane going from $-R$ to $R$. Then by Jordan's Lemma
+    \begin{align*}
+        I &= \lim_{R \to \infty} \int_{-\infty}^{\infty} e^{i\lambda z} \frac{z}{z^2 + a^2}dz\\
+        &= \lim_{R \to \infty}\int_{R}^{-R}e^{i\lambda z} \frac{z}{z^2 + a^2}dz\\
+        &= - \lim_{R \to \infty} \ointcc_C e^{i\lambda z} \frac{z}{z^2 + a^2}dz\\
+    \end{align*} 
+    We have two simple poles at $\pm ai$ of which only $z = -ai$ is within the contour. Let's compute the residue at this point
+    \begin{align*}
+        \text{Res}(-ai) &= \lim_{z \to -ai}(z + ai)\paren{e^{i\lambda z}\frac{z}{z^2 + a^2}}\\
+        &= \lim_{z \to -ai} e^{i\lambda z}\frac{z}{z^2 - ai}\\
+        &= e^{i\lambda (-ai)}\frac{-ai}{-2ai}\\
+        &= \frac{1}{2}e^{\lambda a}.
+    \end{align*} 
+    Thus by Residue Theorem we have
+    \[ 
+        I = -2\pi i \paren{ \frac{1}{2}e^{\lambda a}} = -\pi i e^{\lambda a}.
+    \]
+    Now collecting these we get that
+    \begin{align*}
+        U(\lambda,0) = \F[\phi(x,0)] &= \F\left[ \frac{x}{x^2 + a^2}\right]\\
+        &= \int_{-\infty}^{\infty}e^{i\lambda x}\frac{x}{x^2 + a^2}dx\\
+        &= \text{sgn}(\lambda)\pi i e^{-|\lambda| a}.
+    \end{align*}
+    Plugging this back into our transformed Laplace equation gives
+    \[ U(\lambda, y) = \text{sgn}(\lambda)\pi i e^{-|\lambda|a}e^{-|\lambda|y}.\]
+    Now we lets take the inverse
+    \begin{align*}
+        \phi(x,y) &= \F^{-1}\\
+        &= \frac{1}{2\pi}\int_{-\infty}^\infty\text{sgn}(\lambda)\pi i e^{-|\lambda|a}e^{-|\lambda|y} d\lambda\\
+        &= \lim_{\delta \to 0}\paren{\frac{i}{2}\int_{\delta}^\infty e^{-i\lambda x}e^{-\lambda a}e^{-\lambda y}d\lambda - \frac{i}{2}\int^{-\delta}_{-\infty}e^{-i\lambda x}e^{\lambda a}e^{\lambda y}d\lambda}\\
+        &= \lim_{\delta \to 0}\paren{\frac{i}{2}\int_{\delta}^\infty e^{-\lambda(ix + a + y)}d\lambda - \frac{i}{2}\int^{-\delta}_{-\infty}e^{\lambda(-ix + a + y)}d\lambda}\\
+        &= \lim_{\delta \to 0}\paren{\left. \frac{i}{2} \cdot \frac{-1}{ix + a + y}e^{-\lambda(ix + a + y)}\right|_{\delta}^{\infty}} - \lim_{\delta \to 0}\paren{ \left. \frac{i}{2} \cdot \frac{1}{-ix + a + y}e^{\lambda(-ix + a + y)} \right|_{-\infty}^{-\delta}}\\
+        &= \frac{i}{2} \paren{\frac{1}{ix + a + y} - \frac{1}{-ix + a + y}}\\
+        &= \frac{i}{2}\paren{\frac{-2ix}{x^2 + y^2 + a^2 +2 ay}}\\
+        &= \frac{x}{x^2 + (a + y)^2}.
+    \end{align*}
+    And indeed we see that $\phi$ is integrable and $\phi_x \to 0$ as $x \to \pm \infty$ as desired. Thus we have found our solution. 
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--Complete--$
+
+\begin{problem}
+    Use Fourier transform to solve the following wave equation:
+    \[\ppn{2}{}{t}u = c^2 \ppn{2}{}{x}u, ~~ -\infty < x < \infty, 0 < t < \infty,\]
+    subject to the initial condition: $u(x,0) = 0, \pp{}{t}u=\delta(x)$ at $t=0$ and boundary conditions: $u(x,t) \to 0$ as $x \to \pm \infty$. 
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the wave equation given by
+    \[\ppn{2}{}{t}u = c^2 \ppn{2}{}{x}u, ~~ -\infty < x < \infty, 0 < t < \infty,\]
+    subject to the initial condition: $u(x,0) = 0, \pp{}{t}u=\delta(x)$ at $t=0$ and boundary conditions: $u(x,t) \to 0$ as $x \to \pm \infty$. Let's take the Fourier transform in $x$ to simplify this problem. Let
+    \[ U(\lambda,t) = \int_{-\infty}^{\infty}e^{i\lambda x}u(x,t)dx = \F[u(x,t),]\]
+    under the assumption that $u(x,t)$ is integrable. Then the Fourier transform of the wave equation is
+    \[ 
+    \F[u_{tt}] = c^2 \F[u_{xx}],
+    \]
+    where
+    \[ \F[u_{tt}] = \ppn{2}{}{t}U,\]
+    and
+    \begin{align*}
+        \F[u_{xx}] &= \int_{-\infty}^{\infty}e^{i\lambda x}u_{xx}dx\\ 
+        &= \left. u_x e^{i\lambda x}\right|_{-\infty}^{\infty} - i\lambda\int_{-\infty}^{\infty}e^{i \lambda x}u_xdx\\
+        &= \left. u_x e^{i\lambda x}\right|_{-\infty}^{\infty} - i \lambda \paren{\left. ue^{i\lambda x}\right| - i\lambda \int_{-\infty}^{\infty}e^{i\lambda x}u dx}\\
+        &= \left. u_x e^{i\lambda x}\right|_{-\infty}^{\infty} - i\lambda \left. u e^{i\lambda x}\right|_{-\infty}^{\infty} - \lambda^2U\\
+        &= -\lambda^2U,
+    \end{align*}
+    assuming that $u_x \to 0$ as $x \to \pm \infty$ and from the boundary condition $u \to 0$ as $x \to \pm \infty$. Thus the wave equation becomes
+    \[ \ppn{2}{}{t}U = -\lambda^2 U,\]
+    which we know there is a solution of the form,
+    \[U(\lambda,t) = A(\lambda)\cos(c\lambda t) + B(\lambda)\sin(c\lambda t).\]
+    Next let's Fourier transform the initial conditions,
+    \[ 
+        \F[u(x,0)] = \F[0] = 0 = U(\lambda,0),
+    \]
+    and
+    \[ 
+        \F[u_t(x,0)] = \F[\delta(x)] = U_t(\lambda,0) = 1.
+    \]
+    Applying these to our solution we get
+    \[
+        U_t(\lambda,t) = - c\lambda A(\lambda)\sin(c \lambda t) + c \lambda B(\lambda)\cos(c\lambda t),
+    \]
+    which gives
+    \[ U_t(\lambda,0) = 1 = c\lambda B(\lambda) \implies B(\lambda) = \frac{1}{c\lambda}.\]
+    And in combination of the other boundary condition we get $A(\lambda) = 0$ and thus we have
+    \[ U(\lambda,t) = \frac{1}{c\lambda}\sin(c \lambda t).\]
+    Next let's take the inverse transform
+    \begin{align*}
+        u(x,t) &= \F^{-1}[U(\lambda,t)]\\
+        &= \frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-i\lambda x}U(\lambda,t)d\lambda\\
+        &= \frac{1}{2\pi}\dashint_{-\infty}^\infty \frac{e^{-i\lambda x}}{c\lambda}\sin(c\lambda t)d\lambda.
+    \end{align*}
+    We know how to evaluate this integral from Homework 5 question 2,
+    \begin{align*}
+        u(x,t) &= \frac{1}{2c}\paren{\frac{1}{2}\paren{\text{sgn}(x + ct) - \text{sgn}(x -ct)}}\\
+        &= \frac{1}{2c}\int_{x - ct}^{x + ct}\delta(y)dy.
+    \end{align*}
+    This $u(x,t)$ is indeed integrable and $u_x \to 0$ as $x \to \pm \infty$ since for sufficiently large $|x|$, we have that $u = 0$. Thus we have our solution.
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+\end{document}

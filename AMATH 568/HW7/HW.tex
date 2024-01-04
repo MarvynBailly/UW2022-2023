@@ -1,0 +1,144 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 568 Homework 7\\
+ Due March 3\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+
+
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the Optical Parametric Oscillator as given in Lecture $23$ of the notes.
+    \begin{enumerate}
+        \item[(a)]
+        Assuming slow time $\tau = \eps^2 t$ and slow space $\xi = \eps x$, derive the Fisher-Kolmogorov equation for the slow evolution of the instability (the expression after Eq. (518))
+        
+        \item[(b)]
+        Derive the Swift-Hohenberg type expression which is governed by Eq. (519) with the scalings detailed in the notes.
+        
+    \end{enumerate} 
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the Optical Parametric Oscillator (OPO) that is given by the dimensionless signal ($U$) and pump ($V$) of the form
+    \begin{align*}
+        U_t &= \frac{i}{2}U_{xx} + VU^* - (1 + i \Delta_1)U\\
+        V_t &= \frac{i}{2}\rho V_{xx} + U^2 - (\alpha + i \Delta_2)V + S,
+    \end{align*}
+    where $\Delta_1 \and \Delta_2$ are the cavity detuning parameters, $\rho$ is the diffraction ration between signal and pump fields, $\alpha$ is the pump-to-signal loss ratio, and $S$ represents the external pumping term. We know that the stable uniform steady-state response of the OPO is given by
+    \begin{align*}
+        U &= 0\\
+        V &= \frac{S}{\alpha + i \Delta_2}.
+    \end{align*}
+    Using linearly stability analysis, we find that the critical value of the pumping strength is given by
+    \begin{equation*}
+        S_c = (\alpha + i \Delta_2)(1 + i\Delta_1).
+    \end{equation*}
+    To study the behavior near $S_c$, we use the following slow scales
+    \begin{align*}
+        \tau &= \eps^2 t\\
+        \xi &= \eps x,
+    \end{align*}
+    where $\eps^2 = |S - S_c| \ll  1$. Now we expand about the steady-state solution by
+    \begin{align*}
+        U &= 0 + \eps u(\tau, \xi)\\
+        V &= \frac{S}{\alpha + i \Delta_2} + \eps^2 v(\tau, \xi)\\
+        S &= S_c + \eps^2 C + \O(\eps^4),
+    \end{align*}
+    where $C$ is a constant. Note that the chain rules are given by
+    \begin{align*}
+        U_t &= \eps^3 u_\tau\\
+        V_t &= \eps^4 v_\tau\\
+        U_{xx} &= \eps^3 u_{\xi\xi}\\
+        V_{xx} &= \eps^4 v_{\xi\xi}.
+    \end{align*}
+    Plugging these expansions into the first OPO equation yields
+    \begin{align}
+        \eps^3 u_\tau &= \frac{i}{2}\eps^3 u_{\xi \xi} + \paren{\frac{(\alpha + i \Delta_2)(1 + i\Delta_1) + \eps^2 C}{\alpha + i \Delta_2} + \eps^2 v}\eps u^* - (1 + i\Delta_1)\eps u + \O(\eps^4) \nonumber \\
+        \implies \eps(1 + i\Delta_1)(u - u^*) &= \eps^3\paren{\frac{i}{2} u_{\xi \xi} - u_\tau + vu^* + \frac{C}{\alpha + i \Delta_2}u^*} + \O(\eps^4) \nonumber \\
+        \implies (1 + i\Delta_1)(u - u^*) &= \eps^2\paren{\frac{i}{2} u_{\xi \xi} - u_\tau + vu^* + \frac{C}{\alpha + i \Delta_2}u^*} + \O(\eps^4) \label{bigboi} \\
+        \implies u^* &= u - \frac{\eps^2}{1 + i\Delta_1}\paren{\frac{i}{2}u_{\xi\xi} - u_\tau + vu^* + \frac{C}{\alpha + i \Delta_2}u^*} + \O(\eps^4). \label{u}
+    \end{align}
+    Similarly, we can plug in the second OPO equation yields
+    \begin{align}
+        \eps^4 v_\tau &= \frac{i}{2}\rho \eps^4 v_{\xi \xi} + \eps^2u -(\alpha + i \Delta_2)\paren{\frac{(\alpha + i \Delta_2)(1 + i\Delta_1) + \eps^2 C}{\alpha + i \Delta_2} + \eps^2 v}\nonumber \\ &+ (\alpha + i \Delta_2)(1 + i\Delta_1) + \eps^2 C + \O(\eps^4)\nonumber \\
+        \implies (\alpha + i\Delta_2)v &= -u^2 + \eps^2\paren{\frac{i}{2}\rho v_{\xi \xi} - v_\tau} + \O(\eps^4) \\
+        \implies v &= -\frac{u^2}{\alpha + i \Delta_2} + \frac{\eps^2}{\alpha + i \Delta_2}\paren{\frac{i}{2}\rho v_{\xi \xi} - v_\tau} + \O(\eps^4). \label{v}
+    \end{align}
+    Now plugging Equation \ref{v} into itself yields
+    \begin{align}
+        v &= -\frac{u^2}{\alpha + i \Delta_2} + \frac{\eps^2}{\alpha + i \Delta_2}\paren{-\frac{i}{2}\rho \frac{(u^2)_{\xi \xi}}{\alpha + i \Delta_2} + \frac{(u^2)_\tau}{\alpha + i \Delta_2}} + \O(\eps^4),\nonumber \\
+        &= -\frac{u^2}{\alpha + i \Delta_2} + \frac{\eps^2}{(\alpha + i \Delta_2)^2}\paren{(u^2)_\tau - \frac{i}{2}\rho(u^2)_{\xi \xi}} + \O(\eps^4). \label{vnew}
+    \end{align}
+    Then multiplying Equation \ref{vnew} by $u^*$ yields
+    \begin{align*}
+        vu^* = -\frac{1}{\alpha + i \Delta_2}|u|^2u + \frac{\eps^2}{(\alpha + i \Delta_2)^2}\paren{(u^2)_\tau u^* - \frac{i}{2}\rho(u^2)_{\xi \xi}u^*} + \O(\eps^4),
+    \end{align*}    
+    and plugging in Equation \ref{u} gives
+    \begin{equation}
+        vu^* = -\frac{1}{\alpha + i \Delta_2}|u|^2u + \frac{\eps^2}{(\alpha + i \Delta_2)^2}\paren{(u^2)_\tau u - \frac{i}{2}\rho(u^2)_{\xi \xi}u} + \O(\eps^4). \label{vu}
+    \end{equation}
+    Now plugging \ref{vu} into \ref{bigboi} yields
+    \begin{align}
+        R  &:= \eps^2\paren{\frac{i}{2} u_{\xi \xi} - u_\tau - \frac{1}{\alpha + i \Delta_2}|u|^2u + \frac{C}{\alpha + i \Delta_2}u^*} \nonumber\\
+        &+\eps^4\paren{\frac{1}{(\alpha + i \Delta_2)^2} \paren{(u^2)_\tau u - \frac{i}{2}\rho(u^2)_{\xi \xi}u}} + \O(\eps^6) \label{R}.
+    \end{align}
+    Enforcing the Fredholm-Alternative theorem on the RHS of Equation \ref{R} for the leading order, gives the solvability condition
+    \[ 
+        (1 - i\Delta_1)R + (1 + i\Delta_1)R^* = (R + R^*) + i\Delta_1(R^* - R) = 0.
+    \]
+    From Equation \ref{u}, we have that $u = u^*$ at leading order, thus we have that
+    \begin{align*}
+        R  &= \eps^2\paren{\frac{i}{2} u_{\xi \xi} - u_\tau - \frac{(\alpha - i \Delta_2)u^3}{\alpha^2 +  \Delta_2^2} + \frac{(\alpha - i \Delta_2)Cu}{\alpha^2 +  \Delta_2^2}} + \O(\eps^4),\\
+        R^*  &= \eps^2\paren{-\frac{i}{2} u_{\xi \xi} - u_\tau - \frac{(\alpha + i \Delta_2)u^3}{\alpha^2 +  \Delta_2^2} + \frac{(\alpha + i \Delta_2)Cu}{\alpha^2 +  \Delta_2^2}} + \O(\eps^4),\\
+    \end{align*} 
+    then
+    \begin{align*}
+        R + R^* &= \eps^2\paren{-2u_\tau - \frac{2\alpha u^3}{\alpha^2 + \Delta_2^2} + \frac{2\alpha C u}{\alpha^2 + \Delta_2^2}},\\
+        R^* - R &= -i \eps^2 \paren{u_{\xi \xi} + \frac{2\Delta_2u^3}{\alpha^2 + \Delta_2^2} - \frac{2\Delta_2 Cu}{\alpha^2 + \Delta_2^2}},\\
+        \implies i \Delta_1(R^* - R) &= \eps^2 \Delta_1 \paren{u_{\xi \xi} + \frac{2\Delta_2u^3}{\alpha^2 + \Delta_2^2} - \frac{2\Delta_2 Cu}{\alpha^2 + \Delta_2^2}}.
+    \end{align*}
+    Thus we have
+    \begin{align*}
+        0 &= (R + R^*) + i\Delta_1(R^* - R) \\ 
+        \implies 0 &=  \eps^2 \paren{-2 u_\tau - \frac{2\alpha u^3}{\alpha^2 + \Delta_2^2} + \frac{2\alpha c u}{\alpha^2 + \Delta_2^2} + \Delta_1 u_{\xi \xi} + \frac{2\Delta_1\Delta_2u^3}{\alpha^2 + \delta_2^2} - \frac{2\Delta_1\Delta_2 Cu}{\alpha^2 - \Delta_1^2}}\\
+        \implies 0 &= u^3 - cu + \frac{\Delta_1\paren{\alpha^2 + \Delta_2^2}}{2\paren{\Delta_1 \Delta_2 - \alpha}} u_{\xi \xi} - \frac{\alpha^2 + \Delta_2^2}{\Delta_1\Delta_2 -\alpha}u_\tau. 
+    \end{align*}
+    Now if we let $u = \paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}^{1/2}\varphi$ then we get
+    \begin{align*}
+        &\paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}^{3/2}\varphi^3 - c \paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}\varphi + \frac{\Delta_1}{2}\paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}^{3/2}\varphi_{\xi \xi} - \paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}^{3/2}\varphi_\tau = 0,\\
+        \implies &\varphi^3 - \paren{\frac{\alpha^2 + \Delta_2^2}{\Delta_1 \Delta_2 - \alpha}}\varphi + \frac{\Delta_1}{2}\varphi_{\xi \xi} - \varphi_\tau = 0.
+    \end{align*}
+    Finally, if we let $\zeta = \paren{\frac{\Delta_1}{2}}^{1/2}$ and $\gamma = \frac{|C|\paren{\Delta_1 \Delta_2 - \alpha}}{\alpha^2 + \Delta_2^2}$ then we get the Fisher-Kolmogorov equation
+    \[ 
+        \varphi^3 \mp \gamma \varphi + \varphi_{\xi \xi} - \varphi_{\tau} = 0.
+    \]
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

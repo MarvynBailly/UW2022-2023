@@ -1,0 +1,197 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath, esint}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\allowdisplaybreaks
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\eps{{\epsilon}}
+\def\O{{\mathcal{O}}}
+\newcommand{\floor}[1]{{\left\lfloor#1\right\rfloor}} % Floor function
+\newcommand{\ceil}[1]{{\left\lceil#1\right\rceil}} % Ceiling function
+\newcommand{\paren}[1]{{\left(#1\right)}} % Parentheses ()
+\newcommand{\brac}[1]{{\left\{#1\right\}}} % Curly braces {}
+\newcommand{\braces}[1]{{\left[#1\right]}} % Braces []
+\newcommand{\abrac}[1]{{\left\langle#1\right\rangle}} % Angle Braces <>
+\newcommand{\abs}[1]{{\left|#1\right|}} % Absolute value
+\newcommand{\norm}[1]{{\left\|#1\right\|}} % Norm
+\newcommand{\eval}[2]{\right|_{#1}^{#2}} % Evaluate
+
+\newcommand{\pp}[2]{\frac{\partial #1}{\partial #2}} % Partial of 1 wrt 2
+\newcommand{\ppn}[3]{\frac{\partial^{#1} #2}{\partial #3^{#1}}} % nth Partial of 1 wrt 2
+\newcommand{\dd}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}} % Partial of 1 wrt 2
+\newcommand{\ddn}[3]{\frac{\mathrm{d}^{#1} #2}{\mathrm{d} #3^{#1}}} % nth Partial of 1 wrt 2
+
+\def\ointcc{{\ointctrclockwise}} %counter clockwise contour integral
+\def\ointc{{\ointclockwise}} %clockwise contour integral
+
+%dash integral 
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 567 Homework 7\\
+ Due Soon\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    \begin{enumerate}
+
+        \noindent
+        \item[a] construct the bilinear transform
+        \[ w(z) = \frac{az + b}{cz + d}\]
+        that maps the region between the two circles $| z - \frac{1}{4} | = \frac{1}{4}$ and $| z - \frac{1}{2} | = \frac{1}{2}$ into an infinite strip bounded by the vertical lines $u = \mathrm{Re}(w) = 0$ and $u = \mathrm{Re}(w) = 1$. To avoid ambiguity, suppose that the outer circle is mapped to $u = 1$.
+
+        \item[b] Upon finding the appropriate transformation $w$, carefully show that the image of the inner circle under $w$ is the vertical line $u = 0$, and similarly for the outer circle.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item[a]
+        We wish to construct the bilinear transform
+        \[ w(z) = \frac{az + b}{cz + d}\]
+        that maps the region between the two circles $| z - \frac{1}{4} | = \frac{1}{4}$ and $| z - \frac{1}{2} | = \frac{1}{2}$ into an infinite strip bounded by the vertical lines $u = \mathrm{Re}(w) = 0$ and $u = \mathrm{Re}(w) = 1$. To avoid ambiguity, suppose that the outer circle is mapped to $u = 1$. To achieve this mapping, we require $z = \frac{1}{2}$ to map to $w = 0$, thus $z_1 = \frac{1}{2}$. We also need $z = 1$ to map to $w = 1$ thus
+        \[ A \frac{1 - \frac{1}{2}}{1} = 1 \implies A = 2.\]
+        Thus we have that the bilinear transform is given by,
+        \[ w(z) = 2 \frac{z - \frac{1}{2}}{z}.\]
+
+        \item[b] 
+        Next we wish to verify the transform by showing that the image of the each circle under $w$ is mapped to their corresponding vertical line. First let's consider the inner circle. Let $z = x + i y$ be on the inner circle,
+        \[ (x - \frac{1}{4})^2 + y^2 = \frac{1}{16}.\]
+        Then,
+        \begin{align*}
+            w(z) &= 2 \paren{ \frac{(x + iy) - \frac{1}{2}}{(x + iy)}}\\
+            &= \paren{ \frac{2(x + iy) - 1}{x + iy} } \paren{ \frac{x - iy}{x - iy}}\\
+            &= \frac{2(x^2 + y^2) - (x - iy)}{x^2 + y^2}.
+        \end{align*} 
+        Next observe that
+        \begin{align*}
+            \mathrm{Re}(w) &= \frac{2x^2 + 2y^2 - x}{x^2 + y^2}\\
+            &= 2 \paren{ \frac{x^2 + y^2 - \frac{1}{2}x }{x^2 + y^2}}\\
+            &= \frac{2((x - \frac{1}{4})^2 - \frac{1}{16} + y^2)}{x^2 + y^2}\\
+            &= \frac{2(\frac{1}{16} - \frac{1}{16})}{x^2 + y^2}\\
+            &= 0.
+        \end{align*}
+        Thus we see that if $x,y \neq 0$, then $\mathrm{Re}(w(z)) = 0$, otherwise $\mathrm{Re}(w(z)) = z_\infty$ which is the transformation we desired. We can also verify that the inverse transform achieves the desired effect by observing that when $w = ai$
+        \[
+            z = \frac{1}{2-w} = \frac{1}{2-ai} = \frac{2}{a^2 + 4} + \frac{i a}{a^2 + 4}.
+        \]
+        Plugging this into the circle equation with $x = \mathrm{Re}(z) = \frac{2}{a^2 + 4}$ and $y = \mathrm{Im}(z) = \frac{a}{a^2 + 4}$ gives
+        \begin{align*}
+            \frac{1}{16} &= \paren{\frac{2}{a^2 + 4} - \frac{1}{4}}^2 + \paren{\frac{a}{a^2 + 4}}^2\\
+            \frac{1}{16} &= - \frac{1}{a^2 + 4} + \frac{4}{(a^2 + 4)^2} + \frac{1}{16} + \frac{a^2}{(a^2 + 4)^2}\\
+            0 &= - \frac{1}{a^2 + 4} + \frac{4 + a^2}{(a^2 + 4)^2}\\
+            0 &= \frac{-a^2 - 4 + a^2 +4}{(a^2 + 4)^2}\\
+            0 &= 0.
+        \end{align*} 
+        Thus the inverse mapping also holds. 
+
+        \noindent
+        Next consider the outer circle. Let $z = x + iy$ be on the circle,
+        \[ (x - \frac{1}{2})^2 + y^2 = \frac{1}{4}.\]
+        Then,
+        \begin{align*}
+            w(z) &= 2 \paren{ \frac{(x + iy) - \frac{1}{2}}{(x + iy)}}\\
+            &= \paren{ \frac{2(x + iy) - 1}{x + iy} } \paren{ \frac{x - iy}{x - iy}}\\
+            &= \frac{2(x^2 + y^2) - (x - iy)}{x^2 + y^2}.
+        \end{align*} 
+        Next observe that
+        \begin{align*}
+            \mathrm{Re}(w) &= \frac{2x^2 + 2y^2 - x}{x^2 + y^2}\\
+            &= \frac{x^2 + y^2}{x^2 + y^2} + \frac{x^2 + y^2 - x}{x^2 + y^2}\\
+            &= 1 + \frac{(x - \frac{1}{2})^2 - \frac{1}{4} + y^2}{x^2 + y^2}\\
+            &= 1 + \frac{\frac{1}{4} - \frac{1}{4}}{x^2 + y^2}\\
+            &= 1.
+        \end{align*}
+        Thus we see that if $x,y \neq 0$, then $\mathrm{Re}(w(z)) = 1$, otherwise $\mathrm{Re}(w(z)) = z_\infty$ which is the transformation we desired. We can also verify that the inverse transform achieves the desired effect by observing that when $w = ai + 1$
+        \[
+            z = \frac{1}{2-w} = \frac{1}{2-ai - 1} = \frac{1}{a^2 + 1} + \frac{i a}{a^2 + 1}.
+        \]
+        Plugging this into the circle equation with $x = \mathrm{Re}(z) = \frac{1}{a^2 + 1}$ and $y = \mathrm{Im}(z) = \frac{a}{a^2 + 1}$ gives
+        \begin{align*}
+            \frac{1}{4} &= (\frac{1}{a^2 + 1} - \frac{1}{2})^2 + (\frac{a}{a^2 + 1})^2\\
+            \frac{1}{4} &= -\frac{1}{a^2 + 1} + \frac{1}{(a^2 + 1)^2} + \frac{1}{4} + \frac{a^2}{(a^2 + 9)^2}\\
+            0 &= \frac{-a^2 - 9}{(a^2 + 9)^2} + \frac{9 + a^2}{(a^2 + 9)^2}\\
+            0 &= 0.
+        \end{align*} 
+        Thus the inverse mapping also holds. 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Use the result of Problem 1 to find the steady state temperature $T (x, y)$ in the region bounded by the two circles, where the inner circle is maintained at $T = 0$C and the outer circle at $T = 100$C. Assume $T$ satisfies the two-dimensional Laplace equation.
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Building off the previous problem consider the steady state temperature $T (x, y)$ in the region bounded by the two circles, where the inner circle is maintained at $T = 0$C and the outer circle at $T = 100$C. Assume $T$ satisfies the two-dimensional Laplace equation. Thus we have that $T_{xx} + T_{yy} = 0$ with $T_{c_1} = 0$ and $T_{c_2} = 100$. Applying the bilinear transform gives that $T_{uu} + T_{vv} = 0$ with $T(0,v) = 0$ and $T(1,v) = 100.$ Since $T$ has no $v$ dependence, we have that $T_{vv} = 0$. Thus we find that
+    \[ T_{uu} = 0 \implies T = cu + d,\]
+    and applying the boundary conditions gives
+    \[ d = 0 ~~ \text{and} ~~ c = 100. \]
+    thus
+    \[ T(u,v) = 100 u.\]
+    Now to transform it back
+    \begin{align*}
+        T(w) &= 100 \cdot \mathrm{Re}(w)\\
+        &= 100 \cdot \mathrm{Re}\paren{ \frac{2z - 1}{z}}\\
+        &= 100 \cdot \mathrm{Re}\paren{\frac{2(x + iy) - 1}{x + iy}}\\
+        &= 100 \paren{\frac{2x^2 + 2y^2 - x}{x^2 + y^2}}.
+    \end{align*}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

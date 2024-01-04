@@ -1,0 +1,416 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+\usepackage{cancel}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 569 Homework 2\\
+ Due April 26\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the wave equation
+    \[ 
+        c^2 u_{xx} - u_{tt} = 0,
+    \]
+    which is a special case of the general quasi-linear equation:
+    \[ 
+        a u_{xx} + 2bu_{xt} + cu_{tt} = f.
+    \]
+    Find the slope of each of the two characteristics:
+    \[ 
+        \dd{t}{x} = -z_1 ~\text{along $\alpha = $ constant characteristic}
+    \]
+    and
+    \[ 
+        \dd{t}{x} = -z_2 ~\text{along $\beta = $ constant characteristic.}
+    \]
+
+    Find the expression in terms of $x$ and $t$ for $\alpha$ and $\beta$ so that the wave equation simplifies to 
+    \[ 
+        u_{\alpha \beta} = 0.
+    \]
+    
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the wave equation
+    \[ 
+        c^2 u_{xx} = u_{tt},
+    \]
+    which is a special case of the general quasi-linear equation:
+    \[ 
+        au_{xx} + 2bu_{xt} + c'u_{tt} = f,
+    \]
+    where $a = c^2, b = 0, c' = - 1, \and f=0$. To classify the PDE, we will use the transformation on the independent variables
+    \[ 
+        \begin{cases}
+            \alpha = \phi(x,t)\\
+            \beta = \psi(x,t),
+        \end{cases}
+    \]
+    which we require to be locally invertible. This implies that
+    \[ 
+        J(x,t) = \det \begin{bmatrix}
+            \pp{\alpha}{x} & \pp{\alpha}{t}\\
+            \pp{\beta}{x} & \pp{\beta}{t}\\
+        \end{bmatrix} \neq 0.
+    \]
+    Using the chain rule, we can compute the first and second derivates to be
+    \begin{align*}
+        u_x &= u_\alpha \alpha_x + u_\beta \beta_x\\
+        u_{xx} &= u_\alpha \alpha_{xx} + u_\beta \beta_{xx} + u_{\alpha \alpha} \alpha_x^2 + 2u_{\alpha \beta}\alpha_x\beta_x + u_{\beta \beta}\beta_x^2,\\
+    \end{align*}
+    and
+    \begin{align*}
+        u_t &= u_\alpha \alpha_t + u_\beta \beta_t\\
+        u_{tt} &= u_\alpha \alpha_{tt} + u_\beta \beta_{tt} + u_{\alpha \alpha} \alpha_t^2 + 2u_{\alpha \beta}\alpha_t\beta_t + u_{\beta \beta}\beta_t^2.
+    \end{align*}
+    We now plug the transformation back into the wave equation to get
+    \[ 
+        A(\alpha,\beta)u_{\alpha \alpha} + 2B(\alpha, \beta)u_{\alpha \beta}+ C(\alpha,\beta)u_{\beta \beta} = F,
+    \]
+    where $F$ contains all the other contributions, not explicitly written and where
+    \[ 
+        \begin{cases}
+            A = a \alpha_x^2 + 2b\alpha_x\alpha_t + c'\alpha_t^2 &= c^2 \alpha_x^2 - \alpha_t^2\\
+            B = a \alpha_x \beta_x + b(\alpha_x \beta_t + \alpha_t \beta_x) + c' \alpha_t \beta_t &= c^2 \alpha_x \beta_x - \alpha_t \beta_t\\
+            C = a \beta_x^2 + 2b\beta_x \beta_t + c'\beta_t^2 &= c^2 \beta_x^2 - \beta_t^2. 
+        \end{cases}
+    \]
+    Now if we pick $\alpha$ and $\beta$ to satisfy the equation
+    \[ 
+        \alpha \varphi_x^2 + 2b \varphi_x \varphi_t + c' \varphi_t^2 = 0, 
+    \]
+    then we achieve that $A = C = 0$ which reduces the PDE to 
+    \[ 
+        2Bu_{\alpha \beta} = F.
+    \]
+    To determine $\alpha \and \beta$, we divide by $\varphi_t^2$ to obtain
+    \[ 
+        \alpha \paren{\frac{\varphi_x}{\varphi_t}}^2 + 2b \paren{\frac{\varphi_x}{\varphi_t}} + c' \varphi_t^2 = 0, 
+    \]
+    and setting $z = \frac{\varphi_x}{\varphi_t}$ we obtain the quadratic equation
+    \[ 
+        az^2 + 2bz + c' =  c^2z^2 - 1 = 0,
+    \]  
+    and since $b^2 - ac'= c^2 > 0$, the roots will be real and not equal. Furthermore, we can compute the roots to be 
+    \[ 
+        c^2z^2 - 1 = 0 \implies z_{1,2} = \pm \frac{1}{c}.
+    \] 
+    Since $z_1 \neq z_2$ and $z_1, z_2 \in \R$, we know that
+    \[ 
+        \begin{cases}
+            \alpha_x = z_1 \alpha_y\\
+            \alpha_y = z_2 \beta_y,
+        \end{cases}
+    \]
+    and thus we see that $\alpha(x,y) =$ a constant and is one family of characteristics and $\beta(x,y)=$ constant which is a second family of characteristics. The slope of the characteristics in the $x-y$ plane are
+    
+    \[ 
+        \dd{t}{x} = -z_1 = - \frac{1}{c},
+    \]
+    and
+    \[ 
+        \dd{t}{x} = -z_2 = \frac{1}{c}.
+    \]
+    Thus for $\alpha$ we have 
+    \[ 
+        \dd{\alpha}{x} = 0, \and \dd{t}{x} = -\frac{1}{c},
+    \]
+    which we can solve using the method of characteristics to find
+    \[ 
+        \alpha = x + ct,
+    \]
+    and similarly for $\beta$ we find 
+    \[ 
+        \beta = x - ct.
+    \] 
+    Next let's re-compute the chain rule with $\alpha$ and $\beta$ to get
+    \begin{align*}
+        u_x &= u_\alpha + u_\beta\\
+        u_{xx} &= u_{\alpha \alpha} + 2u_{\alpha \beta} + u_{\beta \beta},\\
+    \end{align*}
+    and
+    \begin{align*}
+        u_t &= cu_\alpha - cu_\beta\\
+        u_{tt} &= c^2u_{\alpha \alpha} - 2c^2u_{\alpha \beta} + c^2u_{\beta \beta}.
+    \end{align*}
+    Plugging this into the wave equation yields
+    \begin{align*}
+        0 &= c^2u_{xx} - u_{tt}\\
+        &= c^2(u_{\alpha \alpha} + 2u_{\alpha \beta}\alpha_x\beta_x + u_{\beta \beta}) - ( c^2u_{\alpha \alpha} - 2c^2u_{\alpha \beta} + c^2u_{\beta \beta})\\
+        &= (c^2 - c^2)u_{\alpha \alpha}+ (2c^2 + 2c^2)u_{\alpha \beta} +(c^2 - c^2)u_{\beta \beta}\\
+        &= 4c^2 u_{\alpha \beta}\\
+        &= 2 B u_{\alpha \beta},
+    \end{align*} 
+    where $B = 2c^2$ and $A = C = 0$. Thus we have found a transform that reduces the PDE to
+    \[
+        2Bu_{\alpha \beta} = 0 \iff u_{\alpha \beta} = 0, 
+    \]
+    since $B \neq 0$. Sorry for the roundabout way that I took to get here. 
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Use the Fourier transform method to solve the 2-D Laplace equation in the upper plane for the bounded solution:
+    \[
+        \nabla^2 u = 0, ~\text{in}~ y>0, -\infty < x <\infty
+    \]
+    which is subject to $u(x,0) = f(x)$ where $f(x)$ is of compact support; $u(x,y) \to 0$ as $x \to \pm \infty$.
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the 2-D Laplace equation in the upper plane
+    \[ 
+        \nabla^2 u = u_{xx} + u_{yy} = 0,
+    \]
+    for $y > 0$ and $-\infty < x < \infty$, subject to the initial condition $u(x,0) = f(x)$ where $f(x)$ is of compact support; $u(x,y) \to 0$ as $x \to \pm \infty$. We wish to apply the Fourier transform to solve this PDE. We begin by transforming the PDE and initial condition into the frequency domain. We first define
+    \[ 
+        U(\w,y) = \F[u(x,y)] = \int_{-\infty}^{\infty}u(x,y)e^{i\w x}dx.
+    \]  
+    Then using integration by parts twice we find that,
+    \begin{align*}
+        \F[u_{xx}] &= \int_{-\infty}^{\infty}u_{xx}e^{i\w x}\d x\\
+        &= [u_x e^{i\w x}]_{-\infty}^{\infty} - i\w \int_{-\infty}^{\infty} u_x e^{i\w x}\d x\\
+        &= \cancel{[u_x e^{i\w x}]_{-\infty}^{\infty}} - i\w \cancel{[ue^{i\w x}]_{-\infty}^\infty} - \w^2 \int_{-\infty}^{\infty} u e^{i \w x}\d x\\
+        &= -\w^2 U,
+    \end{align*}
+    where the first is canceled as $u(x,y) \to 0$ as $x \to \pm \infty$ and the second term is canceled by making the assumption that $u_x \to 0$ as $|x| \to \infty$. We also compute
+    \[ 
+        \F[u_{yy}] = \int_{-\infty}^{\infty} u_{yy}e^{i\w x}\d x = \ppn{2}{}{y}\int_{-\infty}^{\infty}ue^{i\w x} \d x = U_{yy},
+    \]
+    and transform the initial condition
+    \[ 
+        U(\w, 0) = \F[u(x,0)] = \F[f(x)] = F(\w),
+    \]
+    Now we can reformulate the PDE in the frequency domain as the following ODE
+        \[ 
+            -\w^2 U + U_{yy} = 0.
+        \]
+    which has the general solution
+    \[ 
+        U(\w,y) = c_1(\w)e^{\w y} + c_2(\w)e^{-\w y}.
+    \]
+    Notice that if we also assume that $u(x,y) \to 0$ as $y \to \infty$, then we also require $U(\w,y) \to 0$ as $y \to \infty$. Thus we have two different cases: 1) if $\w > 0$, then $A(\w) = 0$ to satisfy the condition, or 2) if $\w < 0$, then $B(\w) = 0$ to satisfy the condition. Enforcing this condition we get the solution to be 
+    \[
+        U(\w,y) = \begin{cases}
+            B(\w)e^{-\w y} &\w>0\\
+            A(\w)e^{\w y} &\w<0,
+        \end{cases}
+    \]
+    and enforcing the initial condition we find a particular solution to be
+    \[
+        U(\w,y) = \begin{cases}
+            F(\w)e^{-\w y} &\w>0\\
+            F(\w)e^{\w y} &\w<0.
+        \end{cases}
+    \]
+    Now we wish to transform the solution out of the frequency space, so let's take the inverse Fourier transform which gives
+    \begin{align*}
+        u(x,y) &= \F^{-1}[U(\w,y)]\\
+        &= \frac{1}{2\pi}\int_{-\infty}^{\infty}U(\w,y)e^{-i\w x}\d\w\\
+        &= \frac{1}{2\pi}\paren{\int_{-\infty}^0 F(\w)e^{\w y}e^{-i \w x}\d\w + \int^{\infty}_0 F(\w)e^{-\w y}e^{-i \w x}\d\w}\\
+        &= \frac{1}{2\pi} \int_{-\infty}^{\infty}F(\w)e^{-|\w|y}e^{-i\w x}\d\w\\
+        &= \F^{-1}[F(\w)e^{-|\w|y}].
+    \end{align*}
+    Recall that the convolution theorem states
+    \[ 
+        \F^{-1}[gh] = \F^{-1}[g] * \F^{-1}[h],
+    \]
+    where $*$ denotes the convolution operation. Applying the theorem to our problem yields
+    \[ 
+        \F^{-1}[F(\w)e^{-|\w|y}] = \F^{-1}[F(\w )] * \F^{-1}[e^{-|\w|y}] = f(x) * \F^{-1}[e^{-|\w|y}].
+    \]
+    To find $\F^{-1}[e^{-|\w|y}]$, observe that
+    \begin{align*}
+        \F^{-1}[e^{-|\w|y}] &= \frac{1}{2\pi}\int_{-\infty}^{\infty} e^{-|\w|y}e^{-i\w x}\d\w\\
+        &=\frac{1}{2\pi}\paren{\int_{-\infty}^{0}e^{\w(y-ix)}\d\w + \int_0^\infty e^{-\w(y+ix)}\d\w }\\
+        &=\frac{1}{2\pi}\paren{\frac{1}{y-ix} + \frac{1}{y+ix}}\\
+        &= \frac{1}{2\pi}\cdot \frac{2y}{x^2 + y^2}\\
+        &= \frac{1}{\pi} \cdot \frac{y}{x^2 + y^2}. 
+    \end{align*}
+    Thus we have that
+    \[
+        u(x,y) = f(x) * \frac{1}{\pi} \cdot \frac{y}{x^2 + y^2} = \frac{1}{\pi}\int_{-\infty}^{\infty}f(t) \frac{y}{(x-t)^2 + y^2}\d t.
+    \]
+    Now let's double check the assumptions we made. As $y \to \infty$, 
+    \[ 
+        \frac{y}{(x-t)^2 + y^2} \to 0,
+    \]
+    and thus $u(x,y ) \to 0$ as $y \to \infty$ as the integrand tends to zero. We also have that
+    \[ 
+        u_x(x,y) = \frac{1}{\pi}\int_{-\infty}^{\infty}f(t) \frac{y(x - t)}{((x-t)^2 + y^2)^2}\d t,
+    \] 
+    and thus $u_x(x,y) \to 0$ as $|x| \to \infty$ as the integrand tends to zero.
+
+    \end{solution}
+    
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Solve the following problem in two ways:
+    \[ 
+        \pp{}{t}u = \ppn{2}{}{x}u, ~~ t>0; ~0<x<\infty,
+    \]
+    subject to $u(x,0)=0$, $u(x,t)$ bounded as $x\to \infty$ and $u(0,t) = T_0$ a constant, $t>0$.
+    \begin{enumerate}
+        \item [(a)]
+        By the method of similarity transformation. Look for the value of $\alpha$ such that the PDE reduces to an ode in $\eta$, $\eta = x/t^\alpha$.
+
+
+        \item [(b)]
+        By an integral transform in t, in this case a Laplace transform (You can use a table of Laplace transform to do the inverse transform).
+    
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the problem
+    \begin{align*}
+        u_t &= u_{xx}, \quad t>0, 0 < x < \infty\\
+        u(x,0) &= 0\\
+        u(0,t) &= T_0, 
+    \end{align*}
+    where $u(x,t)$ is bounded as $x \to \infty$ and $T_0$ is a constant.
+
+    \begin{enumerate}
+        \item [(a)]
+        We wish to solve the problem using the method of similarity transformation. Consider the similarity transformation
+        \[
+            \eta = \frac{x}{t^\alpha},
+        \]    
+        then we have the following chain rules 
+        \[ 
+            \pp{u}{t} = \pp{\eta}{t}\pp{u}{\eta} = \frac{-\alpha x}{t^{\alpha + 1}}\pp{u}{\eta} = - \frac{\alpha}{t}\eta \pp{u}{\eta},
+        \]
+        and
+        \begin{align*}
+            \pp{u}{x} &= \pp{\eta}{x}\pp{u}{\eta} = \frac{1}{t^\alpha}\pp{u}{\eta},\\
+            \ppn{2}{u}{x} &= \pp{}{x}\paren{\frac{1}{t^\alpha}\pp{u}{\eta}} = \frac{1}{t^\alpha} \paren{\pp{\eta}{x}\pp{}{\eta}\paren{\pp{u}{\eta}}} = \frac{1}{t^{2\alpha}}\ppn{2}{u}{\eta}.
+        \end{align*} 
+        Plugging these into our equation 
+        \[
+            - \frac{\alpha}{t}\eta \pp{u}{\eta} = \frac{1}{t^{2\alpha}}\ppn{2}{u}{\eta},
+        \]
+        noticing that if we let $\alpha = 1/2$, the $t$ variable is eliminated. Thus 
+        \[
+            \eta = \frac{x}{\sqrt{t}},
+        \]
+        and our problem has become an ODE of the form 
+        \begin{align*}
+            -\frac{\eta}{2} \pp{u}{\eta} = \ppn{2}{u}{\eta},\\
+            u(0) = T_0,
+        \end{align*} 
+        and $u(\eta) \to 0$ as $\eta \to \infty$. To solve the ODE, let $v = u'$ which yields
+        \[ 
+            \frac{v'}{v} = \frac{-1}{2},
+        \] 
+        and solving using separation of variables gives the solution to be
+        \[
+            v(\eta) = c_1 e^{-\eta^2/4}.
+        \]
+        Thus we have found
+        \[ 
+            u(\eta) = \int_0^\eta c_1 e^{-\eta^2/4} \d \eta = c_1 \text{erf}\paren{\frac{\eta}{2}} + c_2.
+        \]
+        Now we can enforce that $u(0) = T_0$ and $u(\eta) \to 0$ as $\eta \to \infty$. Recalling that $\text{erf}(0) = 0$ and $\text{erf}(\eta) \to 1$ as $\eta \to \infty$. The first condition gives $c_2 = T_0$ and the second condition gives $c_1 = -c_2 = -T_0$. Thus 
+        \[
+            u(\eta) =-T_0 \text{erf}\paren{\frac{\eta}{2}} + T_0 = \text{erfc}\paren{\frac{\eta}{2}},
+        \]
+        and undoing our transform gives the solution to be 
+        \[
+            u(x,t) = T_0 \text{erfc}\paren{\frac{x}{2\sqrt{t}}}.
+        \]
+
+
+        
+        \item [(b)]
+        Next we wish to solve the problem using a Laplace transform. Let $\tilde{u}(x,s)$ be the Laplace transform of the solution
+        \[
+            \tilde{u}(x,s) = \L[u(x,t)] = \int_0^\infty e^{-st}u(x,t)\d t.
+        \]
+        Then we have
+        \[
+            \L[u_{xx}] = \int_0^\infty e^{-st} \ppn{2}{}{x}u(x,t)\d t = \ppn{2}{}{x} \int_0^\infty e^{-st} u(x,t)\d t = \tilde{u}_{xx}(x,s),
+        \]
+        and using integration by parts
+        \begin{align*}
+            \L[u_{t}] &= \int_0^\infty \pp{}{t} u e^{-st}\d t\\
+            &= \cancel{[u e^{-st}]_0^\infty} + s \int_0^\infty u e^{-st}\d t\\
+            &= s \tilde{u}(x,s),
+        \end{align*}
+        if we make the assumption that $ue^{-st} \to 0$ as $t \to \infty$. Plugging these into our PDE we have
+        \[ 
+            s \tilde{u} = \tilde{u}_{xx},
+        \]
+        which is an ODE where $s>0$. We now Laplace transform the initial condition
+        \[
+            \tilde{u}(0,s) = \int_0^\infty u(0,t)e^{-st}\d t = \int_0^\infty T_0 e^{-st} \d t = \frac{T_0}{s}.
+        \]
+        Now the general solution to the ODE is
+        \[
+            \tilde{u}(x,s) = c_1(s) e^{\sqrt{s}x} + c_2(s) e^{-\sqrt{s}x}.
+        \]
+        To find a particular solution, we make the assumption that $u(x,t) \to 0$ as $x \to \infty$ which implies that $c_1(s) = 0$. Since $\tilde{u}(0,s) = \frac{T_0}{s}$, we have that $c_2 = \frac{T_0}{s}$. Thus the solution becomes
+        \[
+            \tilde{u}(x,s) = \frac{T_0}{s}e^{-\sqrt{s}x}.
+        \]
+        Using a table of Laplace transforms (Mathematica) we find the inverse transform of the solution 
+        \[
+            u(x,t) = \L^{-1}[\tilde{u}(x,s)] = T_0\text{erfc}\paren{\frac{x}{2\sqrt{t}}},
+        \]
+        which is the solution we found in part (a). Note that since $\frac{x}{2\sqrt{t}} \to 0$ as $t \to \infty$ and the $\text{erfc}(0)=1$, we can verify that
+        \[
+            \lim_{t \to \infty} ue^{-st} = \lim_{t \to \infty}T_0e^{-st} = 0,
+        \] 
+        since $s>0$. We also have that $u(x,t) \to 0$ as $x \to \infty$ since $\text{erfc}{x} \to 0$ as $x \to \infty.$
+
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+\end{document}

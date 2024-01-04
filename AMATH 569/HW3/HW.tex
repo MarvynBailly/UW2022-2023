@@ -1,0 +1,242 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+\usepackage{cancel}
+\usepackage{tikz}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 569 Homework 3\\
+ Due 3 May\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    \begin{enumerate}
+        \item [(a)]
+        Solve using Fourier transform in $x$ and Laplace transform in $t$:
+        \begin{align*}
+            \begin{cases} 
+                \pp{u}{t} - D \ppn{2}{u}{x} = \delta(x - \xi)\delta(t - \tau),  &-\infty < x < \infty, t > 0, -\infty < \xi < \infty, \tau > 0,\\
+                u(x,t) \to 0, &\text{as}~ x \to \pm \infty, t>0,\\
+                u(x,0) = 0, &\infty<x<\infty. 
+            \end{cases}
+        \end{align*}
+        \item [(b)]
+        Solve the same problem as in (a) expect you do not use Laplace transform in $t$. 
+
+
+    \end{enumerate}
+    
+\end{problem}
+
+\begin{solution}
+    \def\x{{\xi}}
+    \def\t{{\tau}}
+    \def\w{{\omega}}
+
+    \noindent
+    Consider the equation
+    \begin{align} \label{big boi}
+        \begin{cases} 
+            \pp{u}{t} - D \ppn{2}{u}{x} = \delta(x - \xi)\delta(t - \tau),  &-\infty < x < \infty, t > 0, -\infty < \xi < \infty, \tau > 0,\\
+            u(x,t) \to 0, &\text{as} x \to \pm \infty, t>0,\\
+            u(x,0) = 0, &\infty<x<\infty. 
+        \end{cases}
+    \end{align}
+    \begin{enumerate}
+        \item[(a)]
+        We wish to solve \ref{big boi} using a Fourier transform in $x$ and Laplace transform in $t$. Let's first take the Fourier transform in $x$. We first define
+        \[ 
+            U(\w,y) = \F[u(x,y)] = \int_{-\infty}^{\infty}u(x,y)e^{i\w x}dx.
+        \]  
+        Then using integration by parts twice we find that,
+        \begin{align*}
+            \F[u_{xx}] &= \int_{-\infty}^{\infty}u_{xx}e^{i\w x}\d x\\
+            &= [u_x e^{i\w x}]_{-\infty}^{\infty} - i\w \int_{-\infty}^{\infty} u_x e^{i\w x}\d x\\
+            &= \cancel{[u_x e^{i\w x}]_{-\infty}^{\infty}} - i\w \cancel{[ue^{i\w x}]_{-\infty}^\infty} - \w^2 \int_{-\infty}^{\infty} u e^{i \w x}\d x\\
+            &= -\w^2 U,
+        \end{align*}
+        where the first term is canceled as $u(x,y) \to 0$ as $x \to \pm \infty$ and the second term is canceled by making the assumption that $u_x \to 0$ as $|x| \to \infty$. We also compute
+        \[ 
+            \F[u_{t}] = \int_{-\infty}^{\infty} u_{t}e^{i\w x}\d x = \ppn{2}{}{y}\int_{-\infty}^{\infty}ue^{i\w x} \d x = U_{t},
+        \]
+        and 
+        \begin{align*}
+            \F[\delta(x - \x)\delta(t - \t)] &= \int_{-\infty}^{\infty}\delta(x - \x)\delta(t - \t)e^{i \w x} \d x\\ 
+            &= \delta(t - \t)\int_{-\infty}^{\infty}\delta(x - \x)e^{i \w x} \d x\\
+            &= \delta(t - \t) e^{i\w\x}.
+        \end{align*}
+        Thus we can rewrite equation \ref{big boi} as
+        \[ 
+            U_t + D \w^2 U = \delta(t - \t) e^{i\w\x}.
+        \]
+        Next we will take Laplace transform in $t$. We first define
+        \[ 
+            \tilde{U}(\w, s) = \L[U(\w,t)].
+        \]
+        Then we have
+        \begin{align*}
+            \L[U(\w,t)_t] &= \int_0^\infty U_t e^{-st} \d t\\
+            &= \cancel{[U e^{-st}]_0^\infty} + s \int_{0}^{\infty} U e^{-st} \d t\\
+            &= s \tilde{U}(\w, s),
+        \end{align*}
+        if we make the assumption that $u(x,t) \to 0$ as $t \to \infty$. We also have
+        \[ 
+            \L[\delta(t - \t) e^{i\w\x}] = \int_0^\infty \delta(t - \t) e^{i\w\x} e^{-st} \d t = e^{i\w\x} \int_0^\infty \delta(t - \t)e^{-st} \d t = e^{i\w\x}e^{-s \t}. 
+        \]
+        Thus the PDE becomes
+        \[ 
+            (s + D\w^2)\tilde{U}(\w,s) = e^{i\w\x}e^{-s \t} = e^{i\w\x -s\t},
+        \]
+        and so
+        \[ 
+            \tilde{U}(\w,s) = \frac{e^{i\w\x-s \t}}{s + D\w^2}.  
+        \]
+        Now we will compute the inverse Laplace transform
+        \[ 
+            U(\w,t) = \L^{-1}[\tilde{U}(\w,s)] = \frac{1}{2\pi i }\int_{\alpha-i\infty}^{\alpha+i\infty} e^{st}\frac{e^{i\w\x-s \t}}{s + D\w^2} \d s = \frac{e^{i\w\xi}}{2\pi i}\int_{\alpha-i\infty}^{\alpha + i\infty}  \frac{e^{s(t-\tau)}}{s + D\w^2} \d s. 
+        \]
+        \begin{figure}[H]
+            \center
+            \begin{tikzpicture}[x=1cm,y=1cm]
+                % Draw axes
+                \draw[->] (-5,0) -- (5,0) node[right] {Re};
+                \draw[->] (0,-5) -- (0,5) node[above] {Im};
+                % Draw line for alpha
+                \draw[dashed] (1,4) -- (1,-4) node[below] {$\alpha$};
+    
+                % Draw right semicircle
+                \draw[thick,red] (1,4) arc (90:-90:4);
+    
+                
+                % Draw left semicircle
+                \draw[thick,blue] (1,4) arc (90:270:4); %node[left] {$C_3$};
+    
+    
+                % Draw straight line
+                %\draw[thick,red] (1,4) -- (1,-4);
+    
+                \filldraw[black] (-1,0) circle (2pt) node[anchor=north] {$s=-D\w^2$};
+            \end{tikzpicture}
+            \caption{Bromwich Contour}
+        \end{figure}
+        Note that there exists a simple pole at $s = - D\w^2$. To compute the integral, we first consider when $t < \tau$ which gives exponential decay when $s > 0$. Thus we use a Bromwich contour, $C^+$ on the right side centered at $\alpha$ (up along the dotted line and down along the red arc). Then we have that
+        \[ 
+            \int_{C^+}  \frac{e^{s(t - \tau)}}{s + D\w^2} \d s = 0,
+        \]
+        by Jordan's lemma since the integrand is analytic for $s>0$. When $t > \tau$, we have exponential decay when $s < 0$ and thus we will use a Bromwich contour, $C^-$ on the left side centered at $\alpha$ (down along the dotted line and up along the blue arc). We note that $C^-$ now contains the simple pole. Then using Jordan's lemma we have
+        \begin{align*}
+            \int_{C^-}  \frac{e^{s(t - \tau)}}{s + D\w^2} \d s &= 2\pi i \sum \text{Res} \paren{\frac{e^{s(t - \tau)}}{s + D\w^2}}\\
+            &= 2 \pi i \frac{e^{(-D\w^2)(t - \tau)}}{(s + D \w^2)'}\\
+            &= 2 \pi i e^{-D\w^2(t - \tau)}.
+        \end{align*}
+        Thus we have found
+        \[ 
+            U(\w,t) = \begin{cases}
+                0, \quad t< \tau\\
+                e^{i\w\x}e^{-D\w^2(t - \tau)},\quad t > \tau
+            \end{cases},
+        \]
+        and if we let $H(x)$ denote the Heaviside function we can write this as
+        \[ 
+            U(\w,t) = H(t-\tau)e^{i\w\x - D\w^2(t - \tau)},
+        \] 
+        which is the solution in the frequency domain. Finally we have to take the inverse Fourier transform
+        \begin{align*}
+            u(x,t) = \F^{-1}[U(\w,t)] &= \frac{1}{2\pi} \int_{-\infty}^{\infty} e^{ - i x \w} e^{i\xi \w} H(t-\tau)e^{i\w\x - D\w^2(t - \tau)} \d\w\\
+            &= \frac{H(t-\tau)}{2\pi} \int_{-\infty}^{\infty} e^{-i\w(x - \x) + D\w^2(t - \t)} \d\w\\
+            &= \frac{H(t-\tau)}{2\pi} \int_{-\infty}^{\infty} e^{-D(t - \t)\paren{\w^2 + \frac{i \w(x - \x)}{D(t-\t)}}} \d\w\\
+            &= \frac{H(t-\tau)}{2\pi} \int_{-\infty}^{\infty} e^{-D(t - \t)\paren{\paren{\w + \frac{i (x - \x)}{2D(t-\t)}}^2 + \paren{\frac{x-\x}{2D(t- \t)}}^2}} \d\w\\
+            &= \frac{H(t-\tau)}{2\pi}e^{-\paren{\frac{x-\x}{2D(t- \t)}}^2} \int_{-\infty}^{\infty} e^{-D(t - \t)\paren{\w + \frac{i (x - \x)}{2D(t-\t)}}^2} \d\w.\\
+        \end{align*}
+        Recall that the definite integral of a Gaussian function is given by 
+        \[ 
+            \int_{-\infty}^{\infty}e^{-a(x+b)^2} = \sqrt{\frac{\pi}{a}},
+        \]
+        and thus we can solve to the integral to be
+        \[ 
+            \int_{-\infty}^{\infty} e^{-D(t - \t)\paren{\w + \frac{i (x - \x)}{2D(t-\t)}}^2} \d\w = \sqrt{\frac{\pi}{D(t-\t)}}. 
+        \]
+        Therefore we have found the solution to be
+        \[
+            u(x,t) = \frac{H(t-\tau)}{2\pi}e^{-\paren{\frac{x-\x}{2D(t- \t)}}^2}\sqrt{\frac{\pi}{D(t-\t)}} = \frac{H(t - \tau)e^{-\paren{\frac{x-\x}{2D(t- \t)}}^2}}{\sqrt{4\pi D(t - \t)}},
+        \]
+        where the Heaviside function covers the case when $t < \t$. Finally we can check the assumptions we made. Clearly we have that $u_x \to 0$ as $x \to \pm \infty$ do to the exponential term and $u \to 0$ as $t \to \infty$ since the exponential terms goes to $1$ and the denominator grows large. 
+
+        \item[(b)]
+        Now we wish to solve equation \ref{big boi} expect not using a Laplace transform. Recall that equation \ref{big boi} in the frequency domain is given by
+        \[ 
+            U_t + D \w^2 U = \delta(t - \t) e^{i\w\x}.
+        \]
+        Note that $\delta(t - \t) = 0$ for $t \neq \t$ by definition and thus we can break up the ODEs into
+        \[ 
+            \begin{cases}
+                U_t + D \w^2 U = 0, \quad t < \t,\\
+                U_t + D \w^2 U = 0, \quad t > \t,
+            \end{cases}
+        \]
+        which have the general solutions
+        \[ 
+            U(\w,t) = \begin{cases}
+                C(\w) e^{-D\w^2 t}, \quad t < \t,\\
+                D(\w) e^{-D\w^2 t}, \quad t > \t,\\
+            \end{cases}
+        \]
+        subject to the initial condition $u(x,0)=0$ which gives $U(\w,0) = 0$. Since we assumed that $\t > 0$, then the initial condition only applies to the case when $t < \t$ which gives that $C(\w) = 0$ and thus 
+        \[ 
+            U(\w,t) = \begin{cases}
+                0, \quad t < \t,\\
+                D(\w) e^{-D\w^2 t}, \quad t > \t.\\
+            \end{cases}
+        \]
+        To solve for $D(\w)$, we will find a matching condition across $t = \t$ by integrating across $t = \t$ by taking $\t^+$ and $\t^-$ to be on either side of $t = \t$. Observe that
+        \[ 
+            \int_{\t^-}^{\t^+} U_t + D \w^2 U  \d t = \int_{\t^-}^{\t^+} \delta(t - \t) e^{i\w\x} \d t = e^{i\w\x},
+        \] 
+        and
+        \begin{align*}
+            \int_{\t^-}^{\t^+} U_t + D \w^2 U  \d t &= \int_{\t^-}^{\t^+} U_t \d t + D \w^2 \cancel{\int_{\t^-}^{\t^+} U  \d t}\\
+            &= U(\w,\t^+) - \cancel{U(\w,\t^-)}\\
+            &= U(\w,\t^+) = D(\w)e^{-D\w^2 \t},
+        \end{align*}
+        were the first cancellation was due to $U$ being finite and the second since $U(\w,t) = 0$ when $t < \t$.
+        Thus we have that
+        \[ 
+            D(\w)e^{-D\w^2 \t} = e^{i\w\x} \implies D(\w) = e^{i\w\x + D\w^2\t},
+        \] 
+        which gives that
+        \[ 
+            U(\w,t) = \begin{cases}
+                0, \quad t < \t\\
+                e^{i\w\x - D\w^2(t - \t)}
+            \end{cases} = H(t - \t)e^{i\w\x - D\w^2(t - \t)},
+        \]
+        where $H$ denotes the Heaviside function. This is the same solution in frequency space we found prior and thus applying the inverse Fourier transform yields
+        \[ 
+            u(x,t) = \F^{-1}[u(\w,t)] = \frac{H(t - \tau)e^{-\paren{\frac{x-\x}{2D(t- \t)}}^2}}{\sqrt{4\pi D(t - \t)}}.
+        \]
+
+    \end{enumerate}
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+
+\end{document}

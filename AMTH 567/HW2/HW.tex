@@ -1,0 +1,349 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath,txfonts}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\ointcc{{\ointctrclockwise}}
+\def\ointc{{\ointclockwise}}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 567 Homework 2\\
+ Due October 19 202asd2\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Evaluate $\oint_C f(z)dz$, where $C$ is the unit circle centered at the origin, and $f(z)$ is given by the following:
+    \begin{enumerate}
+        \item [a] $e^{iz}$
+        \item [b] $e^{z^2}$
+        \item [c] $\frac{1}{z - 1/2}$
+        \item [d] $\frac{1}{z^2 - 4}$
+        \item [e] $\frac{1}{2z^2 +1}$
+        \item [f] $\sqrt{z-4}$, $0 \leq \arg(z-4) \le 2\pi$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [a] 
+        Consider when $f(z) = e^{iz}$. First let's show that $f(z)$ is satisfies the Cauchy-Riemann equations. Observe that,
+        $$f(z) = e^{iz} = e^{ix-y} =e^{-y}(\cos(x) + i\sin(x)) = e^{-y}\cos(x) + ie^{-y}\sin(x) = u(x,y) + iv(x,y)$$
+        Now let's compute the following partials,
+        \begin{align*}
+            \frac{\partial u}{\partial x} &= -e^{-y}\sin(x)\\
+            \frac{\partial u}{\partial y} &= -e^{-y}\cos(x)\\
+            \frac{\partial v}{\partial x} &= e^{-y}\cos(x)\\
+            \frac{\partial v}{\partial y} &= -e^{-y}\sin(x)\\
+        \end{align*}
+        So $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$ and $\frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}$ satisfying the Cauchy-Riemann equations. Furthermore, we can clearly see that the partials of $u$ and $v$ with respect to $x$ and $y$ exist, and are continuous within $C$. Therefore $f(z)$ is analytic within $C$ and by Cauchy Theorem, $\boxed{\oint_C e^{iz} dz = 0}$. 
+
+        \item [b]
+        Consider when $f(z) = e^{z^2}$. First let's show that $f(z)$ is satisfies the Cauchy-Riemann equations. Observe that,
+        \begin{align*}
+            f(z) &= e^{z^2} = e^{(x+iy)^2} = e^{x^2 + 2xyi - y^2} = e^{x^2 - y^2}e^{2xyi}\\ 
+                &= e^{x^2 - y^2}\cos(2xy) + ie^{x^2 - y^2}\sin(2xy)= u(x,y) + iv(x,y)
+        \end{align*}
+        Now let's compute the following partials,
+        \begin{align*}
+            \frac{\partial u}{\partial x} &= 2e^{x^2-y^2}x\cos \left(2xy\right)-2e^{x^2-y^2}y\sin \left(2xy\right)\\
+            \frac{\partial u}{\partial y} &= -2e^{x^2-y^2}y\cos \left(2xy\right)-2e^{x^2-y^2}x\sin \left(2xy\right)\\
+            \frac{\partial v}{\partial x} &= e^{x^2-y^2}\cdot \:2x\sin \left(2xy\right)+\cos \left(2xy\right)\cdot \:2ye^{x^2-y^2}\\
+            \frac{\partial v}{\partial y} &= -2e^{x^2-y^2}y\sin \left(2xy\right)+2e^{x^2-y^2}x\cos \left(2xy\right)\\
+        \end{align*}
+        So $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$ and $\frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}$ satisfying the Cauchy-Riemann equations. Furthermore, we can clearly see that the partials of $u$ and $v$ with respect to $x$ and $y$ exist, and are continuous within $C$. Therefore $f(z)$ is analytic within $C$ and by Cauchy Theorem, $\boxed{\oint_C e^{z^2}dz = 0}$.
+
+        \item [c]
+        Consider when $f(z) = \frac{1}{z - 1/2}$. Notice that $\oint_{C} (z - z_0)^n dz$ where $n=-1$ and $z_0 = \frac{1}{2}$. In class we showed that this integral will be $2\pi i$ if $n=-1$ and $0$ otherwise when $C$ encloses $z_0$. Thus we have that $\boxed{\oint_{C} \frac{1}{z - 1/2} dz = 2\pi i}$.
+
+        \item[d]
+        consider $f(z) = \frac{1}{z^2 - 4}$. Then we can use the derivative formula to observe,
+        \begin{align*}
+            \frac{d}{dz}\left( \frac{1}{z^2 - 4} \right) &= \lim_{\Delta z \rightarrow 0} \frac{\frac{1}{(z - \Delta z)^2 -z_0} - \frac{1}{z^2 - z_0}}{\Delta z}\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{\frac{z^2 - z_0 - z^2 -2z\Delta z - \Delta z^2 + z_0}{((z + \Delta z)^2 - z)(z^2 - z_0)}}{\Delta z}\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{-2z - \Delta z}{((z + \Delta z)^2 - z)(z^2 - z_0)}\\
+            &= \frac{-2z}{(z^2 - z_0)^2}
+        \end{align*}
+        and thus we see that the derivative is exists and is independent of the path. Since $f(z)$ does not blow up within the unit circle, $f(z)$ is analytic within $C$. By Cauchy Theorem, $\boxed{\oint_C \frac{1}{z^2 - 4} dz = 0}$.
+
+        \item[e]
+        Consider $\frac{1}{2z^2 +1}$. We can rewrite this as $\frac{1}{2z^2 +1} = \frac{1}{2}\left( \frac{1}{z^2 + \frac{1}{2}}\right) = \frac{1}{2}g(z)$. We can see that there are potential zeros at $z_0 = \pm \frac{i}{\sqrt{2}}$ which are contained within $C$. Next we can use partial fractions to get,
+        \begin{align*}
+            g(z) &= \left( \frac{1}{z - \frac{i}{\sqrt{2}}} \right) \left( \frac{1}{z + \frac{i}{\sqrt{2}}}\right) = \frac{A}{2 - \frac{i}{\sqrt{2}}} + \frac{B}{2 + \frac{i}{\sqrt{2}}}\\
+            \\
+            A &= \lim_{z \rightarrow \frac{i}{\sqrt{2}}} \left( \frac{1}{z + \frac{i}{\sqrt{2}}}\right) = \frac{\sqrt{2}}{2i}\\
+            \\
+            B &= \lim_{z \rightarrow -\frac{i}{\sqrt{2}}} \left( \frac{1}{z - \frac{i}{\sqrt{2}}}\right) = -\frac{\sqrt{2}}{2i}\\
+        \end{align*}
+        Next we can apply the Cauchy's Integral formula, we know
+        \begin{center}
+            $\frac{\sqrt{2}}{4i} \oint_{C} \frac{1}{z - \frac{i}{\sqrt{2}}} dz = \frac{\sqrt{2}}{4i} (2\pi i) = \frac{\pi \sqrt{2}}{2}$
+        \end{center}
+        and
+        \begin{center}
+            $-\frac{\sqrt{2}}{4i} \oint_{C} \frac{1}{z + \frac{i}{\sqrt{2}}} dz = -\frac{\sqrt{2}}{4i} (2\pi i) = -\frac{\pi \sqrt{2}}{2}$
+        \end{center}
+        Therefore,
+        \begin{center}
+            $\oint_C f(z) dz = \oint_C \frac{1}{2}g(z) dz = \frac{1}{2} \left(\frac{\pi \sqrt{2}}{2} -\frac{\pi \sqrt{2}}{2}\right) = 0$
+        \end{center}
+        In conclusion, $\boxed{\oint_C \frac{1}{z^2 - 4} dz} = 0$.
+
+        \item [f]
+        Consider $f(z) = \sqrt{z-4}$, $0 \leq \arg(z-4) \le 2\pi$. This is in the from $f(z) = (z - z_1)^{\frac{1}{2}}$ where $z_1 = 4$. We have a branch cut that is centered at $z = z_1$ and moves $2\pi$ around the complex plane. This restricts $f(z)$ to be a single-valued function within $C$. Next we have to show that the derivative of $f(z)$ exists within $C$. Observe that,
+        \begin{align*}
+            \frac{d}{dz}\left( \sqrt{z - 4} \right) &= \lim_{\Delta z \rightarrow 0} \frac{\sqrt{z + \Delta z - 4} - \sqrt{z - 4}}{\Delta z}\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{\sqrt{z + \Delta z - 4} - \sqrt{z - 4}}{\Delta z} \left( \frac{\sqrt{z + \Delta z - 4} + \sqrt{z - 4}}{\sqrt{z + \Delta z - 4} + \sqrt{z - 4}} \right)\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{(z + \Delta z - 4) - (z - 4)}{\Delta z \left( \sqrt{z + \Delta z - 4} + \sqrt{z - 4} \right)}\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{\Delta z}{\Delta z \left( \sqrt{z + \Delta z - 4} + \sqrt{z - 4} \right)}\\
+            &= \lim_{\Delta z \rightarrow 0} \frac{1}{\left( \sqrt{z + \Delta z - 4} + \sqrt{z - 4} \right)}\\
+            &= \frac{1}{\sqrt{z - 4} + \sqrt{z - 4}}\\
+            &= \frac{1}{2\sqrt{z - 4}}
+        \end{align*}
+        And thus we see that the derivative exists within $C$ and is path independent of $\Delta z$. Note the branch cut begins at $z = 4$ and moves away from $C$. Therefore there are no issues within $C$ and $f(z)$ is analytic within $C$. By Cauchy's Theorem, we have that $\boxed{\oint_C \sqrt{z-4} dz = 0}$ for $0 \leq \arg(z-4) \le 2\pi$. 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    We wish to evaluate the integral 
+    \begin{align*}
+        \int_0^\infty e^{ix^2}dx
+    \end{align*}
+    Consider the contour
+    \begin{align*}
+        I_R = \oint_{C(R)}e^{iz^2}dz,
+    \end{align*}
+    where $C_{(R)}$ is the closed circular sector in the upper half plane with boundary points $0,R,$ and
+    $Re^{i\pi/4}$. Show that $I_R = 0$ and that
+    \begin{align*}
+        \lim_{R \rightarrow \infty} \int_{C_{1(R)}} e^{iz^2} dz = 0,
+    \end{align*}
+    where $C_{1(R)}$ is the line integral along the circular sector from $R$ to $Re^{i\pi/4}$. Hint: Use $\sin(x) \geq \frac{2x}{\pi}$ on $0 \leq x \leq \pi/2$.
+    Then, breaking up the contour $C_{(R)}$ into three component parts, deduce
+    \begin{align*}
+        \lim_{R \rightarrow \infty} \left( \int_0^R e^{ix^2}dx - e^{i\pi/4} \int_0^R e^{-2r^2}dr \right) = 0
+    \end{align*}
+    and from the well-known result of real integration:
+    \begin{align*}
+        \int_0^\infty e^{-2x^2}dx = \frac{\sqrt{\pi}}{2}
+    \end{align*}
+    deduce that $I = e^{i\pi/4}\sqrt{4}/2$.
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Consider 
+    \begin{align*}
+        \int_0^\infty e^{ix^2}dx
+    \end{align*}
+    and the contour
+    \begin{align*}
+        I_R = \oint_{C(R)}e^{iz^2}dz,
+    \end{align*}
+    where $C_{(R)}$ is the closed circular sector in the upper half plane with boundary points $0,R,$ and $Re^{i\pi/4}$. We know that $e^{iz^2}$ is entire (from problem 1) and thus analytic within $C_{(R)}$. Then by Cauchy's Theorem $I_{R} = 0$. Next let's show that $$\lim_{R \rightarrow \infty} \int_{C_{1(R)}} e^{iz^2} dz = 0$$
+    where $C_{1(R)}$ is the line integral along the circular sector from $R$ to $Re^{i\pi/4}$. Let's also define $C_{2(R)}$ as the line integral from $Re^{i\pi/4}$ to $0$ and $C_{3(R)}$ is from $0$ to $R$. Observe that,
+    \begin{align*}
+        I_{1}(R)&=\int_{C_{1(R)}} e^{iz^2} dz\\ 
+        &= \int_{0}^{\pi/4} e^{\left(Re^{i\theta}\right)^2}R i e^{i\theta}d\theta\\
+        &= Ri \int_0^{\frac{\pi}{4}}e^{iR^2\left( \cos(\theta) + i\sin(\theta)\right)^2}e^{i\theta}d\theta\\
+        &= Ri \int_0^{\frac{\pi}{4}}e^{i\left(R^2\left( \cos(2\theta) + i\sin(2\theta)\right) + \theta \right)}d\theta\\
+        &= Ri \int_0^{\frac{\pi}{4}} e^{iR^2\cos(2\theta)} e^{-R^2\sin(2\theta)}e^{i\theta}d\theta\\
+    \end{align*}
+    Thus we have,
+    \begin{align*}
+        |I_{I}(R) &= \left|Ri \int_0^{\frac{\pi}{4}} e^{iR^2\cos(2\theta)} e^{-R^2\sin(2\theta)}e^{i\theta}d\theta \right|\\
+        &\leq R \int_0^{\frac{\pi}{4}} \left|e^{iR^2\cos(2\theta)} e^{-R^2\sin(2\theta)}e^{i\theta} \right|d\theta\\
+        &= R \int_0^{\frac{\pi}{4}} e^{-R^2\sin(2\theta)} d\theta\\
+    \end{align*}
+    because $\sin(x) \leq \frac{2x}{\pi}$ on $0 \leq x \leq \frac{\pi}{2}$, then $\sin(2x) \leq \frac{4x}{\pi}$ which implies $-R^2\sin(2x) \leq -R^2\frac{4x}{\pi}$ and thus $e^{-R^2\sin(2x)} \leq e^{-\frac{4x}{\pi}R^2}$. Then
+    \begin{align*}
+        |I_{1}(R)| &\leq R \int_0^{\frac{\pi}{4}} e^{-R^2\sin(2\theta)} d\theta\\
+        &\leq R \int_0^{\frac{\pi}{4}} e^{-\frac{4x}{\pi}R^2}d\theta\\
+        &= R\left[ -\frac{\pi}{4R^2}e^{-R^2 \frac{4\theta}{\pi}}\right]_0^{\frac{\pi}{4}}\\
+        &= -\frac{\pi}{4R}\left(e^{-R^2}-1\right)
+    \end{align*}
+    And then we have,
+    \begin{align*}
+        &\lim_{R \rightarrow \infty} -\frac{\pi}{4R}\left(e^{-R^2}-1\right) = 0\\
+    \end{align*}
+    Therefore,
+    \begin{align*}
+        &0 \leq \lim_{R\rightarrow \infty}|I_1(R)| \leq \lim_{R\rightarrow \infty} -\frac{\pi}{4R}\left(e^{-R^2}-1\right) = 0\\
+        &\implies \lim_{R\rightarrow \infty}|I_1(R)| = 0
+    \end{align*}
+    Noting that we can break the contour into three components as,
+    $$I_R = I_1(R) + I_2(R) + I_3(R) = I_2(R) + I_3(R) = 0$$
+    then $\lim_{r\rightarrow\infty}(I_2(R) + I_3(R)) = 0$ which gives that $\lim_{r\rightarrow\infty} I_3(R) = - \lim_{r\rightarrow\infty} I_2(R)$. Therefore,
+    \begin{align*}
+        \int_0^\infty e^{ix^2} dx &= \lim_{R \rightarrow \infty} \int_0^R e^{ix^2}dx\\
+        &= \lim_{R \rightarrow \infty} I_3(R)\\
+        &= -\lim_{R \rightarrow \infty} I_2(R)\\
+        &= -\lim_{R \rightarrow \infty} \int_R^0 e^{i(r^2e^{i\pi/4})} e^{i\pi/4}dr\\
+        &= e^{i\pi/4}\lim_{R \rightarrow \infty} \int_0^R e^{-r^2}dr\\
+        &= \frac{e^{i\pi/4}\sqrt{\pi}}{2}
+    \end{align*}
+    And so we have shown that $I = \frac{e^{i\pi/4}\sqrt{\pi}}{2}$.
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Consider the integral 
+    $$I = \int_{-\infty}^{\infty}\frac{dx}{x^2 + 1}.$$
+    Show how to evaluate this integral by considering
+    $$\oint_{C(R)} \frac{dz}{z^2 + 1},$$
+    where $C(R)$ is the closed semicircle in the upper half plane with endpoints at $(-R,0)$ and $(R,0)$ plus the $x$ axis. Hint: use
+    $$\frac{1}{z^2 + 1} = \frac{-1}{2i}\left( \frac{1}{z+i} - \frac{1}{z-i}\right)$$
+    and show that the integral along the open semicircle in upper half plane vanishes as $R \rightarrow \infty$. Verify your answer by usual integration in real variables.
+\end{problem}
+
+\begin{solution}
+    \noindent
+    Consider the integral $$I = \int_{-\infty}^{\infty}\frac{dx}{x^2 + 1}$$ and $C(R)$ is the closed semicircle in the upper half plane with endpoints at $(-R,0)$ and $(R,0)$ plus the $x$ axis. Let $C_1$ be the line from $-R$ to $R$ and $C_2$ the upper semicricle from $R$ to $-R$. Note that there is one singularity within $C(R)$ at $z = i$.
+    Next we can decompose the fraction to get,
+    \begin{align*}
+        \oint \frac{1}{z^2 + 1}dz &= -\frac{1}{2i} \oint_{C_R} \frac{1}{z^2 + 1}dz\\
+        &= -\frac{1}{2i} \oint_{C_R} \frac{1}{z + i} - \frac{1}{z - i}dz\\
+        &= -\frac{1}{2i} \oint_{C_R} \frac{1}{z + i}dz + \frac{1}{2i} \oint_{C_R}\frac{1}{z - i}dz\\
+        &= 0 + \frac{1}{2i}(2\pi i)\\
+        &= \pi
+    \end{align*}
+    where the $\oint_{C_R} \frac{1}{z - i}dz = 2\pi i$ since the singularity is contained within $C(R)$. Therefore we have,
+    \begin{align*}
+        \pi = \oint_{C(R)} \frac{dz}{z^2 + 1} &= \oint_{C(1)} \frac{dz}{z^2 + 1} + \oint_{C(2)} \frac{dz}{z^2 + 1}\\
+        \implies \oint_{C(1)} \frac{dz}{z^2 + 1} &= \pi - \oint_{C(2)} \frac{dz}{z^2 + 1}\\
+    \end{align*}
+    We can apply a transformation to get,
+    \begin{align*}
+        \oint_{C(2)} \frac{dz}{z^2 + 1} = \int_0^\pi \frac{Rie^{i\theta}}{R^2e^{i2\theta} + 1}d\theta
+    \end{align*}
+    Computing the modulus we get the following upper bound,
+    \begin{align*}
+        \left| \oint_{C(2)}\frac{dz}{z^2 + 1}\right| &= \left| \frac{Rie^{i\theta}}{R^2e^{i2\theta} + 1}d\theta \right|\\
+        &\leq \int_0^\pi \frac{R}{\left|R^2 e^{i2\theta} + 1\right|}d\theta\\
+        &= \frac{1}{R} \int_0^\pi \frac{1}{\left|e^{i2\pi\theta} + \frac{1}{R^2}\right|}
+    \end{align*}
+    Noticing that $\left|e^{i2\pi\theta} + \frac{1}{R^2}\right| \geq \left|\left( \left|e^{i2\pi\theta}\right| - \left| - \frac{1}{R^2}\right|\right) \right| = \left| 1 - \frac{1}{R^2}\right|$ we can continue to simplify as
+    \begin{align*}
+        \frac{1}{R} \int_0^\pi \frac{1}{\left|e^{i2\pi\theta} + \frac{1}{R^2}\right|} &\leq \frac{1}{R} \int_0^\pi \frac{1}{\left|1 - \frac{1}{R^2}\right|}\\
+        &=\frac{1}{R} \int_0^\pi \frac{1}{1 - \frac{1}{R^2}}\\
+        &= \frac{1}{R(1 - \frac{1}{R^2})}\int_0^\pi d\theta\\
+        &= \frac{\pi}{R(1 - \frac{1}{R^2})}
+    \end{align*}
+    Thus,
+    \begin{align*}
+        &0 \geq \lim_{R \rightarrow \infty} \left| \oint_{C(2)}\frac{dz}{z^2 + 1}\right| \leq \lim_{R \rightarrow \infty} \frac{\pi}{R(1-\frac{1}{R^2})} = 0\\
+        &\implies \lim_{R \rightarrow \infty} \oint_{C(2)}\frac{dz}{z^2 + 1} = 0
+    \end{align*}
+    Therefore we have that,
+    \begin{align*}
+        \int_{-\infty}^{\infty} \frac{dx}{x^2 + 1} = \lim_{R \rightarrow \infty} \oint_{C(R)} \frac{dz}{z^2 + 1} = \pi - 0 = \pi.
+    \end{align*}
+    and by directly evaluating we can verify that
+    \begin{align*}
+        \lim_{R\rightarrow\infty}\int_{-R}^{R}\frac{dx}{x^2 + 1} &= \lim_{R \rightarrow \infty} \left[ \arctan(x) \right]_{-R}^{R}\\
+        &= \lim_{R \rightarrow \infty}(\arctan(R) - \arctan(R))\\
+        &= \frac{\pi}{2} + \frac{\pi}{2}\\
+        &= \pi
+    \end{align*}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Let $$f(z) = e^{\frac{t}{2}(z-1/z)} = \sum_{n=-\infty}^{\infty} J_n(t)z^n.$$ Show from the definition of Laurent series and using properties of integration that 
+    \begin{align*}
+        Jn(t) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-i(n\theta-t\sin\theta)}d\theta\\
+              &= \frac{1}{\pi} \int_0^\pi \cos(n\theta - t\sin \theta)d\theta.\\
+    \end{align*} 
+    The functions $J_n(t)$ are called Bessel functions, which are well-known special functions in mathematics and physics.
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Let's consider $$f(z) = e^{\frac{t}{2}(z-1/z)} = \sum_{n=-\infty}^{\infty} J_n(t)z^n.$$ where by definition 
+    \begin{align*}
+        Jn(t) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-i(n\theta-t\sin\theta)}d\theta\\
+              &= \frac{1}{\pi} \int_0^\pi \cos(n\theta - t\sin \theta)d\theta.\\
+    \end{align*} 
+    Notice that,
+    \begin{align*}
+        J_n(t) &= \frac{1}{2\pi i} \oint \frac{e^{\frac{t}{2}(z - \frac{1}{z})}}{e^{i\theta(n + 1)}}ie^{i\theta}d\theta\\
+        &= \frac{1}{2\pi i} \int_{-\pi}^{\pi} \frac{e^{\frac{t}{2}(e^{i\theta} - e^{-i\theta})}}{e^{i\theta(n + 1)}}ie^{i\theta}d\theta\\
+        &= \frac{1}{2\pi} \int_{-\pi}^{\pi} \frac{e^{\frac{t}{2}(2i\sin\theta)}}{e^{i\theta n}}d\theta\\
+        &= \frac{1}{2\pi}\int_{-\pi}^{\pi}e^{ti\sin\theta - i\theta n}d\theta\\
+        &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-i(n\theta - t\sin\theta)}d\theta
+    \end{align*}
+    and since,
+    $$e^{-i(n\theta - t\sin\theta)} = \cos(n \theta - t \sin(\theta)) - i \sin(n \theta - t \sin(\theta)).$$
+    Therefore we have
+    \begin{align*}
+        J_n(t) &= \frac{1}{2\pi} \left[ \int_{-\pi}^{\pi} \cos(n \theta - t \sin(\theta)) d\theta - i \int_{-\pi}^{\pi} \sin(n \theta - t \sin(\theta)) d\theta\right]\\
+        &= \frac{1}{2\pi}\left[ 2 \int_0^\pi \cos(n \theta - t \sin(\theta)) d\theta\right]\\
+        &= \frac{1}{\pi} \int_0^\pi \cos(n \theta - t \sin(\theta)) d\theta
+    \end{align*}
+\end{solution}
+
+
+%This is code next to \verb+this is code+%
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+\end{document}

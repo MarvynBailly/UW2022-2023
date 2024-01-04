@@ -1,0 +1,277 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\pagestyle{empty}
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\p{{\partial}}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ AMath 573 Homework 1\\
+ Due 5-10-22 at 10:30 am\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--Good--$
+
+\begin{problem}
+    Problem 1.2: The KdV equation
+    $$u_t = uu_x + u_{xxx}$$
+    is often written with different coefficients. By using a scaling transformation on all variables (dependent and independent), show that the choice of the coefficients is irrelevant: by choosing a suitable scaling, we can use any coefficients we please. Can you say the same for the modified KdV (mKdV) equation
+    $$u_t = u^2u_x + u_{xxx}?$$   
+\end{problem}
+
+\begin{solution}
+    (Worked with Kaitlynn and Damien)
+
+    \noindent
+    Consider the KdV equation for $u(x,t)$,
+    $$u_t = \alpha uu_x + \beta u_{xxx}.$$
+    We wish to show that the choice of coefficients, $\beta,\alpha$ is irrelevant by using an appropriate scaling that makes $\alpha$ and $\beta$ vanish (i.e., equal to one).
+    To determine such a scaling, let $\chi = ax$, $\xi = bt$, and $U = cu$ be a new scale where $a,b,c$ are free constants. 
+    Thus the KdV becomes $$U_t = \alpha U U_x + \beta U_{xxx}$$ under the new units.
+    Observe that by applying the chain rule we get,
+    \begin{align*}
+        \frac{\p(U(ax,bt))}{\p t} &= \alpha U(ax,bt)\frac{\p(U(ax,bt))}{\p x} + \beta \frac{\p^3(U(ax,bt))}{\p x^3}\\
+        \Leftrightarrow \frac{\p(cu(ax,bt))}{\p t} &= \alpha cu(ax,bt)\frac{\p(cu(ax,bt))}{\p x} + \beta \frac{\p^3(cu(ax,bt))}{\p x^3}\\
+        \Leftrightarrow cb\frac{\p u}{\p \xi} &= \alpha c^2 a u\frac{\p u}{\p \chi} + \beta c a^3\frac{\p^3 u}{\p \chi^3}\\
+        \Leftrightarrow \frac{\p u}{\p \xi} &=  \alpha\frac{ ca}{b}u^2\frac{\p u}{\p \chi} + \beta \frac{a^3}{b}\frac{\p^3 u}{\p \chi^3}.\\
+    \end{align*}
+    Since $\frac{c a}{b}$ and $\frac{a^3}{b}$ will always have the same sign, we can easily choose values for them such that $\alpha$ and $\beta$ are equal to one and the solution does not depend on their values.
+    In this case, the sign of $\alpha$ and $\beta$ do not matter because the free control over $a,b,c$ allow us to always match their sign.  
+    In comparison, consider the modified KdV (mKdV) equation,
+    $$u_t = \alpha u^2u_x + \beta u_{xxx}.$$    
+    We wish to see if a similar scaling method can be applied to the mKdV to make the coefficients irrelevant.
+    Following the same steps as applied for the KdV,
+    \begin{align*}
+        \frac{\p(cu(ax,bt))}{\p t} &= \alpha c^2u^2(ax,bt)\frac{\p(cu(ax,bt))}{\p x} + \beta \frac{\p^3(cu(ax,bt))}{\p x^3}\\
+        \Leftrightarrow \frac{\p u}{\p \xi} &=  \frac{\alpha c^2a}{b}u^2\frac{\p u}{\p \chi} + \beta \frac{a^3}{b}\frac{\p^3 u}{\p \chi^3}.\\
+    \end{align*} 
+    where the scaling of $\alpha$ and $\beta$ are given by $\frac{c^2a}{b}$ and $\frac{a^3}{b}$.
+    The difference between the units in the mKdV and KdV is that we no longer have full control over the sign of both terms since the $c^2$ value will always be positive.
+    Thus while the mKdV coefficients can vanish using the same trick in the KdV when both $\alpha > 0$ and $\beta > 0$, there will be issues when the coefficients $\alpha$ and $\beta$ have different signs due to the new constraint on the units. 
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--Good--$
+
+\begin{problem}
+    Problem 1.4: (Use a symbolic computing software for this problem.) Consider the KdV equation $u_t + uu_x + u_{xxx} = 0$. Show that 
+    $$u = 12 \partial_x^2 \ln\left(1 + e^{k_1 x - k_1^3t + \alpha}\right)$$
+    is a one-soliton solution of the equation (i.e., rewrite it in $\text{sech}^2$ form). Now check that 
+    $$u = 12 \partial_x^2\ln\left(1 + e^{k_1 x - k_1^3t + \alpha} + e^{k_2 x - k_2^3t + \beta} + \left(\frac{k_1-k_2}{k_1 + k_2}\right)^2e^{k_1x - k_1^3t + \alpha + k_2x - k_2^3t+ \beta}\right)$$ is also a solution of the equation. It is a two-soliton solution of the equation, as we will verify later. By changing $t$, we can see how the two solitons interact. With $\alpha = 0$ and $\beta = 1$, examine the following 3 regions of parameter space:
+    \begin{enumerate}
+        \item $\frac{k_1}{k_2} > \sqrt{3}$
+        \item $\sqrt{3} > \frac{k_1}{k_2} > \sqrt{(3 + \sqrt{5})/2}$
+        \item $\frac{k_1}{k_2} < \sqrt{(3 + \sqrt{5})/2}$.
+    \end{enumerate}
+    Discuss the different types of collisions. Here "examine" and "discuss" are supposed to be interpreted in an experimental sense: play around with this solution and observe what happens. The results you observe are the topic of the second part of Lax's seminal paper.
+\end{problem}
+
+\begin{solution}
+    (Worked with Kaitlynn)
+
+    \noindent
+    Using Mathematica, we can directly verify that 
+    $$u = 12 \partial_x^2 \ln\left(1 + e^{k_1 x - k_1^3t + \alpha}\right)$$
+    is a solution to the KdV equation (see 1.8.4 part 1 in nb file). 
+    To verify that $u$ is a one-soliton solution, we can rewrite it in the form $\phi = 12 \kappa^2 \delta^2 \text{sech}^2 \kappa ( x - 4 \kappa^2 \delta^2 t + \varphi )$. 
+    Begin by taking the second derivative with respect to $x$ to get,
+    $$u = 12 \frac{k_1^2e^{k_1x+k_1^3t+a}}{(e^{k_1x+a}+e^{k_1^3t})^2}.$$ 
+    Next $u$ can be rewritten in the form,
+    $$u = 12 k_1^2 \frac{1}{2\cosh(a-k_1^3t+kx) + 2}.$$  
+    Since,
+    \begin{align*}
+        \text{sech}(x) &= \frac{2}{e^x+e^{-x}}\\
+        \text{sech}^2(x) &= \frac{4}{2+e^{2x}+e^{-2x}}\\
+        \text{sech}^2\left(\frac{x}{2}\right) &= \frac{4}{2+e^{x}+e^{-x}},\\
+        \frac{1}{2}\text{sech}^2\left(\frac{x}{2}\right) &= \frac{2}{2+e^x+e^{-x}} = \frac{2}{2\text{cosh}(x)+2}\\
+    \end{align*} 
+    we can sub in $\text{sech}^2$ into $u$ to get, 
+    $$u=12\left(\frac{1}{2}\right)k_1^2\left(\frac{1}{2}\text{sech}^2\frac{1}{2}\left(a - k_1^3t + kx \right)\right).$$
+    Rearranging the terms we get, 
+    $$u=12\left(\frac{1}{4}k_1^2\right)\text{sech}^2\frac{1}{2}k_1\left( \frac{a}{k_1} - tk_1^2 + x\right).$$
+    Thus by letting $\delta = 1, \kappa = \frac{1}{2} k_1,$ and $\varphi = \frac{a}{k_1}$, we have shown that $u$ is in the $\text{sech}^2$ form.
+    Thus we have shown that $u$ is indeed a one-soliton solution.
+
+    \noindent
+    Now consider
+    $$u = 12 \partial_x^2\ln\left(1 + e^{k_1 x - k_1^3t + \alpha} + e^{k_2 x - k_2^3t + \beta} + \left(\frac{k_1-k_2}{k_1 + k_2}\right)^2e^{k_1x - k_1^3t + \alpha + k_2x - k_2^3t+ \beta}\right),$$
+    using Mathematica, we can again directly verify that $u$ is a solution (see 1.8.4 part 2).
+    Next, let $\alpha = 0$ and $\beta = 1$ and consider the 3 regions of parameter space. 
+    \begin{enumerate}
+        \item $\frac{k_1}{k_2} > \sqrt{3}$
+        \item $\sqrt{3} > \frac{k_1}{k_2} > \sqrt{(3 + \sqrt{5})/2}$
+        \item $\frac{k_1}{k_2} < \sqrt{(3 + \sqrt{5})/2}$.
+    \end{enumerate}
+    To study the behavoir of the solitons in these parameter spaces, we used Mathematica's manipulate function to plot $u$ over a changing time. 
+    We let $k_1$ and $k_2$ be sample values within each space and looked for recouring patterns.
+    \begin{enumerate}
+        \item $\frac{k_1}{k_2} > \sqrt{3}$. In this space, we let $k_1 = 2$ and $k_2 = 1$.
+        The two soliton solution had one large skinny soliton and one small wide soliton. The former soliton is shifted further to the left and has a greater velocity than the latter. Both solitons are moving to the right as $t$ increases.
+        As the larger soliton collides with the smaller, the smaller soliton is completely absorbed. Thus, at a certain point the two soliton are super imposed onto each other and there appears to only be one soliton.
+        The amplitude of the the larger soliton decreases as its width increases during the collision and the opposite occurs with the smaller.
+        After the collision, a soliton emerges to the right of the other and continues to travel to the right. Both solitons have the same characteristics but it is unclear if the solitons swapped (e.i., the larger one became the smaller).
+        The same observation held with other $k_1$ and $k_2$ values such as $k_1 = 3$ and $k_2=1$ within this space.
+        \item $\sqrt{3} > \frac{k_1}{k_2} > \sqrt{(3 + \sqrt{5})/2}$. In this space we let $k_1 = 1.7$ and $k_2 = 1$. This space has a similar set up for the solitons and their characteristics appeared similar. 
+        One soliton is further to the left than the other and moves faster. This soliton is also taller and skinner than the other. 
+        This case differs from the first one during the collision of the solitons.
+        The amplitudes of each soliton change to match the other as they pass through but while the solitons merge, a distinct peak can always be observed as they moved through each. This behavior is unlike first case.
+        After the collision, one soliton returns to the characteristics of the larger solitons and moves away to the right. 
+        While it is still difficult to tell which soliton moves away, the phase of the larger soliton post collision suggests that perhaps the smaller soliton becomes the larger.
+        The same behavior held for other values in the space. 
+        \item $\frac{k_1}{k_2} < \sqrt{(3 + \sqrt{5})/2}$. In this space we let $k_1 = 0.5$ and $k_2 = 0.4$. Using these coefficients, the solitons move much slowr than the previous spacs. The solitons are also very similar in size and width yet the right most soliton is still taller, faster, and skinner.
+        When the solitons collide, the tall fast soliton losses its speed, height, and width and transfers these properties to the other soliton. For a breif moment in time both solitons look identical and at no point in time do the solitons become one.  
+        This is a stark difference compared to the other two space as the collision between the solitons doesn't envolve the waves merging. Rather one soliton propells the other. 
+        The same behavior was observed using different values in the space. 
+    \end{enumerate}     
+    In conclusion, the first space showed a soliton solution that quickly overtook another soliton without much effect to it. As we moved to the second space, we saw that the solitons merged but remained as two peaks. This was the first hint that perhaps the solitons were transfering their characteristics such as amplitude, velocity, and width. Finally, with the last example, we saw were one soliton propelled the other.
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--Good--$
+
+\begin{problem}
+    Problem 1.5: \textbf{The Cole-Hopf transformation.} Show that every non-zero solution of the heat equation $\theta_t = \nu\theta_{xx}$ gives rise to a solution of the dissipative Burgers equation $u_t + uu_x = \nu u_{xx}$, through the mapping $u = -2\nu\theta_x/\theta$.
+\end{problem}
+
+\begin{solution}
+    (Worked with Kaitlynn and Damien)
+
+    \noindent
+    Conisde the heat equation given by $$\theta_t = \nu \theta_{xx}.$$ 
+    We wish to show that every non-zero solution of the heat equation gives rise to a solution of the dissipative Burgers equation,
+    $$u_t + u u_{x} = \nu u_{xx}$$
+    through the mapping,
+    $$u = -2\nu \theta_x\theta^{-1}$$.
+    Lets take the derivatives of the following values,
+    \begin{align*}
+        u_x &= -2\nu\theta_{x}(-\theta^{-2}\theta_{x}) + \theta^{-1}(-2\nu\theta_{xx})\\
+            &= -2\nu\theta^{-1}(-\theta^{-1}\theta_{x}\theta_{x} + \theta_{xx})\\
+        u_{xx} &= -2\nu\theta^{-1}\left[ -\theta^{-1} \left( \theta_x\theta_{xx} + \theta_x\theta_{xx}\right) + \theta_x\theta_x \theta^{-2}\theta_x + \theta_{xxx}\right]\\
+            &+ (-\theta^{-1}\theta_{x}\theta_{x} + \theta_{xx})(-2\nu)(-\theta^{-2}\theta_{x})\\
+            &= -2\nu\theta^{-1}\left[ -3\theta^{-1}\theta_x\theta_{xx} + 2\theta^{-2}\theta_{x}\theta_{x}\theta_{x} + \theta_{xxx}\right]\\
+        u_t &= -2\nu\theta_{x}(-\theta^{-2}\theta_{t}) + \theta^{-1}(-2\nu\theta_{xt})\\
+            &= -2\nu\theta^{-1}(-\theta^{-1}\theta_{t}\theta_{x} + \theta_{xt}).\\
+    \end{align*}
+    This allows us to compute,
+    \begin{align*}
+        uu_x &= -2\nu\theta_{x}\theta^{-1} \left( -2\nu\theta^{-1}(-\theta^{-1}\theta_{x}\theta_{x} + \theta_{xx})\right)\\
+        &= -2\nu\theta^{-1} \left[ 2\nu \theta^{-2}\theta_x\theta_x\theta_x - 2\nu \theta^{-1}\theta_x\theta_{xx}\right]\\
+        \nu u_{xx} &= -2\nu\theta^{-1}\left[ -3\nu\theta^{-1}\theta_x\theta_{xx} + 2\nu\theta^{-2}\theta_{x}\theta_{x}\theta_{x} + \nu\theta_{xxx}\right].
+    \end{align*}
+    Plugging these values into the dissipative Burgers equation we get,
+    \begin{align*}
+        &-2\nu\theta^{-1}(-\theta^{-1}\theta_{t}\theta_{x} + \theta_{xt}) -2\nu\theta^{-1} \left[ 2\nu \theta^{-2}\theta_x\theta_x\theta_x - 2\nu \theta^{-1}\theta_x\theta_{xx}\right]\\
+        &= -2\nu\theta^{-1}\left[ -3\nu\theta^{-1}\theta_x\theta_{xx} + 2\nu\theta^{-2}\theta_{x}\theta_{x}\theta_{x} + \nu\theta_{xxx}\right]\\
+        \implies &-\theta^{-1}\theta_t\theta_x + \theta_{xt} + 2\nu\theta^{-2}\theta_x\theta_x\theta_x - 2\nu \theta^{-1}\theta_x\theta_{xxx}\\
+        &= -3\nu\theta^{-1}\theta_x\theta_{xx} + 2\nu\theta^{-2}\theta_{x}\theta_{x}\theta_{x} + \nu\theta_{xxx}\\
+        \implies &-\theta^{-1}\theta_{t}\theta_x + \theta_{xt} = -\nu \theta^{-1} \theta_x \theta_{xx} + \nu \theta_{xxx}
+    \end{align*}
+    Thus we have shown that $u$ is a solution to the burgers equation if and only if $\theta$ also satifies $-\theta^{-1}\theta_{t}\theta_x + \theta_{xt} = -\nu \theta^{-1} \theta_x \theta_{xx} + \nu \theta_{xxx}$ through the given mapping.
+    If we assume that $\theta$ is a solution for the heat equation, we get
+    \begin{align*}
+        -\nu \theta_{xx}\theta^{-1}\theta_x + \theta_{xt} &= -\nu \theta^{-1} \theta_x \theta_{xx} + \nu \theta_{xxx}\\
+        \implies \theta_{xt} &= \nu\theta_{xxx}\\
+        \implies \theta_{t} &= \nu\theta_{xx}
+    \end{align*} 
+    And thus the mapping of $u$ gives rise to a solution of the heat equation. As we have divided by $\theta$ throughout this proof, we also have that every non-zero solution of the heat equation gives a solution to the dissipative Burgers equation through the mapping.  
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 4---%
+%---------------%
+
+%--Proof read and add more maybe--$
+
+\begin{problem}
+    Problem 1.6: From the previous problem, you know that every solution of the heat equation $\theta_t = \nu\theta_{xx}$ gives rise to a solution of the dissipative Burger's equation $u_t + uu_x = \nu u_{xx}$, through the mapping $u = -2\nu\theta_x/\theta$.
+    \begin{enumerate}
+        \item Check that $\theta = 1 + \alpha e^{-kx+\nu k^2 t}$ is a solution of the heat equation. What solution of Burgers' equation does it correspond to? Describe this solution qualitatively (velocity, amplitude, steepness, etc) in terms of its parameters. 
+        \item Check that $\theta = 1 + \alpha e^{-k_1x+\nu k_1^2 t} + \beta e^{-k_2x + \nu k_2^2*t}$ is a solution to the heat equation. What solution of burgers' equation does it correspond to? Describe the dynamics of this solution, i.e., how does it change in time?
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    (Worked with Kaitlynn)
+
+    \noindent
+    Consider the heat equation $\theta_t = \nu \theta_{xx}$ and Burger's equation $u_t + uu_x = \nu u_{xx}$.
+    From the previous question, we know that every solution to the heat equation is a solution to Burger's through the mapping $u = - 2 \nu \theta_x / \theta$.
+    \begin{enumerate}
+        \item Firstly, consider the solution $$\theta = 1 + \alpha e^{-kx+\nu k^2 t}.$$
+        We can directly verify that $\theta$ is a solution to the heat equation by evaluating $\theta$ in the equation and observing that it results in zero.
+        To figure out what solution to the Burger's equation this corresponds to
+        $$u = 2 \nu \theta_x / \theta = \frac{(2 \alpha e^{k^2 t v} k v)}{(\alpha e^{k^2 t v} + e^{k x})}$$
+        which can be computed using Mathematica. Note that $u$ can also be directly verified as a solution to Burger's equation using Mathematica (1.8.6 Part a).
+        To examine the solution's qualitative behavior, we can analyze how the solution is effected by $t,k,v,$ and $\alpha$.
+        We see that the $k^2v$ term is proportional to the velocity of the soliton and $kv$ term effects the amplitude.
+        Furthermore, using Mathematica's manipulate function, we can plot the soliton and change the coefficients over time to visually see the qualitative behavior of each coefficient.
+        Using this method, we see that small variations in $\alpha$ shifts the position of the soliton along the $x$ axis.
+        When $\alpha$ is positive, we see a shock wave but when $\alpha$ is negative, the wave appears to crash at some point $x_0$. Meaning that the level slightly increases before suddenly crashing down at $x_0$. On the other side $x_0$ the level slightly increases before level out.
+        When $\nu$ is positive, the shock wave travels above the $x$ axis and travels in the positive $x$ direction while a negative $\nu$ value does the opposite.
+        A similar pattern is seen when changing the sign of $k$. We can also verify that $k\nu$ effect the amplitude of the wave by noting an increase in other $k$ or $\nu$ increases the amplitude of the wave. It is also interesting to note, the steepness of the wave increases with the same coefficients.
+        The difference between changing the signs of $k$ and $\nu$, is that $\nu$ causes the shock to go from low to high while the opposite is true for $k$. 
+
+        \item Next, consider the second solution given by, $$ \theta = 1 + \alpha e^{-k_1x+\nu k_1^2 t} + \beta e^{-k_2x + \nu k_2^2*t}.$$
+        Applying Mathematica in the same method as for part 1, we can verify that $\theta$ is indeed a solution of the heat equation and under the appropriate mapping a solution to Burger's equation given by, $$u = \frac{2v\left(\alpha k_1 e^{k_1^2vt + k_2x} + \beta k_2 e^{k_2^2vt + k_1x}\right)}{e^{k_1+k_2} + \beta e^{k_2^2vt + k_1 x} + \alpha e^{k_1^2vt + k_2x}}.$$
+        The dynamics of $u$ are determined by the coefficients $\alpha, \beta, k_1, k_2,$ and  $\nu$ as $t$ changes.
+        Directly seeing the effect of the coefficients in $u$ from the solution is more difficult, thus the work is majorly based of Mathematica's manipulate function (1.8.6 Part b).
+        From studying the plot, it appears that $u$ is a two soliton solution were $k_1,k_2$ control the dynamics of each soliton, say $s_1,s_2$, while $\beta$ and $\alpha$ behavior similarly as $\alpha$ and $\nu$ as $\nu$ from part a.
+        Increasing the value of $k_i$ in makes $s_i$ soliton increase in speed, amplitude, and steepness.
+        Changing the sign of $k_i$ changes the direction of travel and on which side of the $x$ axis the soliton lays.
+        During a collision of the solitons, the larger soliton will overtake the smaller and completely overlap it. Meaning that only one soliton will be visible.
+        For example, if $k_1 > k_2 > 0$, both solitons will be travel in the positive $x$ direction and lay above the $x$ axis.
+        Thus in our example, $s_1$ will over take $s_2$ and only $s_1$ will be visibly moving to the right.
+        But if $k_1 < 0 < k_2$ and $|k_1| > |k_2$, the soliton $s_1$ will be on the right side of the $y$ axis and below the $x$ axis moving in the negative $x$ direction. While $s_2$ will be the opposite. $s_1$ will have a larger amplitude than $s_2$ and thus during their collision, $s_1$ overtakes $s_2$ and after their collision only $s_1$ is seen moving to the left.
+        As mentioned before, $\nu$ will swap the direction of travel and flip the solitons over the $x$ axis. 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+\end{document}

@@ -1,0 +1,470 @@
+\documentclass[12pt]{report}
+
+\usepackage{commands}
+
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 569 Homework 5\\
+ Due May 24\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    For the 1-dimensional heat equation for conduction in a copper rod:
+    \[
+        \begin{cases}
+            \pp{}{t}u = \alpha^2 \ppn{2}{}{x}u, &0<x<L,t>0\\
+            u(x,t) = 0, &\text{at}~x=0 \and x=L,\\
+            u(x,0) = f(x), &0 < x < L.
+        \end{cases}
+    \] 
+    \begin{enumerate}
+        \item [(a)]
+        solve using separation of variables. Show that the time-dependence for the nth standing mode is $\text{exp}(-n^2(t/t_\eps))$ where $t_\eps = (L/\pi \alpha)^2$, about 1 hour for a 2m-copper rod.
+
+
+        \item [(b)]
+        For $t>t_\eps$, find the mode that dominates the solution, and thus write down the
+        approximate solution (in time and in space). Describe in words how an initial condition,
+        which may not look like a sine wave, becomes the sine shape with the largest wavelength
+        fitting in between the boundaries.
+
+    
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+    
+    \noindent
+    Consider the 1-dimensional heat equation for conduction in a copper rod:
+    \begin{equation}\label{1}
+        \begin{cases}
+            \pp{}{t}u = \alpha^2 \ppn{2}{}{x}u, &0<x<L,t>0\\
+            u(x,t) = 0, &\text{at}~x=0 \and x=L,\\
+            u(x,0) = f(x), &0 < x < L.
+        \end{cases}
+    \end{equation}
+    \begin{enumerate}
+        \item [(a)]
+        
+        \noindent
+        First, we wish to solve \fullref{1} using separation of variables. Consider
+        \[
+            u(x,t) = X(x)T(t).
+        \] 
+        Plugging this into \fullref{1} and rearranging terms we find that
+        \[
+            \frac{T'(t)}{T(t)\alpha^2} = \frac{X''(x)}{X(x)} = - \lambda^2, 
+        \]
+        where $\lambda$ is the separation constant. Thus we have two ODEs of the form
+        \[
+            T'(t) + \lambda^2\alpha^2T(t) = 0,
+        \] 
+        and
+        \[
+            X''(x) + \lambda^2 X(x) = 0.
+        \]
+        We will first solve the former of the ODEs to get
+        \[
+            T(t) = T(0)e^{-\alpha^2\lambda^2t}.
+        \]
+        Recalling that $u(0,t) = u(L,t) = 0$ which implies $X(0) = X(L) = 0$, we can solve the latter ODE to get
+        \[
+            X(x) = X_n(x) = \sin\paren{\frac{n \pi x}{L}},
+        \] 
+        where $X_n$ are eigenfunctions with corresponding eigenvalues
+        \[
+            \lambda = \lambda_n  = \frac{n\pi}{L},
+        \] 
+        for $n = 1,2,\dots$. Thus we have found
+        \[
+            u(x,t) = \sum_{n=1}^{\infty} T_n(0)e^{-\alpha^2\paren{\frac{n\pi}{L}}^2t} \sin\paren{\frac{n \pi x}{L}}. 
+        \]
+        If we let $t_\eps = \paren{\frac{L}{\pi \alpha}}^2$ then 
+        \[
+            u(x,t) = \sum_{n=1}^{\infty} f_n(x) e^{\frac{-n^2 t}{t_\eps}} \sin\paren{\frac{n \pi x}{L}},
+        \]
+        where we use that $u(x,0) = f(x)$ which requires
+        \[
+            f(x) = \sum_{n=1}^\infty T_n(0) \sin\paren{\frac{n \pi x}{L}},
+        \]
+        and using a Fourier sine series we get
+        \[
+            f(x) = \sum_{n=1}^\infty f_n \sin\paren{\frac{n \pi x}{L}}.
+        \]
+        Thus we see that the time-dependence for the $n$th standing mode is $\text{exp}(-n^2(t/t_\eps))$.
+
+
+        \item [(b)]
+        For $t > t_\eps$, we can approximate the solution by finding the dominant mode. Recall that the solution is
+        \[
+            u(x,t) = \sum_{n=1}^{\infty} f_n(x) e^{\frac{-n^2 t}{t_\eps}} \sin\paren{\frac{n \pi x}{L}}
+        \] 
+        which has terms with exponential decay. Thus to find the mode which will die the slowest and dominate the other modes, we must minimize $n$. Therefore the dominate mode is $n=1$ and so
+        \[
+            u(x,t) \approx f_1 e^{-t/t_\eps}\sin\paren{\frac{\pi x}{L}}.
+        \]
+        Furthermore, this tells us that any initial condition for \fullref{1}, may it be sin-like or not, will tend towards the above approximation which has a sine shape with the largest wavelength fitting in between the boundaries. 
+
+
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    Sound waves in a box satisfies
+    \[
+        \begin{cases}
+            \ppn{2}{}{t}u - c^2\nabla^2u = 0, &\text{in} ~ V\\
+            u = 0, &\text{on} ~ \partial V.
+        \end{cases}
+    \] 
+    Use separation of variables to solve this problem for the following configurations and find the quantized frequency of oscillation $\omega$, where $\omega$ appears in the time dependence of the solution in the form of a sine or cosine of $\omega t$.
+    \begin{enumerate}
+        \item [(a)] $V$ is a one-dimensional box: $0<x<L$.
+        \item [(b)] $V$ is a two-dimensional box: $0<x<L; 0<y<L$.
+        \item [(c)] $V$ is a three-dimensional box: $0<x<L; 0<y<L; 0<z<L$.
+    \end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider sound waves in a box which satisfy
+    \begin{equation}\label{2}
+        \begin{cases}
+            \ppn{2}{}{t}u - c^2\nabla^2u = 0, &\text{in} ~ V\\
+            u = 0, &\text{on} ~ \partial V.
+        \end{cases}
+    \end{equation}
+    We wish to solve \fullref{2} using the separation of variables method. Consider
+    \[
+        u(x,t) = X(x)T(t).
+    \] 
+    Plugging this into \fullref{2} and rearranging terms we find that
+    \[
+        \frac{T''(t)}{T(t)c^2} = \frac{\nabla^2 X(x)}{X(x)} = - \lambda^2, 
+    \]
+    where $\lambda$ is the separation constant. Thus we have two ODEs of the form
+    \[
+        T''(t) + \lambda^2 c T(t) = 0,
+    \] 
+    and 
+    \begin{equation} \label{2-x}
+        \nabla^2 X(x) + \lambda^2 X(x) = 0.
+    \end{equation}
+    Notice that in any domain $V$, we can solve the former ODE to get 
+    \begin{equation} \label{2-t-sol}
+        T(t) = A\sin(c \lambda t) + B\cos(c \lambda t).
+    \end{equation}
+
+    \begin{enumerate}
+        \item [(a)]
+        Let $V$ be a one-dimensional box given by 
+        \[
+            0 < x < L.
+        \]    
+        Thus \fullref{2-x} becomes
+        \[
+            X''(x) + \lambda^2 X(x) = 0.
+        \]
+        Since $u = 0$ on $\partial V$, or in other words, $u(0,t) = u(L,t) = 0$ which implies that $X(0) = X(L) = 0.$  This has eigenfunctions
+        \[
+            X(x) = X_n(x) = \sin\paren{\frac{n\pi x}{L}},
+        \]
+        with corresponding eigenvalues
+        \[
+            \lambda = \lambda_n = \frac{n \pi}{L},
+        \]
+        for $n=1,2,\dots$. Thus in combination with \fullref{2-t-sol} we have
+        \[
+            u(x,t) = \sum_{n=1}^\infty \paren{A\sin\paren{\frac{c n \pi t}{L}} + B\cos\paren{\frac{c n \pi t}{L}}}\sin\paren{\frac{n\pi x}{L}}.
+        \]
+        Therefore the quantized frequency of oscillation $\omega$ is given by
+        \[
+            \omega_n = c \lambda_n = \frac{c n \pi}{L},
+        \]
+        for $n=1,2,\dots$.
+
+        \item [(b)]
+        Let $V$ be a two-dimensional box given by 
+        \[
+            0 < x < L; 0 < y < L.
+        \]
+        Thus \fullref{2-x} becomes
+        \[
+            X''(\vec{x}) + \lambda^2 X(\vec{x}) = 0,
+        \]
+        where $\vec{x} = (x,y)^T$. Since $u = 0$ on $\partial V$, or in other words, $u(0,t) = u(L,t) = 0$ which implies that $X(\vec{x}) = 0$ when $x=0,x=L,y=0,\and y=L$. This has eigenfunctions
+        \[
+            X(\vec{x}) = X_{n,m}(\vec{x}) = \sin\paren{\frac{n\pi x}{L}}\sin\paren{\frac{m\pi y}{L}},
+        \]
+        with corresponding eigenvalues
+        \[
+            \lambda = \lambda_{n,m} = \frac{\pi\sqrt{n^2 + m^2}}{L},
+        \]
+        for $n,m=1,2,\dots$. Thus in combination with \fullref{2-t-sol} we have
+        \[
+            u(x,t) = \sum_{n,m=1}^\infty \paren{A\sin\paren{\frac{c\pi\sqrt{n^2 + m^2} t}{L}} + B\cos\paren{\frac{c\pi\sqrt{n^2 + m^2} t}{L}}}\sin\paren{\frac{n\pi x}{L}}\sin\paren{\frac{m\pi y}{L}}.
+        \]
+        Therefore the quantized frequency of oscillation $\omega$ is given by
+        \[
+            \omega_{n,m} = c \lambda_{n,m} = \frac{c \pi \sqrt{n^2 + m^2}}{L},
+        \]
+        for $n,m=1,2,\dots$.
+
+        \item [(c)]
+        Let $V$ be a three-dimensional box given by 
+        \[
+            0 < x < L; 0 < y < L; 0 < z < L.
+        \]
+        Thus \fullref{2-x} becomes
+        \[
+            X''(\vec{x}) + \lambda^2 X(\vec{x}) = 0,
+        \]
+        where $\vec{x} = (x,y,z)^T$. Since $u = 0$ on $\partial V$, or in other words, $u(0,t) = u(L,t) = 0$ which implies that $X(\vec{x}) = 0$ when $x=0,x=L,y=0,y=L,z=0,\and z=L$. This has eigenfunctions
+        \[
+            X(\vec{x}) = X_{n,m,k}(\vec{x}) = \sin\paren{\frac{n\pi x}{L}}\sin\paren{\frac{m\pi y}{L}}\sin\paren{\frac{k \pi z}{L}},
+        \]
+        with corresponding eigenvalues
+        \[
+            \lambda = \lambda_{n,m,k} = \frac{\pi\sqrt{n^2 + m^2 + k^2}}{L},
+        \]
+        for $n,m,k=1,2,\dots$. Thus in combination with \fullref{2-t-sol} we have
+        \begin{align*}
+            u(x,t) &= \sum_{n,m,k=1}^\infty \paren{A\sin\paren{\frac{c\pi\sqrt{n^2 + m^2 + k^2} t}{L}} + B\cos\paren{\frac{c\pi\sqrt{n^2 + m^2 + k^2} t}{L}}}\\
+            &\quad \sin\paren{\frac{n\pi x}{L}}\sin\paren{\frac{m\pi y}{L}}\sin\paren{\frac{k\pi y}{L}}.    
+        \end{align*}
+        
+        Therefore the quantized frequency of oscillation $\omega$ is given by
+        \[
+            \omega_{n,m,k} = c \lambda_{n,m,k} = \frac{c \pi \sqrt{n^2 + m^2 + k^2}}{L},
+        \]
+        for $n,m,k=1,2,\dots$.
+    
+    \end{enumerate}
+
+
+
+
+
+
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    \begin{enumerate}
+        \item [(a)]
+        Solve:
+        \[
+            \ddn{2}{}{x}u + \paren{k_0^2 + i\eps k_0 / c}u = -\delta(x -y)/c^2,
+        \]
+        where $-\infty < x < \infty$, $\eps > 0$, and $y$ is finite. subject to the boundary condition $u\to 0$ as $x \to \pm \infty$. Consider separately $x<y$ and $x>y$ and matching across $x=y$. Do not use Fourier transform.
+        
+        
+        
+        \item [(b)]
+        Solve the above equation for the case of $\eps = 0$, subject to the Sommerfeld radiation condition. Show that the solution from (a) reduce to this solution a $\eps \to 0$.
+        
+        
+    \end{enumerate}
+    
+
+
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the equation
+    \begin{equation}\label{3}
+        \ddn{2}{}{x}u + \paren{k_0^2 + \frac{i\eps k_0}{c}}u = -\frac{\delta(x -y)}{c^2},
+    \end{equation}
+    
+    where $-\infty < x < \infty$ and $y$ is finite and is subject to the boundary condition $u \to 0$ as $x \to \pm \infty$.
+
+    \begin{enumerate}
+        \item [(a)]
+        We first consider \fullref{3} when $\eps > 0$. Let's begin by considering the case when $x < y$ giving 
+        \[
+            \ddn{2}{}{x}u + \paren{k_0^2 + \frac{i\eps k_0}{c}}u = 0,
+        \]      
+        with $-\infty < x < y$. We note that the roots of the characteristic polynomial are
+        \[
+            \lambda_{1,2} = \pm \sqrt{-\paren{k_0^2 + \frac{i \eps k_0}{c}}}.
+        \]
+        Since $\lambda_{1,2}$ contains a square root term we require a branch cut. Consider the principal branch of the square root with the branch cut $(-\infty,0]$.
+        Assuming that $k_0, c> 0$ and letting
+        \[
+            \lambda_2 = \sqrt{-\paren{k_0^2 + \frac{i \eps k_0}{c}}},
+        \]
+        which has a negative real part and a positive imaginary part. We also note that $\lambda_1 = -\lambda_2$. Thus the solution is
+        \[
+            u(x) = A_1 e^{\lambda_1 x} + B_1 e^{\lambda_2 x}.
+        \] 
+        To enforce the boundary condition that $u \to 0$ as $x \to -\infty$, we require that $B_1 = 0$ and thus the solution is
+        \[
+            u(x) = A_1 e^{\lambda_1 x} = A e^{\lambda_1 x}.
+        \]
+        In the case that $x > y$, we have 
+        \[
+            \ddn{2}{}{x}u + \paren{k_0^2 + \frac{i\eps k_0}{c}}u = 0,
+        \]
+        where $y < x < \infty$. We can solve this similarly to before to get
+        \[
+            u(x) = A_2 e^{\lambda_1 x} + B_2 e^{\lambda_2 x}.
+        \] 
+        To enforce the boundary condition that $u \to 0$ as $x \to \infty$, we require that $A_2 = 0$ and thus the solution is
+        \[
+            u(x) = B_2e^{\lambda_2 x} = Be^{\lambda_2 x}.
+        \]
+        Combining the cases gives 
+        \begin{equation}\label{3-intso}
+            u(x) = \begin{cases}
+                A e^{\lambda_1 x}, & x<y,\\
+                B e^{\lambda_2 x}, & x>y.\\
+            \end{cases}
+        \end{equation}
+        
+        Now to solve for $A$ and $B$ we will enforce a matching condition across $x = y$. Recalling that $\lambda_1 = -\lambda_2$ we get that 
+        \[
+            A e^{\lambda_1 y} = B e^{-\lambda_1 y} \implies B = A e^{2\lambda_1 y}.
+        \]  
+        Now letting $y^-$ and $y^+$ be arbitrarily close to $x = y$ on their repsective sides, we integrating across $x=y$ to get 
+        \[
+            \int_{y^-}^{y^+} u_{xx}\d x +  k^2\int_{y^-}^{y^+} u(x) \d x = -\int_{y^-}^{y^+} \frac{\delta(x -y)}{c^2} \d x = \frac{-1}{c^2},
+        \] 
+        and assuming that $u$ is finte we get
+        \[
+            \int_{y^-}^{y^+} u_{xx}\d x = u_x(y^+) - u_x(y^-) = - \frac{1}{c^2}.
+        \]
+        Using \fullref{3-intso} we derive
+        \[
+            Ae^{2\lambda_1 y}(-\lambda_1)\paren{e^{-\lambda_1 y}} - A \lambda_1e^{\lambda_1 y} = - \frac{1}{c^2} \implies 2A \lambda_1 e^{\lambda_1 y} = \frac{1}{c^2}. 
+        \]
+        Thus we have found 
+        \[
+            A = \frac{1}{2c^2\lambda_1}e^{-\lambda_1 y},
+        \]
+        and 
+        \[
+            B = \frac{1}{2c^2\lambda_1}e^{\lambda_1 y}.
+        \]
+        Therefore the solution is
+        \[
+            u(x) = \begin{cases}
+                \frac{1}{2c^2\sqrt{-\paren{k_0^2 + \frac{i\eps k_0}{c}}}}e^{\sqrt{-\paren{k_0^2 + \frac{i\eps k_0}{c}}}(y-x)}, &x<y,\\
+                \frac{1}{2c^2\sqrt{-\paren{k_0^2 + \frac{i\eps k_0}{c}}}}e^{\sqrt{-\paren{k_0^2 + \frac{i\eps k_0}{c}}}(x-y)}, &x>y.\\
+            \end{cases}
+        \]
+
+
+        \item [(b)]
+        We now consider \fullref{3} with $\eps = 0$ subject to the Sommerfeld radiation condition. We again consider the case when $x<y$ which gives
+        \[
+            \ddn{2}{}{x}u + \paren{k_0^2 + \frac{i\eps k_0}{c}}u = 0,
+        \]      
+        with $-\infty < x < y$. This has the solution
+        \[
+            u(x) = A_1 e^{ik_0 x} + B_1 e^{-ik_0 x}.
+        \]
+        Now we enforce the Sommerfeld radiation condition and assuming that $k_0 > 0$ we see that $A_1 = 0$. We again consider the case when $x>y$ which gives
+        \[
+            \ddn{2}{}{x}u + \paren{k_0^2 + \frac{i\eps k_0}{c}}u = 0,
+        \]      
+        with $y > x > \infty$. This has the solution
+        \[
+            u(x) = A_2 e^{ik_0 x} + B_2 e^{-ik_0 x}.
+        \]
+        Now we enforce the Sommerfeld radiation condition and assuming that $k_0 > 0$ we see that $B_2 = 0$. Thus we have
+        \[
+            u(x) = \begin{cases}
+                B e^{-ik_0 x}, &x < y,\\
+                A e^{ik_0 x}, &x > y.
+            \end{cases}
+        \] 
+        Now to solve for $A$ and $B$ we will enforce a matching condition across $x = y$. Thus we have that 
+        \[
+            B e^{-i k_0 y} = A e^{i k_0 y} \implies A = B e^{-2 i k_0 y}.
+        \]  
+        Now letting $y^-$ and $y^+$ be arbitrarily close to $x = y$ on their repsective sides, we integrating across $x=y$ to get 
+        \[
+            \int_{y^-}^{y^+} u_{xx}\d x +  k^2\int_{y^-}^{y^+} u(x) \d x = -\int_{y^-}^{y^+} \frac{\delta(x -y)}{c^2} \d x = \frac{-1}{c^2},
+        \] 
+        and assuming that $u$ is finte we get
+        \[
+            \int_{y^-}^{y^+} u_{xx}\d x = u_x(y^+) - u_x(y^-) = - \frac{1}{c^2}.
+        \]
+        Using \fullref{3-intso} we derive   
+        \[
+            \paren{B e^{-2ik_0 y}}(ik_0)e^{i k_0 y} - B(-ik_0)e^{-ik_0y} = - \frac{1}{c^2},
+        \]
+        and solving gives
+        \[
+            B = \frac{-1}{2c^2 i k_0}e^{ik_0 y},
+        \]
+        and
+        \[
+            A = \frac{-1}{2c^2 i k_0}e^{-ik_0 y}.
+        \]
+        Therefore the solution is
+        \[
+            u(x) = \begin{cases}
+                \frac{i}{2c^2 k_0}e^{ik_0(y-x)}, & x < y,\\ 
+                \frac{i}{2c^2 k_0}e^{ik_0(x-y)}, & x > y.\\ 
+            \end{cases}
+        \] 
+        
+        \noindent
+        To see that this solution is consistent with the solution from part a, we take $\eps \to 0^+$ and recalling our branch we get
+        \[
+            \lim_{\eps \to 0^+} \sqrt{-\paren{k_0^2 + \frac{i \eps k_0}{c}}} = \sqrt{-k^2_0} = ik_0,
+        \]
+        Thus when $\lambda_1 = -ik_0$ we get
+        \[
+            u(x) = \begin{cases}
+                \frac{1}{2c^2k_0}e^{ik_0(y-x)}, & x < y,\\ 
+                \frac{1}{2c^2k_0}e^{ik_0(x-y)}, & x > y,\\ 
+            \end{cases}
+        \] 
+        which matches the solution we found.
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+\end{document}

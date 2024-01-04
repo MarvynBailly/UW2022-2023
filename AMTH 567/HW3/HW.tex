@@ -1,0 +1,378 @@
+\documentclass[12pt]{report}
+
+\usepackage{amssymb, fullpage, amsmath,esint}
+\usepackage{graphicx}
+
+\newtheorem{problem}{Problem}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+\graphicspath{ {./} }
+
+\pagestyle{empty}
+
+\allowdisplaybreaks
+
+\def\Z{{\mathbb Z}}
+\def\Q{{\mathbb Q}}
+\def\C{{\mathbb C}}
+\def\R{{\mathbb R}}
+\def\N{{\mathbb N}}
+\def\ointcc{{\ointctrclockwise}}
+\def\ointc{{\ointclockwise}}
+
+\begin{document}
+
+\large
+
+\begin{center}
+ Math 567 Homework 2\\
+ Due October 19 2022\\
+ By Marvyn Bailly\\
+\end{center}
+
+\normalsize
+
+\hrule
+
+%---------------%
+%---Problem 1---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    AF: 4.2.1: c and d 
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [\bf{c}]
+        Consider the integral,
+        \[
+            \int_0^\infty \frac{dx}{(x^2 + a^2)(x^2+b^2)} ~~~ a^2,b^2 > 0,
+        \]
+        and $a,b>0$ with out loss of generality. Since the function is even we can get,
+        \[
+            \frac{1}{2}\int_{\infty}^\infty \frac{dx}{(x^2 + a^2)(x^2+b^2)}.    
+        \]
+        Let's consider the integral in the complex plane,
+        \[
+            I_R = I_{C_1} + I_{C_2} =\ointcc_{C_R} \frac{dz}{(z^2 + a^2)(z^2+b^2)}.    
+        \]
+        where $C_R$ is the contour made from $C_1$ which runs along the real line from $-R$ to $R$ and $C_2$ which is the upper semi circle from $R$ to $-R$. Consider the two cases, when $a\neq b$ and when $a=b$. First let's consider when $a\neq b$, since $a^2$ and $b^2$ are greater than positive, the only singularities within this contour are $z_1 = ia$ and $z_2 = ib$. By the residue theorem, we know that
+        \[
+            I_R = \ointcc_{C_R} \frac{dz}{(z^2 + a^2)(z^2+b^2)} = 2\pi i \sum \text{of the residues.}
+        \]
+        Next we need to find the residues. First let's find the residue at $z_1$ which can be found by,
+        \begin{align*}
+            a_{-1} &= \lim_{z \rightarrow ia} \frac{z-ia}{(z^2 + a^2)(z^2 + b^2)}\\
+            &= \lim_{z \rightarrow ia} \frac{z-ia}{(z-ia)(z+ia)(z^2 + b^2)}\\
+            &= \lim_{z \rightarrow ia} \frac{1}{(z+ia)(z^2 + b^2)}\\
+            &= \frac{1}{(ia+ia)((ia)^2 + b^2)}\\
+            &= \frac{1}{(2ia)(-a^2 + b^2)}\\
+            &= \frac{1}{(2ia)(b^2-a^2)}\\
+        \end{align*}
+        Next let's find the residue at $z_2$,
+        \begin{align*}
+            a_{-1} &= \lim_{z \rightarrow ib} \frac{z-ib}{(z^2 + a^2)(z^2 + b^2)}\\
+            &= \lim_{z \rightarrow ib} \frac{z-ib}{(z^2 + a^2)(z - ib)(z + ib)}\\
+            &= \lim_{z \rightarrow ib} \frac{1}{(z+ib)(z^2 + a^2)}\\
+            &= \frac{1}{(ib+ib)((ib)^2 + a^2)}\\
+            &= \frac{1}{(2ib)(-b^2 + a^2)}\\
+            &= \frac{1}{(2ib)(a^2-b^2)}.\\
+        \end{align*}
+        Thus from residue theorem,
+        \begin{align*}
+            I_R &= 2\pi i \left[ \frac{1}{(2ia)(b^2-a^2)} +  \frac{1}{(2ib)(a^2-b^2)}\right]\\
+            &= 2\pi \left[ \frac{1}{(2a)(b^2-a^2)} -  \frac{1}{(2b)(b^2 - a^2)}\right]\\
+            &= \pi \left[ \frac{1}{(a)(b^2-a^2)} -  \frac{1}{(b)(b^2 - a^2)}\right]\\
+            &= \pi \left[ \frac{b - a}{ab(b-a)^2}\right]\\
+            &= \frac{\pi}{ab(b+a)}.
+        \end{align*}
+        Now let's consider the case when $a=b$. In this case, we have a double pole at $z_1 = ai$. then we can compute the residue to be,
+        \begin{align*}
+            \lim_{z \rightarrow ai} \frac{d}{dz}\left( \frac{(z-ai)^2}{(z-ai)^2(a+ai)^2}\right) &= \lim_{z \rightarrow ai} \left( \frac{1}{(z + ai)^2}\right)\\
+            &= \lim_{z \rightarrow ai} \frac{-2}{(z + ai)^3}\\
+            &= \frac{-2}{(2ai)^3}\\
+            &= \frac{1}{4a^3i}.
+        \end{align*}
+        Thus by the residue theorem,
+        \begin{align*}
+            I_R &= 2\pi i \frac{1}{4a^3i}\\
+            &= \frac{\pi}{2a^3}\\
+            &= \frac{\pi}{a^3 + a^3}\\
+            &= \frac{\pi}{a^2b + ab^2}\\
+            &= \frac{\pi}{ab(b + a)}
+        \end{align*}
+        and thus we have the same result in both cases. Next let's show that $I_{C_2} = 0$. Observe that 
+        \begin{align*}
+            \lim_{|Z| \rightarrow \infty} \left| \frac{z}{(z^2 + a^2)(z^2 + b^2)} \right| &= \lim_{R \rightarrow \infty} \frac{R}{\left|(R^2e^{i2\theta} + a^2)(R^2e^{2i\theta} + b^2)\right|}\\
+            &=\lim_{R \rightarrow \infty} \frac{R}{\left|a^2 b^2 + a^2 R^2 e^{2 i t} + b^2 R^2 e^{2 i t} + R^4 e^{4 i t}\right|}\\
+            &=\lim_{R \rightarrow \infty} \frac{1}{\left|\frac{a^2 b^2}{R} + (a^2 + b^2) R e^{2 i t} + R^3 e^{4 i t}\right|}\\
+            &\leq \lim_{R \rightarrow \infty} \frac{1}{\left|\left|R^3 e^{4 i t}\right| - \left|\frac{a^2 b^2}{R} + (a^2 + b^2) R e^{2 i t}\right|\right|}\\
+            &\leq \lim_{R \rightarrow \infty} \frac{1}{\left|\left|R^3 e^{4 i t}\right| - \left|\frac{a^2 b^2}{R}\right| - \left|(a^2 + b^2) R e^{2 i t}\right|\right|}\\
+            &= \lim_{R \rightarrow \infty} \frac{1}{\left| R^3 - R(a^2 + b^2) - \frac{a^2b^2}{R}\right|}\\
+            &= 0 
+        \end{align*}
+        Thus $\lim_{R \rightarrow \infty} |I_{C_2}| = 0$ which means that $I_{C_2} = 0$. Therefore 
+        \[ \int_0^\infty \frac{dx}{(x^2 + a^2)(x^2+b^2)} = \frac{1}{2}\int_{\infty}^\infty \frac{dx}{(x^2 + a^2)(x^2+b^2)} = \frac{1}{2}I_R = \frac{1}{2}I_{C_1} = \frac{\pi}{2ab(b+a)} \]
+
+        \item [\bf{d}]
+        Consider the integral 
+        \[ \int_0^\infty \frac{dx}{x^6 + 1}\]
+        where the integrand is an even function and thus
+        \[ \int_0^\infty \frac{dx}{x^6 + 1} = \frac{1}{2}\int_{-\infty}^\infty \frac{dx}{x^6 + 1}.\] 
+        Next lets look at the integral $\int_{-\infty}^\infty \frac{dx}{x^6 + 1}$ in the complex plane to get,
+        \[ 
+            I_R = I_{C_1} + I_{C_2} = \ointcc_{C_R} \frac{dz}{z^6 + 1},
+        \]
+        where $C_R$ is the contour made from $C_1$ which runs along the real line from $-R$ to $R$ and $C_2$ which is the upper semi circle from $R$ to $-R$. Next let's find the singularities of $\frac{1}{z^6 + 1}$ using the sixth root of unity which is of the form $e^{\frac{1}{6}i(\pi + 2\pi k)}$ which,
+        \[ \{ e^{i\frac{\pi}{6}},e^{i\frac{\pi}{2}},e^{i\frac{5\pi}{6}}, e^{i\frac{7\pi}{6}},e^{i\frac{3\pi}{2}},e^{i\frac{11\pi}{6}}\}. \]
+        Of these roots, only $e^{i\frac{\pi}{6}},e^{i\frac{\pi}{2}},e^{i\frac{5\pi}{6}}$ are within $C_R$ and they are all singular poles. By Residue Theorem,
+        \[ 
+            I_c = 2\pi i \sum \text{of the residues.}
+        \]
+        Now let's compute the residues using the fact that,
+        \[ 
+            \text{Res}(z_0) = \frac{P(z_0)}{Q'(z_0)}
+        \]
+        Thus we can compute the residues to be,
+        \begin{align*}
+            \text{Res}(e^{i\pi/6}) &= \frac{1}{6(e^{i\pi/6})^5}\\
+            &= \frac{1}{6e^{i5\pi/6}}\\
+            \text{Res}(e^{i\pi/2}) &= \frac{1}{6(e^{i\pi/2})^5}\\
+            &= \frac{1}{6e^{i5\pi/2}}\\
+            &= \frac{1}{6e^{i\pi/2}}\\
+            \text{Res}(e^{i5\pi/6}) &= \frac{1}{6(e^{i5\pi/6})^5}\\
+            &= \frac{1}{6e^{i25\pi/6}}\\
+            &= \frac{1}{6e^{i\pi/6}}\\
+        \end{align*}
+        thus we have that,
+        \[
+            I_c = 2\pi i \left( \frac{1}{6} \left( e^{-i5\pi/6} + e^{-i\pi/2} + e^{-i\pi/6}\right) \right)
+        \]
+        Now we have to show that $I_{C_2}$,
+        \begin{align*}
+            \lim_{|z| \rightarrow \infty} \frac{1}{z^6 + 1} &= \lim_{R \rightarrow \infty} \frac{R}{\left|R^6e^{i6\pi} + 1\right|}\\
+            &= \lim_{R \rightarrow \infty}\frac{1}{|R^5e^{i6\pi} + 1|}\\
+            &\leq \lim_{R \rightarrow \infty}\frac{1}{| |R^5e^{i6\pi}| - |1| |}\\
+            &= 0
+        \end{align*}
+        thus $\lim_{R \rightarrow \infty} |I_{C_2}| = 0$ which means that $I_{C_2} = 0$. Thus we have,
+        \begin{align*}
+            \int_0^\infty \frac{dx}{x^6 + 1} = \frac{1}{2}\int_{\infty}^\infty \frac{dx}{x^6 + 1} = \frac{1}{2}I_R = \frac{1}{2}I_{C_1} &= \pi i \left( \frac{1}{6} \left( e^{-i5\pi/6} + e^{-i\pi/2} + e^{-i\pi/6}\right) \right)\\
+            &= \frac{\pi i}{6} \left( \left( \frac{\sqrt{3}}{2} - \frac{1}{2} i\right) - i + \left( -\frac{-\sqrt{3}}{2} - \frac{1}{2} i\right) \right)\\
+            &= \frac{\pi i}{6}(-2i)\\
+            &= \frac{\pi}{3}
+        \end{align*} 
+    \end{enumerate}
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+\newpage
+
+%---------------%
+%---Problem 2---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    AF: 4.2.2: a,b, and h 
+\end{problem}
+
+\begin{solution}
+    \noindent
+    \begin{enumerate}
+        \item [{\bf a}]
+        Consider the integral
+        \[ I = \int_{-\infty}^{\infty} \frac{x\sin(x)}{x^2 + a^2}\]for $a^2 > 0$. For the sake of applying Jordan's Lemma, consider 
+        \[
+             \int_{-\infty}^{\infty} \frac{x\sin(x)}{x^2 + a^2} = \mathrm{Im} \frac{ze^{iz}dz}{a^2 + z^2},
+        \] 
+        and let 
+        \[f(z) = \frac{z}{a^2 + z^2}.\]
+        Now let's show that,
+        \begin{align*}
+            \lim_{|z| \rightarrow \infty}\frac{z}{z^2 + a^2} &= \lim_{R \rightarrow \infty} \frac{R}{|R^2e^{i2\theta} + a^2|}\\
+            &=\lim_{R \rightarrow \infty} \frac{1}{\left|Re^{i2\theta} + \frac{a^2}{R}\right|}\\
+            &\leq \lim_{R \rightarrow \infty} \frac{1}{\left| |Re^{i2\theta}| - |\frac{a^2}{R}| \right|}\\
+            &= \lim_{R \rightarrow \infty} \frac{1}{R - \frac{a^2}{R}}\\
+            &= 0\\
+        \end{align*}
+        and thus $|f(z)| \rightarrow 0$ as $R \rightarrow \infty$. Without loss of generality assume that $a>0$ and by Jordan's Lemma ,
+        \begin{align*}
+            I &= \mathrm{Im} \ointcc_{C_R} \frac{z}{a^2 + z^2}e^{iz}dz\\
+            &= \mathrm{Im} (2\pi i ~~ \text{Res of} \frac{ze^{iz}}{a^2 + z^2} ~~ \text{at } z= ia)\\
+            &= \mathrm{Im} (2 \pi \frac{aie^{-a}}{2ai})\\
+            &= \pi e^{-a}
+        \end{align*}
+        Therefore,
+        \[
+            \int_{-\infty}^{\infty} \frac{x\sin(x)}{x^2 + a^2} = \pi e^{-a}
+        \]
+        \item [{\bf b}]
+        Consider the integral,
+        \[ 
+            I = \int_{-\infty}^{\infty} \frac{\cos(kx)dx}{(x^2 + a^2)(x^2 + b^2)}, 
+        \]
+        and $a^2,b^2,k > 0$. Without loss of generality, assume that $a,b>0$. Notice that,
+        \[ 
+            I = \mathrm{Re} \int_{-\infty}^{\infty} \frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}dz,
+        \]
+        and let
+        \[ 
+            f(z) = \frac{1}{(z^2 + a^2)(z^2 + b^2)}.
+        \]
+        Recall from problem 1 part a, that $\lim_{R \rightarrow \infty} \frac{z}{(z^2 + a^2)(z^2 + b^2)} = 0$ and since $f(z) \leq \frac{z}{(z^2 + a^2)(z^2 + b^2)}$, we can apply Jordan's Lemma to get,
+        \begin{align*}
+            I &= \mathrm{Im} \oint \frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}dz\\
+            &= \mathrm{Im} \left\{ 2\pi i \sum \text{ res of } \frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}\right\}
+        \end{align*}
+        Similarly to problem 1 part a, we know that there are two single poles at $ai$ and $bi$ when $a\neq b$ and a double pole at $ai$ when $a=b$. First let's consider when $a\neq b$,
+        \begin{align*}
+            \lim{z \rightarrow ai} \frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)} &= \frac{e^{ikia}}{(zia)(b^2 - a^2)}\\
+            &= \frac{e^-ka}{(2ia)(b^2 - a^2)},
+        \end{align*}
+        and
+        \begin{align*}
+            \lim{z \rightarrow bi} \frac{e^{ikz}}{(z^2 + a^2)(z^2 + b^2)}
+            &= \frac{e^-kb}{(2ib)(b^2 - a^2)}.
+        \end{align*}
+        Thus we have that,
+        \begin{align*}
+            I &= \mathrm{Im} \left\{ 2\pi i \left( \frac{e^{-ka}}{(2ia)(b^2 - a^2)} + \frac{e^{-kb}}{(2ib)(b^2 - a^2)} \right)\right\}\\
+            &= \pi \left( \frac{e^{-ka} + e^{-kb}}{ab(b^2 - a^2)}\right)
+        \end{align*}
+        when $a \neq b$. 
+        Next let's consider when $a=b$. First let's find the residue at $z=ai$,
+        \begin{align*}
+            \lim_{z \rightarrow ai} \frac{d}{dz} \left( \frac{e^{ikz}}{(z + ai)^2} \right) &= \lim_{z \rightarrow ai} \frac{(z + ai)^2ike^{ikz} - 2(z + ai)e^{ikz}}{(z+ai)^4}\\
+            &= \lim_{z \rightarrow ai} \frac{(z + ai)ike^{ikz} - 2e^{ikz}}{(z+ai)^3}\\
+            &= \frac{-ake^{-ka} - 2e^{-ka}}{-8a^3i}\\
+            &= \frac{k^{-ka}(ak + 1)}{4a^3}.
+        \end{align*}
+        Thus we have that,
+        \begin{align*}
+            I &= \mathrm{Im} \left\{ 2\pi i \frac{k^{-ka}(ak + 1)}{4a^3}\right\}\\
+            &= \pi k^{-ka}\left( \frac{ak + 1}{2a^3}\right)
+        \end{align*}
+        when $a=b$.
+
+        \item [{\bf h}]
+        Consider the integral
+        \[ 
+            I = \int_{0}^{2\pi} \frac{d\theta}{(5-3\sin\theta)^2},
+        \]
+        and under the transformation $d\theta = \frac{dz}{iz}$ and $\sin(\theta) = \frac{1}{2i}(z - \frac{1}{z})$ we get,
+        \begin{align*}
+            I &= \int_0^{2\pi} \frac{dz}{(5 - 3(\frac{1}{2i})(z - \frac{1}{z}))^2iz}\\
+            &= \int_0^{2\pi} \frac{4i^2z^2dz}{(10iz - 3z^2 + 3)^2iz}\\
+            &= \int_0^{2\pi} \frac{4izdz}{(10iz - 3z^2 + 3)^2}\\
+            &= \int_0^{2\pi} \frac{4izdz}{\left((z - 3i)(3z - i) \right)^2}
+        \end{align*}
+        which shows that there are singularities at $z = 3i$ and $z = \frac{i}{3}$ of which only the latter is within our contour. Now let's find the residue at this point,
+        \begin{align*}
+            \lim_{z \rightarrow i/3} \frac{d}{dz} \left[ f(z)(z - \frac{i}{3})^2\right] &= \lim_{z \rightarrow i/3} \frac{d}{dz}\left[ \frac{4iz(z - \frac{i}{3})^2}{\left((z - 3i)(3z - i) \right)^2}\right]\\
+            &= \lim_{z \rightarrow i/3} \frac{d}{dz}\left[ \frac{4iz}{\left(3(z - 3i) \right)^2}\right]\\
+            &= \frac{1}{9}\lim_{z \rightarrow i/3} \frac{d}{dz}\left[ \frac{4iz}{\left(z - 3i\right)^2}\right]\\
+            &= \frac{1}{9}\lim_{z \rightarrow i/3} \frac{(z - 3i)^2(4i) - (4iz)2(z - 3i)}{(z - 3i)^4}\\
+            &= \frac{1}{9}\lim_{z \rightarrow i/3} \frac{(z^2 - 6 i z - 9)(4i) - (8iz)(z - 3i)}{(z - 3i)^4}\\
+            &= \frac{1}{9} \lim_{z \rightarrow i/3} \frac{i 4 z^2 + 24 z - 36 i - 24 z - 8 i z^2}{(z - 3i)^4}\\
+            &= \frac{1}{9} \lim_{z \rightarrow i/3} \frac{-4 i z^2 - 36 i
+            }{(z - 3i)^4}\\
+            &= \frac{1}{9} \left( \frac{-4 i (\frac{i}{3})^2 - 36 i }{(\frac{i}{3} - 3i)^4}\right)\\
+            &= \frac{1}{9} \left( \frac{\frac{4 i}{9} - 36 i }{(\frac{i}{3} - 3i)^4}\right)\\
+            &= \frac{1}{9} \left( \frac{\frac{-(320 i)}{9}}{(\frac{-8i}{3})^4}\right)\\
+            &= \frac{1}{9} \left( \frac{\frac{-(320 i)}{9}}{ \frac{4096}{81}} \right)\\
+            &= -\frac{1}{9} \frac{45i}{64}\\
+            &=  - \frac{5i}{64}
+        \end{align*}
+        Then by residue theorem, we get
+        \[I = 2\pi i (- \frac{5i}{64}) = \frac{5\pi}{32}\]
+    \end{enumerate}
+\end{solution}
+
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+%---------------%
+%---Problem 3---%
+%---------------%
+
+%--status--$
+
+\begin{problem}
+    AF: 4.2.7: 
+\end{problem}
+
+\begin{solution}
+
+    \noindent
+    Consider the integral,
+    \[
+        \int_0^\infty \frac{dx}{x^5 + a^5}.
+    \]
+    To find the solution, let's consider it in the complex plane as,
+    \[
+        I_R = \ointcc_{C_R} \frac{dz}{z^5 + a^5},
+    \]
+    where $C_R$ is the sector contour with radius $R$ centered at the origin with angle $0 \leq \theta \leq \frac{2\pi}{5}$. Let $C_1$ be the line segment from the origin to $R$, $C_2$ be the radial curve to $\theta$ and $C_3$ be the line segment returning to the origin. So we have that,
+    \[ I_R = I_1 + I_2 + _3 = \ointcc_{C_1} \frac{dz}{z^5 + a^5} + \ointcc_{C_2} \frac{dz}{z^5 + a^5} + \ointcc_{C_3} \frac{dz}{z^5 + a^5}.\]
+    We can find the singularities by looking at the fifth root of unity which is of the form
+    \[ ae^{1/5 i(\pi + 2\pi k)} ~~~~ k=1,\cdots,5.\]
+    Thus the roots are,
+    \[ \{ae^{i\pi},ae^{i\pi/5}, ae^{3i\pi/5},ae^{7i\pi/5},ae^{9i\pi/5}\},\]
+    of which only $ae^{i\pi/5}$ is within $C_R$. First let's find the residue at this point,
+    \begin{align*}
+        \text{Re}(ae^{i\pi/5}) &= \frac{1}{5(ae^{i\pi/5})^4}\\
+        &= \frac{1}{5a^4e^{i4\pi/5}}.
+    \end{align*}
+    By the Residue theorem we now know that,
+    \[ I_R = 2\pi i \left( \frac{1}{5a^4e^{i4\pi/5}} \right)\]
+    Now let's consider $I_2$ We can show that,
+    \begin{align*}
+        \lim_{|z| \rightarrow \infty} \left| \frac{z}{z^5 + a^5}\right| &= \lim_{R \rightarrow \infty} \frac{R}{\left| R^5e^{i5\theta} + a^5\right|}\\
+        &= \lim_{R \rightarrow \infty} \frac{1}{\left| R^4e^{i5\theta} + \frac{a^5}{R}\right|}\\
+        &\leq \lim_{R \rightarrow \infty} \frac{1}{\left| |R^4e^{i5\theta}| - |\frac{a^5}{R}| \right|}\\
+        &= \lim_{R \rightarrow \infty} \frac{1}{R^4 - \frac{a^5}{R}}\\
+        &= 0.
+    \end{align*}
+    Thus $\lim_{R \rightarrow \infty} |I_2| \leq \lim_{R \rightarrow \infty} \frac{1}{R^4 - \frac{a^5}{R}} = 0$ which implies that $I_2 = 0$. Therefore we have,
+    \[I_R = I_{C_1} + I_{C_3} = 2\pi i \left( \frac{1}{5a^4e^{i4\pi/5}} \right).\]
+    Next let's consider $I_3$,
+    \begin{align*}
+        I_{3} &= \int_R^0 \frac{dz}{z^5 + a^5}\\
+        &= \int_R^0 \frac{1}{R^5e^2\pi + a^5}e^{2\pi/5}dR ~~~~ \text{where } z = Re^{i2\pi/5} \implies dz = e^{2i\pi/5}dR\\
+        &= e^{2\pi i/5} \int_R^0 \frac{1}{R^5 + a^5}dR\\
+        &= -e^{2\pi i/5} \int_0^R \frac{1}{R^5 + a^5}dR\\
+        &= -e^{2\pi i/5} \int_{C_{R_1}} \frac{1}{R^5 + a^5}dR\\
+    \end{align*}
+    Which finally gives us that,
+    \begin{align*}
+        \lim_{R \rightarrow \infty} \ointcc_{C_R} \frac{dz}{z^5 + a^5} = \lim_{R \rightarrow \infty} I_1 + I_2 = \lim_{R \rightarrow \infty} (1 - e^{2\pi i/5}) \int_{C_{R_1}} \frac{dz}{z^5 + a^5}
+    \end{align*}
+    which implies that,
+    \begin{align*}
+        2\pi i (\frac{1}{5a^4e^{i4\pi/5}}) &= (1 - e^{2\pi i/5})\int_0^\infty \frac{dx}{x^5 + a^5}\\
+        \implies \int_0^\infty \frac{dx}{x^5 + a^5} &= 2\pi i (\frac{1}{5a^4e^{i4\pi/5}})(1 - e^{2\pi i/5})^{-1}\\
+        &= \frac{2\pi i}{5a^4} \left( \frac{1}{e^{i4\pi/5} - e^{i6\pi/5}}\right)\\
+        &= \frac{2\pi i}{5a^4} \left( \frac{2i}{-e^{i\pi 5} - e^{i2\pi/5}}\right)\\
+        &= \frac{2\pi i}{5a^4} \left( \frac{2i}{-e^{i\pi 5} - e^{i\pi/5}}\right)\\
+        &= \frac{\pi}{5a^4\sin(\pi/5)}
+    \end{align*}
+    Therefore \[\int_0^\infty \frac{dx}{x^5 + a^5} = \frac{\pi}{5a^4\sin(\pi/5)}.\]
+\end{solution}
+
+%----------------------------------------------------------------------------------------------------%
+%\vskip 20pt
+%\newpage
+
+
+
+\end{document}
